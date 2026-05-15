@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dream Homes | Premium Real Estate</title>
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v19.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>emailjs.init('RQni8UDRPo8sjr1IK');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #c9a84c;
+      --gold-light: #e8c97e;
+      --dark: #0d0d0d;
+      --dark2: #141414;
+      --dark3: #1e1e1e;
+      --dark4: #2a2a2a;
+      --text: #e8e8e8;
+      --muted: #888;
+      --white: #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--dark);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 1000;
+      padding: 0 5%;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 72px;
+      background: rgba(13,13,13,0.85);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+      transition: background 0.3s;
+    }
+
+    .logo {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none;
+    }
+    .logo-icon {
+      width: 38px; height: 38px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+    }
+    .logo-text { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--white); }
+    .logo-text span { color: var(--gold); }
+
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none; font-size: 0.875rem;
+      font-weight: 500; letter-spacing: 0.03em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    .nav-cta {
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      color: var(--dark) !important;
+      padding: 10px 24px; border-radius: 6px;
+      font-weight: 600 !important;
+      transition: opacity 0.2s !important;
+    }
+    .nav-cta:hover { opacity: 0.88; color: var(--dark) !important; }
+
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: 0.3s; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      position: relative; overflow: hidden;
+      padding: 0 5%;
+    }
+
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(135deg, rgba(13,13,13,0.92) 0%, rgba(13,13,13,0.6) 60%, rgba(13,13,13,0.85) 100%),
+        url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600&q=80') center/cover no-repeat;
+    }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(201,168,76,0.12);
+      border: 1px solid rgba(201,168,76,0.3);
+      padding: 6px 16px; border-radius: 20px;
+      font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em;
+      color: var(--gold); text-transform: uppercase; margin-bottom: 24px;
+    }
+    .hero-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
+
+    .hero-content { position: relative; z-index: 1; max-width: 700px; }
+
+    .hero-content h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 700; line-height: 1.1;
+      color: var(--white); margin-bottom: 24px;
+    }
+    .hero-content h1 em { font-style: normal; color: var(--gold); }
+
+    .hero-content p {
+      font-size: 1.1rem; color: rgba(232,232,232,0.75);
+      line-height: 1.7; max-width: 520px; margin-bottom: 40px;
+    }
+
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      color: var(--dark); font-weight: 600; font-size: 0.95rem;
+      padding: 14px 32px; border-radius: 8px; border: none;
+      cursor: pointer; text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(201,168,76,0.35); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--white); font-weight: 500; font-size: 0.95rem;
+      padding: 14px 32px; border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.25);
+      cursor: pointer; text-decoration: none;
+      transition: border-color 0.2s, background 0.2s;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-outline:hover { border-color: var(--gold); background: rgba(201,168,76,0.08); }
+
+    .hero-stats {
+      position: absolute; bottom: 60px; left: 5%; z-index: 1;
+      display: flex; gap: 48px;
+    }
+    .stat-item { text-align: center; }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem; font-weight: 700; color: var(--gold);
+      display: block;
+    }
+    .stat-label { font-size: 0.78rem; color: var(--muted); letter-spacing: 0.05em; text-transform: uppercase; }
+
+    /* ── SECTIONS ── */
+    section { padding: 96px 5%; }
+    .section-label {
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700; color: var(--white); line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .section-sub {
+      color: var(--muted); font-size: 1rem; line-height: 1.6;
+      max-width: 520px;
+    }
+    .section-header { margin-bottom: 56px; }
+
+    /* ── SERVICES ── */
+    #services { background: var(--dark2); }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+    }
+    .service-card {
+      background: var(--dark3);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px; padding: 36px 28px;
+      transition: border-color 0.3s, transform 0.3s;
+      cursor: default;
+    }
+    .service-card:hover { border-color: var(--gold); transform: translateY(-4px); }
+    .service-icon {
+      width: 52px; height: 52px; border-radius: 12px;
+      background: rgba(201,168,76,0.12);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; margin-bottom: 20px;
+    }
+    .service-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; color: var(--white); margin-bottom: 12px;
+    }
+    .service-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+
+    /* ── ABOUT ── */
+    #about { background: var(--dark2); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
+    .about-img-wrap { position: relative; }
+    .about-img-wrap img {
+      width: 100%; border-radius: 20px; object-fit: cover;
+      height: 520px; display: block;
+    }
+    .about-badge-float {
+      position: absolute; bottom: -20px; right: -20px;
+      background: var(--dark3);
+      border: 1px solid rgba(201,168,76,0.3);
+      border-radius: 14px; padding: 20px 24px;
+      text-align: center;
+    }
+    .about-badge-float .num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem; color: var(--gold); font-weight: 700; display: block;
+    }
+    .about-badge-float .lbl { font-size: 0.78rem; color: var(--muted); }
+
+    .about-content .section-sub { max-width: 100%; margin-bottom: 24px; }
+    .about-list { list-style: none; margin-bottom: 36px; }
+    .about-list li {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+      font-size: 0.9rem; color: var(--muted);
+    }
+    .about-list li::before {
+      content: '✦'; color: var(--gold); font-size: 0.7rem;
+      margin-top: 3px; flex-shrink: 0;
+    }
+
+    /* ── PROCESS ── */
+    #process { background: var(--dark); }
+    .process-steps {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0; position: relative;
+    }
+    .process-steps::before {
+      content: '';
+      position: absolute; top: 36px; left: 10%; right: 10%; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .process-step { text-align: center; padding: 0 20px; }
+    .step-num {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: var(--dark3);
+      border: 2px solid var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 24px;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem; font-weight: 700; color: var(--gold);
+      position: relative; z-index: 1;
+    }
+    .process-step h3 { font-size: 1rem; font-weight: 600; color: var(--white); margin-bottom: 10px; }
+    .process-step p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+
+    /* ── TESTIMONIALS ── */
+    #testimonials { background: var(--dark2); }
+    .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+    .testimonial-card {
+      background: var(--dark3); border-radius: 16px; padding: 32px;
+      border: 1px solid rgba(255,255,255,0.06);
+      transition: border-color 0.3s;
+    }
+    .testimonial-card:hover { border-color: rgba(201,168,76,0.3); }
+    .stars { color: var(--gold); font-size: 0.9rem; margin-bottom: 16px; letter-spacing: 2px; }
+    .testimonial-card blockquote {
+      font-size: 0.92rem; color: rgba(232,232,232,0.8);
+      line-height: 1.7; margin-bottom: 24px; font-style: italic;
+    }
+    .testimonial-author { display: flex; align-items: center; gap: 14px; }
+    .author-avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; color: var(--dark); font-size: 0.9rem;
+    }
+    .author-name { font-weight: 600; font-size: 0.9rem; color: var(--white); }
+    .author-loc { font-size: 0.78rem; color: var(--muted); }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: var(--dark);
+      position: relative; overflow: hidden;
+    }
+    #contact::before {
+      content: '';
+      position: absolute; top: -200px; right: -200px;
+      width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
+    }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 72px; align-items: start; }
+    .contact-info { }
+    .contact-info .section-sub { margin-bottom: 40px; }
+    .contact-item {
+      display: flex; align-items: flex-start; gap: 16px; margin-bottom: 28px;
+    }
+    .contact-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; flex-shrink: 0;
+    }
+    .contact-item h4 { font-size: 0.82rem; color: var(--muted); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.06em; }
+    .contact-item p, .contact-item a { font-size: 0.95rem; color: var(--text); text-decoration: none; }
+    .contact-item a:hover { color: var(--gold); }
+
+    .social-links { display: flex; gap: 12px; margin-top: 36px; }
+    .social-link {
+      width: 40px; height: 40px; border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.12);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; color: var(--muted); text-decoration: none;
+      transition: 0.2s;
+    }
+    .social-link:hover { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.08); }
+
+    .contact-form { background: var(--dark3); border-radius: 20px; padding: 40px; border: 1px solid rgba(255,255,255,0.07); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; font-size: 0.82rem; font-weight: 500; color: var(--muted); margin-bottom: 8px; letter-spacing: 0.03em; }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%; background: var(--dark4);
+      border: 1px solid rgba(255,255,255,0.1); border-radius: 8px;
+      padding: 12px 16px; color: var(--text); font-size: 0.9rem;
+      font-family: 'Inter', sans-serif; outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      border-color: var(--gold);
+    }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+    .form-group select option { background: var(--dark3); }
+    .form-submit {
+      width: 100%; padding: 14px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      border: none; border-radius: 8px; color: var(--dark);
+      font-size: 0.95rem; font-weight: 700; cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .form-submit:hover { opacity: 0.88; transform: translateY(-1px); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark2);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 64px 5% 32px;
+    }
+    .footer-grid { display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+    .footer-brand p { font-size: 0.88rem; color: var(--muted); line-height: 1.7; margin-top: 16px; max-width: 280px; }
+    .footer-col h4 { font-size: 0.85rem; font-weight: 600; color: var(--white); margin-bottom: 20px; letter-spacing: 0.03em; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 10px; }
+    .footer-col ul li a { color: var(--muted); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+    .footer-col ul li a:hover { color: var(--gold); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.06); padding-top: 28px; display: flex; justify-content: space-between; align-items: center; flex-wrap: gap; gap: 12px; }
+    .footer-bottom p { font-size: 0.82rem; color: var(--muted); }
+    .footer-bottom a { color: var(--gold); text-decoration: none; }
+
+    /* ── VALUATION MODAL ── */
+    .modal-overlay {
+      display: none;
+      position: fixed; inset: 0; z-index: 2000;
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(6px);
+      align-items: center; justify-content: center;
+      padding: 20px;
+    }
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      background: var(--dark2);
+      border: 1px solid rgba(201,168,76,0.25);
+      border-radius: 20px;
+      width: 100%; max-width: 580px;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      animation: modalIn 0.3s ease;
+    }
+    @keyframes modalIn {
+      from { opacity: 0; transform: translateY(24px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .modal-header {
+      padding: 28px 28px 0;
+      display: flex; justify-content: space-between; align-items: flex-start;
+    }
+    .modal-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem; color: var(--white);
+    }
+    .modal-header p { font-size: 0.85rem; color: var(--muted); margin-top: 4px; }
+    .modal-close {
+      background: rgba(255,255,255,0.07); border: none;
+      width: 34px; height: 34px; border-radius: 50%;
+      color: var(--muted); font-size: 1.1rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s, color 0.2s; flex-shrink: 0;
+    }
+    .modal-close:hover { background: rgba(201,168,76,0.2); color: var(--gold); }
+
+    .modal-tabs {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 8px; margin: 24px 28px 0;
+    }
+    .modal-tab {
+      padding: 12px; border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: transparent; color: var(--muted);
+      font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600;
+      cursor: pointer; transition: 0.2s;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .modal-tab.active {
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      color: var(--dark); border-color: transparent;
+    }
+    .modal-tab:not(.active):hover { border-color: var(--gold); color: var(--gold); }
+
+    .modal-body { padding: 24px 28px 28px; }
+
+    .modal-panel { display: none; }
+    .modal-panel.active { display: block; }
+
+    .mform-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .mform-group { margin-bottom: 16px; }
+    .mform-group label {
+      display: block; font-size: 0.78rem; font-weight: 600;
+      color: var(--muted); margin-bottom: 7px; letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .mform-group input,
+    .mform-group select,
+    .mform-group textarea {
+      width: 100%;
+      background: var(--dark4);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px; padding: 11px 14px;
+      color: var(--text); font-size: 0.88rem;
+      font-family: 'Inter', sans-serif; outline: none;
+      transition: border-color 0.2s;
+    }
+    .mform-group input:focus,
+    .mform-group select:focus,
+    .mform-group textarea:focus { border-color: var(--gold); }
+    .mform-group select option { background: var(--dark3); }
+    .mform-group textarea { resize: vertical; min-height: 80px; }
+
+    .mform-divider {
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--gold);
+      margin: 20px 0 14px; padding-bottom: 8px;
+      border-bottom: 1px solid rgba(201,168,76,0.2);
+    }
+
+    .mform-submit {
+      width: 100%; padding: 14px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      border: none; border-radius: 10px; color: var(--dark);
+      font-size: 0.95rem; font-weight: 700; cursor: pointer;
+      font-family: 'Inter', sans-serif; margin-top: 6px;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .mform-submit:hover { opacity: 0.88; transform: translateY(-1px); }
+
+    .mform-note {
+      text-align: center; font-size: 0.75rem;
+      color: var(--muted); margin-top: 12px;
+    }
+
+    @media (max-width: 520px) {
+      .mform-row { grid-template-columns: 1fr; }
+      .modal-header, .modal-tabs, .modal-body { padding-left: 18px; padding-right: 18px; }
+    }
+
+    /* ── FLOATING CTA ── */
+    .floating-cta {
+      position: fixed; bottom: 32px; right: 32px; z-index: 999;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      color: var(--dark); border: none; border-radius: 50px;
+      padding: 14px 24px; font-weight: 700; font-size: 0.88rem;
+      cursor: pointer; box-shadow: 0 8px 32px rgba(201,168,76,0.4);
+      display: flex; align-items: center; gap: 8px;
+      font-family: 'Inter', sans-serif;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+    }
+    .floating-cta:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(201,168,76,0.5); }
+
+    /* ── FACEBOOK FEED ── */
+    #facebook { background: var(--dark2); }
+    .fb-section-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 64px;
+      align-items: start;
+    }
+    .fb-info .section-sub { margin-bottom: 28px; }
+    .fb-highlights { list-style: none; margin-bottom: 36px; }
+    .fb-highlights li {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+      font-size: 0.9rem; color: var(--muted);
+    }
+    .fb-highlights li span { font-size: 1.1rem; }
+    .fb-follow-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: #1877f2;
+      color: #fff; font-weight: 600; font-size: 0.9rem;
+      padding: 12px 28px; border-radius: 8px;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .fb-follow-btn:hover { opacity: 0.88; transform: translateY(-2px); }
+    .fb-embed-wrap {
+      background: var(--dark3);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px;
+      gap: 16px;
+    }
+    .fb-embed-wrap .fb-page {
+      width: 100% !important;
+    }
+    .fb-embed-label {
+      font-size: 0.75rem; color: var(--muted);
+      text-align: center; letter-spacing: 0.04em;
+    }
+    @media (max-width: 900px) {
+      .fb-section-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .about-grid, .contact-grid { grid-template-columns: 1fr; }
+      .about-img-wrap { display: none; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .hero-stats { gap: 28px; }
+    }
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      section { padding: 72px 5%; }
+      .hero-stats { flex-wrap: wrap; gap: 20px; bottom: 32px; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .process-steps::before { display: none; }
+    }
+
+    /* nav mobile menu */
+    .nav-mobile {
+      display: none;
+      position: fixed; top: 72px; left: 0; right: 0;
+      background: rgba(13,13,13,0.98); backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+      padding: 24px 5%; z-index: 999;
+      flex-direction: column; gap: 20px;
+    }
+    .nav-mobile.open { display: flex; }
+    .nav-mobile a { color: var(--muted); text-decoration: none; font-size: 1rem; font-weight: 500; }
+    .nav-mobile a:hover { color: var(--gold); }
+  </style>
+</head>
+<body>
+
+<div id="fb-root"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="logo">
+    <div class="logo-icon">🏠</div>
+    <span class="logo-text">Dream<span>Homes</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#facebook">Facebook</a></li>
+    <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
+  </ul>
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="nav-mobile" id="navMobile">
+  <a href="#services" onclick="toggleMenu()">Services</a>
+  <a href="#about" onclick="toggleMenu()">About</a>
+  <a href="#process" onclick="toggleMenu()">Process</a>
+  <a href="#testimonials" onclick="toggleMenu()">Reviews</a>
+  <a href="#facebook" onclick="toggleMenu()">Facebook</a>
+  <a href="#contact" onclick="toggleMenu()" style="color:var(--gold);font-weight:600;">Get in Touch</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Premium Real Estate Services</div>
+    <h1>Find Your Perfect <em>Dream Home</em> Today</h1>
+    <p>Connecting buyers and sellers with exceptional properties across the region. Trusted expertise, personalised service, and results you can count on.</p>
+    <div class="hero-actions">
+      <a href="#" class="btn-outline" onclick="openModal(event)">📞 Book a Consultation</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-item">
+      <span class="stat-num">500+</span>
+      <span class="stat-label">Homes Sold</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">12+</span>
+      <span class="stat-label">Years Experience</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">98%</span>
+      <span class="stat-label">Client Satisfaction</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">$2B+</span>
+
+      <span class="stat-label">Sales Volume</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-header reveal">
+    <div class="section-label">What We Offer</div>
+    <h2 class="section-title">Full-Service Real Estate,<br/>From Start to Finish</h2>
+    <p class="section-sub">Whether you're buying your first home or selling a luxury property, we provide expert guidance every step of the way.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-icon">🏡</div>
+      <h3>Property Sales</h3>
+      <p>We market and sell your home with professional photography, targeted advertising, and skilled negotiation to achieve the best price.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">🔑</div>
+      <h3>Buyer Representation</h3>
+      <p>Let us find your ideal home. We handle searches, viewings, offers, and all the legal liaisons so you can focus on the excitement.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">🏘️</div>
+      <h3>Rentals & Leasing</h3>
+      <p>Landlords and tenants both benefit from our comprehensive rental service — from tenant screening to full property management.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">📊</div>
+      <h3>Property Valuation</h3>
+      <p>Accurate, data-driven valuations based on local market knowledge. Know exactly what your property is worth before you list.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">💼</div>
+      <h3>Investment Advice</h3>
+      <p>Grow your portfolio with expert guidance on buy-to-let, development opportunities, and high-yield investment properties.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">⚖️</div>
+      <h3>Title & Escrow Support</h3>
+      <p>We work closely with trusted title companies, attorneys, and inspectors to keep your transaction on track and stress-free from contract to closing.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-img-wrap reveal">
+      <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=700&q=80" alt="Dream Homes Agent" />
+      <div class="about-badge-float">
+        <span class="num">500+</span>
+        <span class="lbl">Happy Families</span>
+      </div>
+    </div>
+    <div class="about-content reveal">
+      <div class="section-label">About Dream Homes</div>
+      <h2 class="section-title">Your Trusted Local Property Expert</h2>
+      <p class="section-sub">At Dream Homes, we believe that finding the right home is one of life's most important moments. With over a decade of experience in the local market, our dedicated team is committed to making your property journey as seamless and rewarding as possible.</p>
+      <p class="section-sub" style="margin-top:12px;">We take the time to understand your needs, budget, and lifestyle — then we put our expertise to work to find or sell properties that truly match your vision.</p>
+      <ul class="about-list" style="margin-top:24px;">
+        <li>Deep local market knowledge across Texas, Tennessee, and the South</li>
+        <li>Personalised service — you're never just a transaction to us</li>
+        <li>Award-winning marketing with professional photography & video tours</li>
+        <li>Transparent communication at every stage of your sale or purchase</li>
+        <li>A trusted network of attorneys, inspectors, and mortgage advisors</li>
+      </ul>
+      <a href="#" class="btn-primary" onclick="openModal(event)">Book a Free Valuation ›</a>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="section-header reveal" style="text-align:center; max-width:600px; margin:0 auto 64px;">
+    <div class="section-label">How It Works</div>
+    <h2 class="section-title">Simple Steps to Your New Home</h2>
+    <p class="section-sub" style="margin:0 auto;">From initial enquiry to handing over the keys — we keep the process clear, efficient, and stress-free.</p>
+  </div>
+  <div class="process-steps">
+    <div class="process-step reveal">
+      <div class="step-num">1</div>
+      <h3>Initial Consultation</h3>
+      <p>Tell us what you're looking for. We listen carefully and map out a clear plan tailored to your goals.</p>
+    </div>
+    <div class="process-step reveal">
+      <div class="step-num">2</div>
+      <h3>Property Search & Valuation</h3>
+      <p>We source the best matches or provide a detailed, accurate valuation of your current property.</p>
+    </div>
+    <div class="process-step reveal">
+      <div class="step-num">3</div>
+      <h3>Viewings & Offers</h3>
+      <p>We arrange viewings at your convenience and negotiate the best possible price on your behalf.</p>
+    </div>
+    <div class="process-step reveal">
+      <div class="step-num">4</div>
+      <h3>Exchange & Completion</h3>
+      <p>We liaise with all parties to ensure a smooth exchange and a successful completion on time.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="section-header reveal" style="text-align:center; max-width:600px; margin:0 auto 56px;">
+    <div class="section-label">Client Reviews</div>
+    <h2 class="section-title">What Our Clients Say</h2>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testimonial-card reveal">
+      <div class="stars">★★★★★</div>
+      <blockquote>"Dream Homes made selling our house completely stress-free. From the valuation to completion, every step was handled professionally. We achieved above our asking price — couldn't be happier!"</blockquote>
+      <div class="testimonial-author">
+        <div class="author-avatar">SJ</div>
+        <div>
+          <div class="author-name">Sarah & James M.</div>
+          <div class="author-loc">Sold in Houston, TX</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card reveal">
+      <div class="stars">★★★★★</div>
+      <blockquote>"As first-time buyers, we were nervous about the whole process. The team at Dream Homes guided us every step of the way and found us our perfect home within our budget. Absolutely brilliant service."</blockquote>
+      <div class="testimonial-author">
+        <div class="author-avatar">LK</div>
+        <div>
+          <div class="author-name">Lauren K.</div>
+          <div class="author-loc">Bought in Austin, TX</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card reveal">
+      <div class="stars">★★★★★</div>
+      <blockquote>"I've used Dream Homes for three investment properties now. Their market knowledge and honest advice have helped me build a great portfolio. Highly recommend to any landlord."</blockquote>
+      <div class="testimonial-author">
+        <div class="author-avatar">RP</div>
+        <div>
+          <div class="author-name">Raj P.</div>
+          <div class="author-loc">Property Investor, Dallas, TX</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FACEBOOK FEED -->
+<section id="facebook">
+  <div class="fb-section-grid">
+    <div class="fb-info reveal">
+      <div class="section-label">Stay Connected</div>
+      <h2 class="section-title">Follow Us on Facebook</h2>
+      <p class="section-sub">See our latest property listings, local market updates, and behind-the-scenes moments straight from our Facebook page.</p>
+      <ul class="fb-highlights">
+        <li><span>🏡</span> New listings posted regularly</li>
+        <li><span>📸</span> Property photos &amp; virtual tours</li>
+        <li><span>📊</span> Local market news &amp; tips</li>
+        <li><span>⭐</span> Client success stories</li>
+        <li><span>💬</span> Q&amp;As and community updates</li>
+      </ul>
+      <a href="https://www.facebook.com/profile.php?id=61556564918707" target="_blank" rel="noopener" class="fb-follow-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.791-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.514c-1.491 0-1.956.93-1.956 1.886v2.268h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>
+        Like Our Page
+      </a>
+    </div>
+    <div class="fb-embed-wrap reveal">
+      <div
+        class="fb-page"
+        data-href="https://www.facebook.com/profile.php?id=61556564918707"
+        data-tabs="timeline"
+        data-width="500"
+        data-height="600"
+        data-small-header="true"
+        data-adapt-container-width="true"
+        data-hide-cover="false"
+        data-show-facepile="false">
+      </div>
+      <p class="fb-embed-label">Live feed from our Facebook page · Updates in real time</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-grid">
+    <div class="contact-info reveal">
+      <div class="section-label">Get In Touch</div>
+      <h2 class="section-title">Let's Start Your Property Journey</h2>
+      <p class="section-sub">Whether you're ready to buy, sell, let or just want advice — we'd love to hear from you. Get in touch for a free, no-obligation consultation.</p>
+      <div class="contact-item">
+        <div class="contact-icon">📞</div>
+        <div>
+          <h4>Phone</h4>
+          <a href="tel:+15552345678">+1 (555) 234-5678</a>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">✉️</div>
+        <div>
+          <h4>Email</h4>
+          <a href="mailto:hello@dreamhomes.com">hello@dreamhomes.com</a>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <div>
+          <h4>Office</h4>
+          <p>123 Main Street, Austin, TX 78701</p>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">🕐</div>
+        <div>
+          <h4>Opening Hours</h4>
+          <p>Mon–Fri: 9am–6pm &nbsp;|&nbsp; Sat: 9am–4pm</p>
+        </div>
+      </div>
+      <div class="social-links">
+        <a href="https://www.facebook.com/profile.php?id=61556564918707" target="_blank" rel="noopener" class="social-link" title="Facebook">f</a>
+        <a href="#" class="social-link" title="Instagram">📸</a>
+        <a href="#" class="social-link" title="LinkedIn">in</a>
+        <a href="#" class="social-link" title="WhatsApp">💬</a>
+      </div>
+    </div>
+    <div class="contact-form reveal">
+      <h3 style="font-family:'Playfair Display',serif; font-size:1.4rem; color:var(--white); margin-bottom:28px;">Send Us a Message</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" placeholder="John" />
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" placeholder="Smith" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" placeholder="john@example.com" />
+      </div>
+      <div class="form-group">
+        <label>Phone Number</label>
+        <input type="tel" placeholder="+1 (555) 000-0000" />
+      </div>
+      <div class="form-group">
+        <label>I'm Interested In</label>
+        <select>
+          <option>Buying a Property</option>
+          <option>Selling a Property</option>
+          <option>Renting a Property</option>
+          <option>Letting My Property</option>
+          <option>Free Valuation</option>
+          <option>Investment Advice</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Message</label>
+        <textarea placeholder="Tell us about what you're looking for..."></textarea>
+      </div>
+      <button class="form-submit" onclick="handleSubmit(event)">Send Message →</button>
+    </div>
+  </div>
+</section>
+
+<!-- VALUATION MODAL -->
+<div class="modal-overlay" id="valuationModal" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <h2>Free Property Consultation</h2>
+        <p>No obligation · Response within 24 hours</p>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+
+    <div class="modal-tabs">
+      <button class="modal-tab active" onclick="switchTab('buy')" id="tab-buy">🏠 Buy a Home</button>
+      <button class="modal-tab" onclick="switchTab('sell')" id="tab-sell">💰 Sell My Home</button>
+    </div>
+
+    <div class="modal-body">
+
+      <!-- BUY TAB -->
+      <div class="modal-panel active" id="panel-buy">
+        <div class="mform-divider">Your Details</div>
+        <div class="mform-row">
+          <div class="mform-group">
+            <label>First Name</label>
+            <input id="buy-first-name" type="text" placeholder="John" />
+          </div>
+          <div class="mform-group">
+            <label>Last Name</label>
+            <input id="buy-last-name" type="text" placeholder="Smith" />
+          </div>
+        </div>
+        <div class="mform-row">
+          <div class="mform-group">
+            <label>Email Address</label>
+            <input id="buy-email" type="email" placeholder="john@example.com" />
+          </div>
+          <div class="mform-group">
+            <label>Phone Number</label>
+            <input id="buy-phone" type="tel" placeholder="+1 (555) 000-0000" />
+          </div>
+        </div>
+
+        <div class="mform-divider">Property Requirements</div>
+        <div class="mform-row">
+          <div class="mform-group">
+            <label>Property Type</label>
+            <select id="buy-property-type">
+              <option value="">Select type...</option>
+              <option>Detached House</option>
+              <option>Semi-Detached</option>
+              <option>Terraced House</option>
+              <option>Flat / Apartment</option>
+              <option>Bungalow</option>
+              <option>New Build</option>
+              <option>Any</option>
+            </select>
+          </div>
+          <div class="mform-group">
+            <label>Bedrooms</label>
+            <select id="buy-bedrooms">
+              <option value="">Select...</option>
+              <option>1 bedroom</option>
+              <option>2 bedrooms</option>
+              <option>3 bedrooms</option>
+              <option>4 bedrooms</option>
+              <option>5+ bedrooms</option>
+            </select>
+          </div>
+        </div>
+        <div class="mform-row">
+          <div class="mform-group">
+            <label>Maximum Budget</label>
+            <select id="buy-budget">
+              <option value="">Select budget...</option>
+              <option>Up to $150,000</option>
+              <option>$150,000 – $250,000</option>
+              <option>$250,000 – $350,000</option>
+              <option>$350,000 – $500,000</option>
+              <option>$500,000 – $750,000</option>
+              <option>$750,000 – $1,000,000</option>
+              <option>$1,000,000+</option>
+            </select>
+          </div>
+          <div class="mform-group">
+            <label>Preferred Location / Area</label>
+            <input id="buy-location" type="text" placeholder="e.g. Austin, Dallas" />
+          </div>
+        </div>
+        <div class="mform-row">
+          <div class="mform-group">
+            <label>Move-in Timeline</label>
+            <select id="buy-timeline">
+              <option value="">Select...</option>
+              <option>As soon as possible</option>
+              <option>Within 1–3 months</option>
+              <option>Within 3–6 months</option>
+              <option>Within 6–12 months</option>
+              <option>Just exploring options</option>
+            </select>
+          </div>
+          <div class="mform-group">
+            <label>First-Time Buyer?</label>
+            <select id="buy-buyer-status">
+              <option value="">Select...</option>
+              <option>Yes, first-time buyer</option>
+              <option>No, existing homeowner</option>
+              <option>Buy-to-let investor</option>
+            </select>
+          </div>
+        </div>
+        <div class="mform-group">
+          <label>Additional Requirements</label>
+          <textarea id="buy-additional" placeholder="e.g. garden, garage, near good schools, open plan living..."></textarea>
+        </div>
+        <button class="mform-submit" id="btn-buy" onclick="handleModalSubmit(event, 'buy')">Request a Callback →</button>
+        <p class="mform-note">🔒 Your details are safe with us. We never share your information.</p>
+      </div>
+
+      <!-- SELL TAB -->
+      <div class="modal-panel" id="panel-sell">
+        <div class="mform-divider">Your Details</div>
+        <div class="mform-row">
+          <div class="mform-group">
+            <label>First Name</label>
+            <input id="sell-first-name" type="text" placeholder="Jane" />
+          </div>
+          <div class="mform-group">
+            <label>Last Name</label>
+            <input id="sell-last-name" type="text" placeholder="Doe" />
+          </div>
+        </div>
+        <div class="mform-row">
+          <div class="mform-group">
+            <label>Email Address</label>
+            <input id="sell-email" type="email" placeholder="jane@example.com" />
+          </div>
+          <div class="mform-group">
+            <label>Phone Number</label>
+            <input id="sell-phone" type="tel" placeholder="+1 (555) 000-0000" />
+          </div>
+        </div>
+
+        <div class="mform-divider">About Your Property</div>
+        <div class="mform-group">
+          <label>Property Address</label>
+          <input id="sell-address" type="text" placeholder="123 Main Street, Austin, TX 78701" />
+        </div>
+        <div class="mform-row">
+          <div class="mform-group">
+            <label>Property Type</label>
+            <select id="sell-property-type">
+              <option value="">Select type...</option>
+              <option>Detached House</option>
+              <option>Semi-Detached</option>
+              <option>Terraced House</option>
+              <option>Flat / Apartment</option>
+              <option>Bungalow</option>
+              <option>New Build</option>
+            </select>
+          </div>
+          <div class="mform-group">
+            <label>Bedrooms</label>
+            <select id="sell-bedrooms">
+              <option value="">Select...</option>
+              <option>1 bedroom</option>
+              <option>2 bedrooms</option>
+              <option>3 bedrooms</option>
+              <option>4 bedrooms</option>
+              <option>5+ bedrooms</option>
+            </select>
+          </div>
+        </div>
+        <div class="mform-row">
+          <div class="mform-group">
+            <label>Current Property Status</label>
+            <select id="sell-status">
+              <option value="">Select...</option>
+              <option>Owner-occupied</option>
+              <option>Rented Out</option>
+              <option>Vacant</option>
+            </select>
+          </div>
+          <div class="mform-group">
+            <label>Estimated Value (optional)</label>
+            <input id="sell-value" type="text" placeholder="e.g. $350,000" />
+          </div>
+        </div>
+        <div class="mform-row">
+          <div class="mform-group">
+            <label>Reason for Selling</label>
+            <select id="sell-reason">
+              <option value="">Select...</option>
+              <option>Upsizing</option>
+              <option>Downsizing</option>
+              <option>Relocating</option>
+              <option>Selling Investment Property</option>
+              <option>Probate / Estate Sale</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="mform-group">
+            <label>When Looking to Sell</label>
+            <select id="sell-timeline">
+              <option value="">Select...</option>
+              <option>As soon as possible</option>
+              <option>Within 1–3 months</option>
+              <option>Within 3–6 months</option>
+              <option>Within 6–12 months</option>
+              <option>Just getting a valuation</option>
+            </select>
+          </div>
+        </div>
+        <div class="mform-group">
+          <label>Anything Else We Should Know?</label>
+          <textarea id="sell-additional" placeholder="e.g. recent renovations, no chain, permit history..."></textarea>
+        </div>
+        <button class="mform-submit" id="btn-sell" onclick="handleModalSubmit(event, 'sell')">Book a Free Valuation →</button>
+        <p class="mform-note">🔒 Your details are safe with us. We never share your information.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="#hero" class="logo">
+        <div class="logo-icon">🏠</div>
+        <span class="logo-text">Dream<span>Homes</span></span>
+      </a>
+      <p>Helping families find their perfect home across Texas, Tennessee, and the South since 2012. Trusted, local, dedicated.</p>
+      <div class="social-links" style="margin-top:20px;">
+        <a href="https://www.facebook.com/profile.php?id=61556564918707" target="_blank" rel="noopener" class="social-link">f</a>
+        <a href="#" class="social-link">📸</a>
+        <a href="#" class="social-link">in</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#services">Property Sales</a></li>
+        <li><a href="#services">Buyer's Agent</a></li>
+        <li><a href="#services">Rentals</a></li>
+        <li><a href="#services">Valuations</a></li>
+        <li><a href="#services">Investment</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#testimonials">Reviews</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2024 Dream Homes. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms</a></p>
+    <p style="color:var(--muted); font-size:0.78rem;">Dream Homes is a registered trading name. All property details are subject to availability.</p>
+  </div>
+</footer>
+
+<!-- FLOATING CTA -->
+<a href="#" class="floating-cta" onclick="openModal(event)">📞 Free Valuation</a>
+
+<script>
+  // Modal
+  function openModal(e) {
+    if (e) e.preventDefault();
+    document.getElementById('valuationModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal() {
+    document.getElementById('valuationModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function closeModalOutside(e) {
+    if (e.target === document.getElementById('valuationModal')) closeModal();
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  function switchTab(tab) {
+    ['buy','sell'].forEach(t => {
+      document.getElementById('tab-' + t).classList.toggle('active', t === tab);
+      document.getElementById('panel-' + t).classList.toggle('active', t === tab);
+    });
+  }
+
+  function handleModalSubmit(e, tab) {
+    e.preventDefault();
+    const btn = document.getElementById('btn-' + tab);
+    const isBuy = tab === 'buy';
+
+    // Collect fields
+    const params = isBuy ? {
+      inquiry_type:  'Buy a Home',
+      first_name:    document.getElementById('buy-first-name').value.trim(),
+      last_name:     document.getElementById('buy-last-name').value.trim(),
+      email:         document.getElementById('buy-email').value.trim(),
+      phone:         document.getElementById('buy-phone').value.trim(),
+      property_type: document.getElementById('buy-property-type').value,
+      bedrooms:      document.getElementById('buy-bedrooms').value,
+      budget:        document.getElementById('buy-budget').value,
+      location:      document.getElementById('buy-location').value.trim(),
+      timeline:      document.getElementById('buy-timeline').value,
+      buyer_status:  document.getElementById('buy-buyer-status').value,
+      additional_info: document.getElementById('buy-additional').value.trim() || 'N/A',
+    } : {
+      inquiry_type:  'Sell My Home',
+      first_name:    document.getElementById('sell-first-name').value.trim(),
+      last_name:     document.getElementById('sell-last-name').value.trim(),
+      email:         document.getElementById('sell-email').value.trim(),
+      phone:         document.getElementById('sell-phone').value.trim(),
+      property_type: document.getElementById('sell-property-type').value,
+      bedrooms:      document.getElementById('sell-bedrooms').value,
+      budget:        document.getElementById('sell-value').value.trim() || 'Not provided',
+      location:      document.getElementById('sell-address').value.trim(),
+      timeline:      document.getElementById('sell-timeline').value,
+      buyer_status:  'Status: ' + document.getElementById('sell-status').value +
+                     ' | Reason: ' + document.getElementById('sell-reason').value,
+      additional_info: document.getElementById('sell-additional').value.trim() || 'N/A',
+    };
+
+    // Basic validation
+    if (!params.first_name || !params.email || !params.phone) {
+      alert('Please fill in at least your name, email, and phone number.');
+      return;
+    }
+
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+
+    emailjs.send('service_5d4jpee', 'template_gvm6b7v', params)
+      .then(() => {
+        btn.textContent = '✓ Sent! We\'ll be in touch soon.';
+        btn.style.background = 'linear-gradient(135deg,#4caf50,#66bb6a)';
+        setTimeout(() => {
+          btn.textContent = isBuy ? 'Request a Callback →' : 'Book a Free Valuation →';
+          btn.style.background = '';
+          btn.disabled = false;
+          closeModal();
+        }, 2800);
+      })
+      .catch(err => {
+        console.error('EmailJS error:', err);
+        btn.textContent = '✗ Failed to send. Please try again.';
+        btn.style.background = 'linear-gradient(135deg,#e53935,#ef5350)';
+        setTimeout(() => {
+          btn.textContent = isBuy ? 'Request a Callback →' : 'Book a Free Valuation →';
+          btn.style.background = '';
+          btn.disabled = false;
+        }, 3000);
+      });
+  }
+
+  // Mobile menu
+  function toggleMenu() {
+    document.getElementById('navMobile').classList.toggle('open');
+  }
+
+// Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Form submit
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target;
+    btn.textContent = '✓ Message Sent!';
+    btn.style.background = 'linear-gradient(135deg,#4caf50,#66bb6a)';
+    setTimeout(() => {
+      btn.textContent = 'Send Message →';
+      btn.style.background = '';
+    }, 3000);
+  }
+
+  // Sticky nav shadow
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    nav.style.background = window.scrollY > 40
+      ? 'rgba(13,13,13,0.98)'
+      : 'rgba(13,13,13,0.85)';
+  });
+</script>
+</body>
+</html>
