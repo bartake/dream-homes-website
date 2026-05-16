@@ -630,11 +630,14 @@
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      padding: 24px;
-      gap: 16px;
+      align-items: stretch;
+      padding: 0;
+      gap: 0;
+      width: 100%;
     }
-    .fb-embed-wrap .fb-page {
+    .fb-embed-wrap .fb-page,
+    .fb-embed-wrap .fb-page span,
+    .fb-embed-wrap .fb-page iframe {
       width: 100% !important;
     }
     .fb-embed-label {
@@ -814,7 +817,7 @@
 <section id="about">
   <div class="about-grid">
     <div class="about-img-wrap reveal">
-      <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=700&q=80" alt="Dream Homes Agent" />
+      <img src="assets/pooja.png" alt="Pooja — Dream Homes By Pooja" />
       <div class="about-badge-float">
         <span class="num">500+</span>
         <span class="lbl">Happy Families</span>
@@ -907,8 +910,7 @@
         class="fb-page"
         data-href="https://www.facebook.com/profile.php?id=61556564918707"
         data-tabs="timeline"
-        data-width="500"
-        data-height="600"
+        data-height="700"
         data-small-header="true"
         data-adapt-container-width="true"
         data-hide-cover="false"
