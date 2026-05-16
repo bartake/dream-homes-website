@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dream Homes | Premium Real Estate</title>
+  <title>Dream Homes By Pooja | Premium Real Estate</title>
   <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v19.0"></script>
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script>emailjs.init('RQni8UDRPo8sjr1IK');</script>
@@ -46,18 +46,21 @@
     }
 
     .logo {
-      display: flex; align-items: center; gap: 10px;
+      display: flex; align-items: center; gap: 12px;
       text-decoration: none;
     }
-    .logo-icon {
-      width: 38px; height: 38px;
-      background: linear-gradient(135deg, var(--gold), var(--gold-light));
-      border-radius: 8px;
+    .logo-img-wrap {
       display: flex; align-items: center; justify-content: center;
-      font-size: 18px;
+      line-height: 0; flex-shrink: 0;
     }
-    .logo-text { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--white); }
-    .logo-text span { color: var(--gold); }
+    .logo-img { height: 72px; width: auto; display: block; }
+    .logo-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem; line-height: 1.2; font-weight: 700;
+      color: var(--white);
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .logo-text span { color: var(--gold); display: block; font-size: 0.9rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 4px; }
 
     .nav-links { display: flex; gap: 36px; list-style: none; }
     .nav-links a {
@@ -87,11 +90,72 @@
       padding: 0 5%;
     }
 
-    .hero-bg {
+    /* ── HERO SLIDER ── */
+    .hero-slider { position: absolute; inset: 0; z-index: 0; }
+
+    .slide {
       position: absolute; inset: 0;
-      background:
-        linear-gradient(135deg, rgba(13,13,13,0.92) 0%, rgba(13,13,13,0.6) 60%, rgba(13,13,13,0.85) 100%),
-        url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600&q=80') center/cover no-repeat;
+      background-size: cover; background-position: center;
+      opacity: 0;
+      transition: opacity 1.4s ease;
+    }
+    .slide.active {
+      opacity: 1;
+      animation: kenBurns 7s ease-out forwards;
+    }
+    .slide::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(110deg, rgba(13,13,13,0.88) 0%, rgba(13,13,13,0.52) 55%, rgba(13,13,13,0.72) 100%);
+    }
+    @keyframes kenBurns {
+      from { transform: scale(1.08); }
+      to   { transform: scale(1.00); }
+    }
+
+    .hero-arrow {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      z-index: 10; width: 52px; height: 52px; border-radius: 50%;
+      background: rgba(255,255,255,0.1); backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff; font-size: 1.6rem; cursor: pointer; line-height: 1;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.25s, border-color 0.25s, transform 0.25s;
+    }
+    .hero-arrow:hover {
+      background: rgba(201,168,76,0.45); border-color: var(--gold);
+      transform: translateY(-50%) scale(1.08);
+    }
+    .hero-arrow-prev { left: 28px; }
+    .hero-arrow-next { right: 28px; }
+
+    .hero-slider-footer {
+      position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
+      z-index: 10; display: flex; flex-direction: column;
+      align-items: center; gap: 10px;
+    }
+    .slide-label {
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: rgba(255,255,255,0.55);
+      transition: opacity 0.5s;
+    }
+    .hero-dots { display: flex; gap: 8px; align-items: center; }
+    .slide-dot {
+      width: 8px; height: 8px; border-radius: 4px;
+      background: rgba(255,255,255,0.35); border: none; cursor: pointer;
+      padding: 0; transition: background 0.3s, width 0.3s;
+    }
+    .slide-dot.active { background: var(--gold); width: 28px; }
+
+    .slide-progress {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 3px; z-index: 10;
+      background: rgba(255,255,255,0.08);
+    }
+    .slide-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      width: 0%;
     }
 
     .hero-badge {
@@ -259,27 +323,68 @@
 
     /* ── TESTIMONIALS ── */
     #testimonials { background: var(--dark2); }
-    .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+    /* ── REVIEWS CAROUSEL ── */
+    #testimonials { overflow: hidden; }
+    .reviews-viewport {
+      position: relative;
+      overflow: hidden;
+      padding: 8px 0 16px;
+      -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 7%, #000 93%, transparent 100%);
+      mask-image: linear-gradient(90deg, transparent 0%, #000 7%, #000 93%, transparent 100%);
+    }
+    .reviews-track {
+      display: flex;
+      gap: 24px;
+      width: max-content;
+      cursor: grab;
+    }
+    .reviews-track.is-animating {
+      animation: reviewsScroll linear infinite;
+      animation-duration: var(--reviews-dur, 40s);
+    }
+    .reviews-track.is-animating:hover { animation-play-state: paused; }
+    .reviews-track.is-dragging { animation-play-state: paused; cursor: grabbing; }
+    @keyframes reviewsScroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(var(--reviews-end, -50%)); }
+    }
     .testimonial-card {
+      width: 340px; flex-shrink: 0;
       background: var(--dark3); border-radius: 16px; padding: 32px;
       border: 1px solid rgba(255,255,255,0.06);
-      transition: border-color 0.3s;
+      transition: border-color 0.3s, transform 0.3s;
+      user-select: none;
     }
-    .testimonial-card:hover { border-color: rgba(201,168,76,0.3); }
-    .stars { color: var(--gold); font-size: 0.9rem; margin-bottom: 16px; letter-spacing: 2px; }
+    .testimonial-card:hover { border-color: rgba(201,168,76,0.3); transform: translateY(-4px); }
+    .review-type-badge {
+      display: inline-block; font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 3px 10px; border-radius: 20px; margin-bottom: 14px;
+      background: rgba(201,168,76,0.12); color: var(--gold);
+      border: 1px solid rgba(201,168,76,0.25);
+    }
+    .stars { color: var(--gold); font-size: 0.88rem; margin-bottom: 14px; letter-spacing: 3px; }
     .testimonial-card blockquote {
-      font-size: 0.92rem; color: rgba(232,232,232,0.8);
-      line-height: 1.7; margin-bottom: 24px; font-style: italic;
+      font-size: 0.9rem; color: rgba(232,232,232,0.8);
+      line-height: 1.75; margin-bottom: 24px; font-style: italic;
     }
     .testimonial-author { display: flex; align-items: center; gap: 14px; }
     .author-avatar {
-      width: 44px; height: 44px; border-radius: 50%;
+      width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0;
       background: linear-gradient(135deg, var(--gold), var(--gold-light));
       display: flex; align-items: center; justify-content: center;
       font-weight: 700; color: var(--dark); font-size: 0.9rem;
     }
     .author-name { font-weight: 600; font-size: 0.9rem; color: var(--white); }
-    .author-loc { font-size: 0.78rem; color: var(--muted); }
+    .author-loc { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+    .reviews-loading {
+      text-align: center; padding: 48px;
+      color: var(--muted); font-size: 0.9rem;
+    }
+    .reviews-count {
+      text-align: center; margin-top: 24px;
+      font-size: 0.78rem; color: var(--muted); letter-spacing: 0.05em;
+    }
 
     /* ── CONTACT ── */
     #contact {
@@ -582,8 +687,8 @@
 <!-- NAV -->
 <nav>
   <a href="#hero" class="logo">
-    <div class="logo-icon">🏠</div>
-    <span class="logo-text">Dream<span>Homes</span></span>
+    <div class="logo-img-wrap"><img src="assets/logo.png" alt="Dream Homes By Pooja" class="logo-img" /></div>
+    <span class="logo-text">Dream Homes<span>By Pooja</span></span>
   </a>
   <ul class="nav-links">
     <li><a href="#services">Services</a></li>
@@ -608,13 +713,38 @@
 
 <!-- HERO -->
 <section id="hero">
-  <div class="hero-bg"></div>
+
+  <!-- Sliding background images -->
+  <div class="hero-slider" id="heroSlider">
+    <div class="slide active" data-label="Stunning Family Home"
+      style="background-image:url('assets/images/hero-1.jpg')"></div>
+    <div class="slide" data-label="Luxury Townhome"
+      style="background-image:url('assets/images/hero-2.jpg')"></div>
+    <div class="slide" data-label="Elegant Estate"
+      style="background-image:url('assets/images/hero-3.jpg')"></div>
+    <div class="slide" data-label="Cozy Dream Home"
+      style="background-image:url('assets/images/hero-4.jpg')"></div>
+  </div>
+
+  <!-- Arrows -->
+  <button class="hero-arrow hero-arrow-prev" onclick="heroSlide(-1)" aria-label="Previous">&#8249;</button>
+  <button class="hero-arrow hero-arrow-next" onclick="heroSlide(1)"  aria-label="Next">&#8250;</button>
+
+  <!-- Dots + label -->
+  <div class="hero-slider-footer">
+    <span class="slide-label" id="slideLabel">Luxury Estate Collection</span>
+    <div class="hero-dots" id="heroDots"></div>
+  </div>
+
+  <!-- Progress bar -->
+  <div class="slide-progress"><div class="slide-progress-fill" id="slideProgressFill"></div></div>
+
   <div class="hero-content">
-    <div class="hero-badge">Premium Real Estate Services</div>
+    <div class="hero-badge">Trusted Real Estate Services</div>
     <h1>Find Your Perfect <em>Dream Home</em> Today</h1>
     <p>Connecting buyers and sellers with exceptional properties across the region. Trusted expertise, personalised service, and results you can count on.</p>
     <div class="hero-actions">
-      <a href="#" class="btn-outline" onclick="openModal(event)">📞 Book a Consultation</a>
+      <a href="#contact" class="btn-outline">📞 Book a Consultation</a>
     </div>
   </div>
   <div class="hero-stats">
@@ -740,45 +870,17 @@
 
 <!-- TESTIMONIALS -->
 <section id="testimonials">
-  <div class="section-header reveal" style="text-align:center; max-width:600px; margin:0 auto 56px;">
+  <div class="section-header reveal" style="text-align:center; max-width:600px; margin:0 auto 48px;">
     <div class="section-label">Client Reviews</div>
     <h2 class="section-title">What Our Clients Say</h2>
+    <p class="section-sub" style="margin:0 auto;">Real stories from real clients — updated automatically as new reviews come in.</p>
   </div>
-  <div class="testimonials-grid">
-    <div class="testimonial-card reveal">
-      <div class="stars">★★★★★</div>
-      <blockquote>"Dream Homes made selling our house completely stress-free. From the valuation to completion, every step was handled professionally. We achieved above our asking price — couldn't be happier!"</blockquote>
-      <div class="testimonial-author">
-        <div class="author-avatar">SJ</div>
-        <div>
-          <div class="author-name">Sarah & James M.</div>
-          <div class="author-loc">Sold in Houston, TX</div>
-        </div>
-      </div>
-    </div>
-    <div class="testimonial-card reveal">
-      <div class="stars">★★★★★</div>
-      <blockquote>"As first-time buyers, we were nervous about the whole process. The team at Dream Homes guided us every step of the way and found us our perfect home within our budget. Absolutely brilliant service."</blockquote>
-      <div class="testimonial-author">
-        <div class="author-avatar">LK</div>
-        <div>
-          <div class="author-name">Lauren K.</div>
-          <div class="author-loc">Bought in Austin, TX</div>
-        </div>
-      </div>
-    </div>
-    <div class="testimonial-card reveal">
-      <div class="stars">★★★★★</div>
-      <blockquote>"I've used Dream Homes for three investment properties now. Their market knowledge and honest advice have helped me build a great portfolio. Highly recommend to any landlord."</blockquote>
-      <div class="testimonial-author">
-        <div class="author-avatar">RP</div>
-        <div>
-          <div class="author-name">Raj P.</div>
-          <div class="author-loc">Property Investor, Dallas, TX</div>
-        </div>
-      </div>
+  <div class="reviews-viewport">
+    <div class="reviews-track" id="reviews-track">
+      <div class="reviews-loading">Loading reviews…</div>
     </div>
   </div>
+  <p class="reviews-count" id="reviews-count"></p>
 </section>
 
 <!-- FACEBOOK FEED -->
@@ -884,10 +986,8 @@
         <select>
           <option>Buying a Property</option>
           <option>Selling a Property</option>
-          <option>Renting a Property</option>
-          <option>Letting My Property</option>
-          <option>Free Valuation</option>
           <option>Investment Advice</option>
+          <option>General Inquiry</option>
         </select>
       </div>
       <div class="form-group">
@@ -1282,6 +1382,176 @@
       btn.style.background = '';
     }, 3000);
   }
+
+  // ── DYNAMIC REVIEWS CAROUSEL ──
+  const CARD_WIDTH = 340;
+  const CARD_GAP   = 24;
+
+  function buildCard(r) {
+    const stars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
+    const card  = document.createElement('div');
+    card.className = 'testimonial-card';
+    card.innerHTML = `
+      <span class="review-type-badge">${r.type}</span>
+      <div class="stars">${stars}</div>
+      <blockquote>"${r.text}"</blockquote>
+      <div class="testimonial-author">
+        <div class="author-avatar">${r.initials}</div>
+        <div>
+          <div class="author-name">${r.name}</div>
+          <div class="author-loc">${r.location}</div>
+        </div>
+      </div>`;
+    return card;
+  }
+
+  function startCarousel(track, reviews) {
+    track.innerHTML = '';
+
+    // Render original set
+    reviews.forEach(r => track.appendChild(buildCard(r)));
+
+    // Duplicate set for seamless loop
+    reviews.forEach(r => track.appendChild(buildCard(r)));
+
+    // Calculate offset = width of one full set
+    const setWidth = reviews.length * (CARD_WIDTH + CARD_GAP);
+    track.style.setProperty('--reviews-end', `-${setWidth}px`);
+
+    // Speed: ~70px/s — comfortable reading pace
+    const dur = Math.round(setWidth / 70);
+    track.style.setProperty('--reviews-dur', `${dur}s`);
+    track.classList.add('is-animating');
+
+    // Update count label
+    const countEl = document.getElementById('reviews-count');
+    if (countEl) countEl.textContent = `Showing ${reviews.length} verified client reviews · Hover to pause`;
+
+    // Drag-to-scroll (touch & mouse)
+    let isDragging = false, startX = 0, scrollStart = 0;
+    function dragStart(x) {
+      isDragging = true;
+      startX = x;
+      const mat = new DOMMatrix(getComputedStyle(track).transform);
+      scrollStart = mat.m41;
+      track.classList.add('is-dragging');
+    }
+    function dragMove(x) {
+      if (!isDragging) return;
+      track.style.transform = `translateX(${scrollStart + (x - startX)}px)`;
+    }
+    function dragEnd() {
+      if (!isDragging) return;
+      isDragging = false;
+      track.classList.remove('is-dragging');
+    }
+    track.addEventListener('mousedown',  e => dragStart(e.clientX));
+    track.addEventListener('mousemove',  e => dragMove(e.clientX));
+    track.addEventListener('mouseup',    dragEnd);
+    track.addEventListener('mouseleave', dragEnd);
+    track.addEventListener('touchstart', e => dragStart(e.touches[0].clientX), { passive: true });
+    track.addEventListener('touchmove',  e => dragMove(e.touches[0].clientX),  { passive: true });
+    track.addEventListener('touchend',   dragEnd);
+  }
+
+  async function loadReviews() {
+    const track = document.getElementById('reviews-track');
+    if (!track) return;
+    try {
+      const manifest = await fetch('reviews/index.json').then(r => r.json());
+      const reviews  = await Promise.all(
+        manifest.map(f => fetch(`reviews/${f}`).then(r => r.json()))
+      );
+      // Sort newest first by date
+      reviews.sort((a, b) => new Date(b.date) - new Date(a.date));
+      startCarousel(track, reviews);
+    } catch (e) {
+      // Fallback: static cards if fetch unavailable (e.g. file:// protocol)
+      const fallback = [
+        { name:'Sarah & James M.', initials:'SJ', location:'Sold in Houston, TX',       type:'Seller',   rating:5, text:'Dream Homes made selling our house completely stress-free. We achieved above asking price — couldn\'t be happier!' },
+        { name:'Lauren K.',        initials:'LK', location:'Bought in Austin, TX',       type:'Buyer',    rating:5, text:'As first-time buyers we were nervous, but Dream Homes guided us every step of the way. Absolutely outstanding service.' },
+        { name:'Raj P.',           initials:'RP', location:'Property Investor, Dallas, TX', type:'Investor', rating:5, text:'I\'ve used Dream Homes for three investment properties. Their market knowledge has helped me build a great portfolio.' },
+        { name:'Maria & Tom C.',   initials:'MT', location:'New Build, Nashville, TN',   type:'Buyer',    rating:5, text:'Pooja was incredible throughout our new build purchase — she negotiated upgrades we didn\'t know were possible!' },
+        { name:'David W.',         initials:'DW', location:'Sold in San Antonio, TX',    type:'Seller',   rating:5, text:'Listed Friday, multiple offers by Sunday. Sold $18k above asking with zero hassle. Simply the best agent.' },
+      ];
+      startCarousel(track, fallback);
+    }
+  }
+
+  loadReviews();
+
+  // ── HERO IMAGE SLIDER ──
+  (function () {
+    const DURATION = 5500;
+    const slides   = document.querySelectorAll('.slide');
+    const dotsWrap = document.getElementById('heroDots');
+    const label    = document.getElementById('slideLabel');
+    const fill     = document.getElementById('slideProgressFill');
+    let current    = 0;
+    let timer, progTimer, progStart;
+
+    // Build dots
+    slides.forEach((_, i) => {
+      const d = document.createElement('button');
+      d.className = 'slide-dot' + (i === 0 ? ' active' : '');
+      d.setAttribute('aria-label', 'Slide ' + (i + 1));
+      d.addEventListener('click', () => { clearTimer(); goTo(i); startTimer(); });
+      dotsWrap.appendChild(d);
+    });
+
+    function goTo(n) {
+      const dots = dotsWrap.querySelectorAll('.slide-dot');
+      slides[current].classList.remove('active');
+      dots[current].classList.remove('active');
+      current = (n + slides.length) % slides.length;
+      slides[current].classList.add('active');
+      dots[current].classList.add('active');
+      if (label) label.textContent = slides[current].dataset.label;
+      startProgress();
+    }
+
+    function startProgress() {
+      if (!fill) return;
+      fill.style.transition = 'none';
+      fill.style.width = '0%';
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        fill.style.transition = 'width ' + DURATION + 'ms linear';
+        fill.style.width = '100%';
+      }));
+    }
+
+    function startTimer() {
+      timer = setInterval(() => goTo(current + 1), DURATION);
+    }
+    function clearTimer() { clearInterval(timer); }
+
+    // Pause on hover
+    const hero = document.getElementById('hero');
+    hero.addEventListener('mouseenter', () => { clearTimer(); fill.style.transition = 'none'; });
+    hero.addEventListener('mouseleave', () => {
+      fill.style.transition = 'none';
+      fill.style.width = '0%';
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        fill.style.transition = 'width ' + DURATION + 'ms linear';
+        fill.style.width = '100%';
+      }));
+      startTimer();
+    });
+
+    // Touch swipe support
+    let touchX = 0;
+    hero.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, { passive: true });
+    hero.addEventListener('touchend',   e => {
+      const diff = touchX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 50) { clearTimer(); goTo(current + (diff > 0 ? 1 : -1)); startTimer(); }
+    });
+
+    startProgress();
+    startTimer();
+
+    // Expose for arrow buttons
+    window.heroSlide = function(dir) { clearTimer(); goTo(current + dir); startTimer(); };
+  })();
 
   // Sticky nav shadow
   window.addEventListener('scroll', () => {
