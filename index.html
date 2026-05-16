@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dream Homes By Pooja | Premium Real Estate</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script>emailjs.init('RQni8UDRPo8sjr1IK');</script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -47,6 +48,101 @@
       --dark: #f5f0e8; --dark2: #ede8df; --dark3: #e0dbd2; --dark4: #d0c8bc;
       --text: #2a2010; --muted: #7a6a50; --white: #1a1508;
     }
+
+    /* ── CALCULATORS ── */
+    #calculators { background: var(--dark2); }
+    .calc-tabs {
+      display: flex; gap: 12px; flex-wrap: wrap;
+      justify-content: center; margin-bottom: 48px;
+    }
+    .calc-tab {
+      padding: 11px 26px; border-radius: 50px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: var(--dark3); color: var(--muted);
+      font-size: 0.875rem; font-weight: 500; cursor: pointer;
+      transition: all 0.2s; white-space: nowrap;
+    }
+    .calc-tab:hover { border-color: var(--gold); color: var(--gold); }
+    .calc-tab.active { background: var(--gold); color: var(--dark); border-color: var(--gold); font-weight: 600; }
+    .calc-panel { display: none; animation: fadeUp 0.3s ease; }
+    .calc-panel.active { display: block; }
+    .calc-grid {
+      display: grid; grid-template-columns: 360px 1fr; gap: 28px; align-items: start;
+    }
+    .calc-card {
+      background: var(--dark3); border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 20px; padding: 28px 30px;
+    }
+    .calc-card h4 {
+      font-family: 'Playfair Display', serif; font-size: 1.05rem;
+      color: var(--white); margin-bottom: 24px; padding-bottom: 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .calc-input-group { margin-bottom: 22px; }
+    .calc-label {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.75rem; color: var(--muted); margin-bottom: 9px;
+      text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    .calc-label span { font-size: 1rem; color: var(--gold); font-weight: 700; font-family: 'Playfair Display', serif; text-transform: none; letter-spacing: 0; }
+    .calc-slider {
+      width: 100%; -webkit-appearance: none; appearance: none;
+      height: 3px; border-radius: 2px; background: var(--dark4); outline: none; cursor: pointer;
+    }
+    .calc-slider::-webkit-slider-thumb {
+      -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%;
+      background: var(--gold); cursor: pointer; box-shadow: 0 2px 8px rgba(201,168,76,0.5);
+    }
+    .calc-slider::-moz-range-thumb {
+      width: 18px; height: 18px; border-radius: 50%;
+      background: var(--gold); cursor: pointer; border: none;
+    }
+    .calc-select {
+      width: 100%; padding: 9px 14px; border-radius: 8px;
+      background: var(--dark4); border: 1px solid rgba(255,255,255,0.1);
+      color: var(--text); font-size: 0.875rem; cursor: pointer; outline: none;
+    }
+    .calc-result-cards {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px;
+    }
+    .calc-result-card {
+      background: var(--dark); border: 1px solid rgba(201,168,76,0.15);
+      border-radius: 12px; padding: 14px 12px; text-align: center;
+    }
+    .rc-val { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--gold); font-weight: 700; display: block; margin-bottom: 4px; line-height: 1.1; }
+    .rc-lbl { font-size: 0.67rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+    .calc-chart-wrap { position: relative; height: 210px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; }
+    .calc-table-wrap { max-height: 200px; overflow-y: auto; border-radius: 10px; border: 1px solid rgba(255,255,255,0.06); }
+    .calc-table-wrap::-webkit-scrollbar { width: 4px; }
+    .calc-table-wrap::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+    .calc-table { width: 100%; border-collapse: collapse; font-size: 0.78rem; }
+    .calc-table th { padding: 9px 12px; color: var(--muted); font-weight: 500; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.05em; background: var(--dark4); position: sticky; top: 0; text-align: right; }
+    .calc-table th:first-child { text-align: left; }
+    .calc-table td { padding: 7px 12px; color: var(--text); border-bottom: 1px solid rgba(255,255,255,0.04); text-align: right; }
+    .calc-table td:first-child { text-align: left; color: var(--muted); }
+    .calc-table tr:hover td { background: rgba(201,168,76,0.04); }
+    .calc-table .total-row td { color: var(--gold); font-weight: 600; border-top: 1px solid rgba(201,168,76,0.2); background: rgba(201,168,76,0.04); }
+    .calc-note { font-size: 0.72rem; color: var(--muted); margin-top: 12px; font-style: italic; text-align: center; }
+    .info-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 15px; height: 15px; border-radius: 50%;
+      background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.45);
+      color: var(--gold); font-size: 0.62rem; font-weight: 700; font-style: italic; font-family: serif;
+      cursor: pointer; margin-left: 5px; vertical-align: middle; line-height: 1;
+      transition: background 0.18s, transform 0.15s; flex-shrink: 0;
+    }
+    .info-btn:hover { background: rgba(201,168,76,0.28); transform: scale(1.15); }
+    .calc-tooltip-box {
+      position: fixed; z-index: 99999; max-width: 230px;
+      padding: 10px 14px; background: var(--dark3);
+      border: 1px solid rgba(201,168,76,0.4); border-radius: 10px;
+      font-size: 0.74rem; color: var(--text); line-height: 1.55;
+      pointer-events: none; opacity: 0; transition: opacity 0.15s;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.5);
+    }
+    .calc-tooltip-box.visible { opacity: 1; }
+    @media (max-width: 960px) { .calc-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 500px) { .calc-result-cards { grid-template-columns: 1fr 1fr; } .calc-tab { font-size: 0.8rem; padding: 9px 16px; } }
 
     /* ── THEME SWITCHER ── */
     .theme-switcher {
@@ -341,15 +437,25 @@
     .about-badge-float {
       position: absolute; bottom: -20px; right: -20px;
       background: var(--dark3);
-      border: 1px solid rgba(201,168,76,0.3);
-      border-radius: 14px; padding: 20px 24px;
+      border: 1px solid rgba(201,168,76,0.35);
+      border-radius: 16px; padding: 18px 22px;
       text-align: center;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+    .about-badge-float .badge-stars {
+      display: flex; gap: 3px; justify-content: center; margin-bottom: 6px;
+    }
+    .about-badge-float .badge-stars span {
+      font-size: 1.15rem; line-height: 1;
     }
     .about-badge-float .num {
       font-family: 'Playfair Display', serif;
-      font-size: 2.2rem; color: var(--gold); font-weight: 700; display: block;
+      font-size: 1.9rem; color: var(--gold); font-weight: 700; display: block; line-height: 1;
     }
-    .about-badge-float .lbl { font-size: 0.78rem; color: var(--muted); }
+    .about-badge-float .lbl {
+      font-size: 0.72rem; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.07em; margin-top: 4px; display: block;
+    }
 
     .about-content .section-sub { max-width: 100%; margin-bottom: 24px; }
     .about-list { list-style: none; margin-bottom: 36px; }
@@ -868,6 +974,7 @@
     <li><a href="#about">About</a></li>
     <li><a href="#process">Buying</a></li>
     <li><a href="#selling">Selling</a></li>
+    <li><a href="#calculators">Calculators</a></li>
     <li><a href="#testimonials">Reviews</a></li>
     <li><a href="#facebook">Facebook</a></li>
     <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
@@ -990,8 +1097,11 @@
     <div class="about-img-wrap reveal">
       <img src="assets/pooja.png" alt="Pooja — Dream Homes By Pooja" />
       <div class="about-badge-float">
-        <span class="num">500+</span>
-        <span class="lbl">Happy Families</span>
+        <div class="badge-stars">
+          <span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span>
+        </div>
+        <span class="num">5.0</span>
+        <span class="lbl">Verified Reviews</span>
       </div>
     </div>
     <div class="about-content reveal">
@@ -1431,6 +1541,169 @@
         allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
       </iframe>
       <p class="fb-embed-label">Live feed from our Facebook page · Updates in real time</p>
+    </div>
+  </div>
+</section>
+
+<!-- CALCULATORS -->
+<section id="calculators">
+  <div class="section-header reveal" style="text-align:center;max-width:640px;margin:0 auto 48px;">
+    <div class="section-label">Tools & Resources</div>
+    <h2 class="section-title">Real Estate Calculators</h2>
+    <p class="section-sub" style="margin:0 auto;">Plan smarter with our interactive calculators — get instant estimates for your mortgage, affordability, and selling proceeds.</p>
+  </div>
+
+  <div class="calc-tabs">
+    <button class="calc-tab active" onclick="switchCalc('mortgage')">🏦 Mortgage Payment</button>
+    <button class="calc-tab" onclick="switchCalc('afford')">💰 Affordability</button>
+    <button class="calc-tab" onclick="switchCalc('proceeds')">📊 Selling Proceeds</button>
+  </div>
+
+  <!-- MORTGAGE CALCULATOR -->
+  <div class="calc-panel active" id="calc-mortgage">
+    <div class="calc-grid">
+      <div class="calc-card">
+        <h4>🏦 Mortgage Details</h4>
+        <div class="calc-input-group">
+          <div class="calc-label"><span>Home Price <button class="info-btn" data-tip="The full purchase price of the property you want to buy. Your loan amount equals this minus your down payment.">i</button></span><span id="m-price-val">$450,000</span></div>
+          <input type="range" class="calc-slider" id="m-price" min="50000" max="2000000" step="5000" value="450000" oninput="calcMortgage()">
+        </div>
+        <div class="calc-input-group">
+          <div class="calc-label"><span>Down Payment <button class="info-btn" data-tip="Upfront cash you pay toward the home. Putting down 20%+ avoids Private Mortgage Insurance (PMI), which can add $50–$200/month to your payment.">i</button></span><span id="m-down-val">20% · $90,000</span></div>
+          <input type="range" class="calc-slider" id="m-down" min="3" max="50" step="1" value="20" oninput="calcMortgage()">
+        </div>
+        <div class="calc-input-group">
+          <div class="calc-label"><span>Interest Rate <button class="info-btn" data-tip="Your annual mortgage interest rate. Rates depend on your credit score, loan type, and market conditions. The average 30-year fixed rate is ~6.8% (2025). Higher credit scores unlock lower rates.">i</button></span><span id="m-rate-val">6.8%</span></div>
+          <input type="range" class="calc-slider" id="m-rate" min="2" max="15" step="0.1" value="6.8" oninput="calcMortgage()">
+        </div>
+        <div class="calc-input-group">
+          <div class="calc-label"><span>Loan Term <button class="info-btn" data-tip="How long you have to repay the loan. A 30-year term means lower monthly payments but significantly more interest paid overall. A 15-year term costs more monthly but can save tens of thousands in interest.">i</button></span></div>
+          <select class="calc-select" id="m-term" onchange="calcMortgage()">
+            <option value="30" selected>30 Years</option>
+            <option value="20">20 Years</option>
+            <option value="15">15 Years</option>
+            <option value="10">10 Years</option>
+          </select>
+        </div>
+        <div class="calc-input-group">
+          <div class="calc-label"><span>Property Tax (annual) <button class="info-btn" data-tip="Annual tax charged by your local government, typically 0.5%–2.5% of home value. It's divided by 12 and collected monthly via escrow alongside your mortgage payment.">i</button></span><span id="m-tax-val">$5,000</span></div>
+          <input type="range" class="calc-slider" id="m-tax" min="0" max="30000" step="250" value="5000" oninput="calcMortgage()">
+        </div>
+        <div class="calc-input-group">
+          <div class="calc-label"><span>Home Insurance (annual) <button class="info-btn" data-tip="Homeowner's insurance is required by lenders and covers damage to your home. Typical cost is $800–$3,000/year depending on home value, location, and coverage level.">i</button></span><span id="m-ins-val">$1,500</span></div>
+          <input type="range" class="calc-slider" id="m-ins" min="0" max="10000" step="100" value="1500" oninput="calcMortgage()">
+        </div>
+      </div>
+      <div class="calc-card">
+        <h4>📋 Payment Breakdown</h4>
+        <div class="calc-result-cards">
+          <div class="calc-result-card"><span class="rc-val" id="m-monthly">-</span><span class="rc-lbl">Monthly Payment</span></div>
+          <div class="calc-result-card"><span class="rc-val" id="m-total-int">-</span><span class="rc-lbl">Total Interest</span></div>
+          <div class="calc-result-card"><span class="rc-val" id="m-total-cost">-</span><span class="rc-lbl">Total Cost</span></div>
+        </div>
+        <div class="calc-chart-wrap"><canvas id="mortgageChart"></canvas></div>
+        <div class="calc-table-wrap">
+          <table class="calc-table">
+            <thead><tr><th>Year</th><th>Principal</th><th>Interest</th><th>Balance</th></tr></thead>
+            <tbody id="m-table"></tbody>
+          </table>
+        </div>
+        <p class="calc-note">* Estimates only. Consult a licensed lender for exact figures.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- AFFORDABILITY CALCULATOR -->
+  <div class="calc-panel" id="calc-afford">
+    <div class="calc-grid">
+      <div class="calc-card">
+        <h4>💰 Your Finances</h4>
+        <div class="calc-input-group">
+          <div class="calc-label"><span>Annual Household Income <button class="info-btn" data-tip="Your gross (pre-tax) annual household income. Lenders use this to calculate your debt-to-income (DTI) ratio — a key factor in how much you can borrow.">i</button></span><span id="a-income-val">$120,000</span></div>
+          <input type="range" class="calc-slider" id="a-income" min="30000" max="600000" step="5000" value="120000" oninput="calcAfford()">
+        </div>
+        <div class="calc-input-group">
+          <div class="calc-label"><span>Monthly Debt Payments <button class="info-btn" data-tip="All recurring monthly debt obligations: car loans, student loans, credit card minimums, personal loans. Exclude utilities, subscriptions, and groceries. Higher debt reduces your buying power.">i</button></span><span id="a-debt-val">$500</span></div>
+          <input type="range" class="calc-slider" id="a-debt" min="0" max="5000" step="50" value="500" oninput="calcAfford()">
+        </div>
+        <div class="calc-input-group">
+          <div class="calc-label"><span>Down Payment Available <button class="info-btn" data-tip="Cash you have ready to put toward the home. A larger down payment reduces your loan amount, lowers monthly payments, and may help you avoid PMI (Private Mortgage Insurance) if you reach 20%.">i</button></span><span id="a-down-val">$60,000</span></div>
+          <input type="range" class="calc-slider" id="a-down" min="5000" max="400000" step="5000" value="60000" oninput="calcAfford()">
+        </div>
+        <div class="calc-input-group">
+          <div class="calc-label"><span>Interest Rate <button class="info-btn" data-tip="Your expected annual mortgage rate. Rates are influenced by your credit score, loan type (FHA, conventional, VA), and current market conditions. Even a 0.5% difference can significantly change your monthly payment.">i</button></span><span id="a-rate-val">6.8%</span></div>
+          <input type="range" class="calc-slider" id="a-rate" min="2" max="15" step="0.1" value="6.8" oninput="calcAfford()">
+        </div>
+        <div class="calc-input-group">
+          <div class="calc-label"><span>Loan Term <button class="info-btn" data-tip="The repayment length of your mortgage. A 30-year term gives lower monthly payments but costs more in total interest. A 15-year term saves significantly on interest but requires higher monthly payments.">i</button></span></div>
+          <select class="calc-select" id="a-term" onchange="calcAfford()">
+            <option value="30" selected>30 Years</option>
+            <option value="20">20 Years</option>
+            <option value="15">15 Years</option>
+          </select>
+        </div>
+      </div>
+      <div class="calc-card">
+        <h4>🏠 What Can You Afford?</h4>
+        <div class="calc-result-cards">
+          <div class="calc-result-card"><span class="rc-val" id="a-max-price">-</span><span class="rc-lbl">Max Home Price</span></div>
+          <div class="calc-result-card"><span class="rc-val" id="a-monthly">-</span><span class="rc-lbl">Est. Monthly</span></div>
+          <div class="calc-result-card"><span class="rc-val" id="a-dti">-</span><span class="rc-lbl">DTI Ratio</span></div>
+        </div>
+        <div class="calc-chart-wrap"><canvas id="affordChart"></canvas></div>
+        <div class="calc-table-wrap">
+          <table class="calc-table">
+            <thead><tr><th>Budget Scenario</th><th>Max Price</th><th>Monthly</th><th>DTI</th></tr></thead>
+            <tbody id="a-table"></tbody>
+          </table>
+        </div>
+        <p class="calc-note">* Based on 28% front-end and 36% back-end DTI guidelines.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SELLING PROCEEDS CALCULATOR -->
+  <div class="calc-panel" id="calc-proceeds">
+    <div class="calc-grid">
+      <div class="calc-card">
+        <h4>📊 Sale Details</h4>
+        <div class="calc-input-group">
+          <div class="calc-label"><span>Expected Sale Price <button class="info-btn" data-tip="The price you expect to sell your home for. Pooja will run a Comparative Market Analysis (CMA) of recent sales nearby to help you set the most competitive and profitable listing price.">i</button></span><span id="s-price-val">$500,000</span></div>
+          <input type="range" class="calc-slider" id="s-price" min="100000" max="3000000" step="10000" value="500000" oninput="calcProceeds()">
+        </div>
+        <div class="calc-input-group">
+          <div class="calc-label"><span>Remaining Mortgage Balance <button class="info-btn" data-tip="The outstanding amount you still owe on your mortgage. This is paid off in full from your sale proceeds at closing before you receive any net funds.">i</button></span><span id="s-mortgage-val">$250,000</span></div>
+          <input type="range" class="calc-slider" id="s-mortgage" min="0" max="2500000" step="5000" value="250000" oninput="calcProceeds()">
+        </div>
+        <div class="calc-input-group">
+          <div class="calc-label"><span>Agent Commission <button class="info-btn" data-tip="The total commission paid to both the seller's and buyer's agents, typically split equally. Usually 5–6% of the sale price and paid by the seller. This is negotiable — ask Pooja for details.">i</button></span><span id="s-comm-val">5.5%</span></div>
+          <input type="range" class="calc-slider" id="s-comm" min="1" max="7" step="0.5" value="5.5" oninput="calcProceeds()">
+        </div>
+        <div class="calc-input-group">
+          <div class="calc-label"><span>Closing Costs <button class="info-btn" data-tip="Seller-paid closing costs include transfer taxes, title fees, attorney fees, and prorated property taxes. Typically 1–3% of the sale price depending on your state and local requirements.">i</button></span><span id="s-close-val">2.0%</span></div>
+          <input type="range" class="calc-slider" id="s-close" min="0.5" max="5" step="0.5" value="2.0" oninput="calcProceeds()">
+        </div>
+        <div class="calc-input-group">
+          <div class="calc-label"><span>Repairs / Staging <button class="info-btn" data-tip="Pre-sale costs to prepare your home: repairs, fresh paint, professional staging, and cleaning. These upfront investments typically increase your sale price by more than they cost.">i</button></span><span id="s-repairs-val">$5,000</span></div>
+          <input type="range" class="calc-slider" id="s-repairs" min="0" max="50000" step="500" value="5000" oninput="calcProceeds()">
+        </div>
+      </div>
+      <div class="calc-card">
+        <h4>💵 Your Net Proceeds</h4>
+        <div class="calc-result-cards">
+          <div class="calc-result-card"><span class="rc-val" id="s-net">-</span><span class="rc-lbl">Net Proceeds</span></div>
+          <div class="calc-result-card"><span class="rc-val" id="s-equity">-</span><span class="rc-lbl">Equity Used</span></div>
+          <div class="calc-result-card"><span class="rc-val" id="s-costs">-</span><span class="rc-lbl">Total Costs</span></div>
+        </div>
+        <div class="calc-chart-wrap"><canvas id="proceedsChart"></canvas></div>
+        <div class="calc-table-wrap">
+          <table class="calc-table">
+            <thead><tr><th>Item</th><th>Amount</th><th>% of Sale</th></tr></thead>
+            <tbody id="s-table"></tbody>
+          </table>
+        </div>
+        <p class="calc-note">* Estimates only. Actual proceeds may vary based on negotiations and local fees.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -2105,6 +2378,208 @@
     nav.style.background = window.scrollY > 40
       ? `color-mix(in srgb, ${dark} 98%, transparent)`
       : `color-mix(in srgb, ${dark} 85%, transparent)`;
+  });
+
+  // ── CALCULATORS ──
+  const fmt = n => '$' + Math.round(n).toLocaleString();
+  const fmtK = n => n >= 1000000 ? '$' + (n/1000000).toFixed(2) + 'M' : '$' + Math.round(n/1000) + 'K';
+
+  let mortgageChart, affordChart, proceedsChart;
+
+  const chartDefaults = {
+    plugins: { legend: { labels: { color: '#888', font: { size: 11 }, boxWidth: 12 } } },
+    cutout: '65%'
+  };
+  const chartColors = ['#c9a84c','#2a2a2a','#e8c97e','#444','#f5dfa0'];
+
+  function switchCalc(id) {
+    document.querySelectorAll('.calc-tab').forEach((t,i) => t.classList.toggle('active', ['mortgage','afford','proceeds'][i] === id));
+    document.querySelectorAll('.calc-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('calc-' + id).classList.add('active');
+    if (id === 'mortgage') calcMortgage();
+    if (id === 'afford')   calcAfford();
+    if (id === 'proceeds') calcProceeds();
+  }
+
+  function calcMortgage() {
+    const price  = +document.getElementById('m-price').value;
+    const downPct= +document.getElementById('m-down').value;
+    const rate   = +document.getElementById('m-rate').value;
+    const term   = +document.getElementById('m-term').value;
+    const tax    = +document.getElementById('m-tax').value;
+    const ins    = +document.getElementById('m-ins').value;
+
+    const down   = price * downPct / 100;
+    const loan   = price - down;
+    const r      = rate / 100 / 12;
+    const n      = term * 12;
+    const pmt    = loan * r * Math.pow(1+r,n) / (Math.pow(1+r,n) - 1);
+    const totalPI= pmt * n;
+    const totalInt = totalPI - loan;
+    const monthly  = pmt + tax/12 + ins/12;
+
+    document.getElementById('m-price-val').textContent = fmt(price);
+    document.getElementById('m-down-val').textContent  = downPct + '% · ' + fmt(down);
+    document.getElementById('m-rate-val').textContent  = rate.toFixed(1) + '%';
+    document.getElementById('m-tax-val').textContent   = fmt(tax);
+    document.getElementById('m-ins-val').textContent   = fmt(ins);
+    document.getElementById('m-monthly').textContent   = fmt(monthly);
+    document.getElementById('m-total-int').textContent = fmtK(totalInt);
+    document.getElementById('m-total-cost').textContent= fmtK(totalPI + down);
+
+    // Chart
+    const ctx = document.getElementById('mortgageChart');
+    if (mortgageChart) mortgageChart.destroy();
+    mortgageChart = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Principal', 'Total Interest', 'Down Payment'],
+        datasets: [{ data: [Math.round(loan), Math.round(totalInt), Math.round(down)], backgroundColor: ['#c9a84c','#2a2a2a','#e8c97e'], borderWidth: 0, hoverOffset: 6 }]
+      },
+      options: { ...chartDefaults, plugins: { ...chartDefaults.plugins, tooltip: { callbacks: { label: c => ' ' + fmt(c.raw) } } } }
+    });
+
+    // Amortization table
+    let bal = loan, tbody = '';
+    for (let y = 1; y <= term; y++) {
+      let yPrin = 0, yInt = 0;
+      for (let m = 0; m < 12; m++) {
+        const i = bal * r; const p = pmt - i;
+        yInt += i; yPrin += p; bal -= p;
+      }
+      tbody += `<tr><td>Year ${y}</td><td>${fmt(yPrin)}</td><td>${fmt(yInt)}</td><td>${fmt(Math.max(0,bal))}</td></tr>`;
+    }
+    document.getElementById('m-table').innerHTML = tbody;
+  }
+
+  function calcAfford() {
+    const income = +document.getElementById('a-income').value;
+    const debt   = +document.getElementById('a-debt').value;
+    const down   = +document.getElementById('a-down').value;
+    const rate   = +document.getElementById('a-rate').value;
+    const term   = +document.getElementById('a-term').value;
+
+    const r = rate / 100 / 12, n = term * 12;
+    const factor = r * Math.pow(1+r,n) / (Math.pow(1+r,n) - 1);
+
+    function maxPrice(monthlyPI) { return monthlyPI / factor + down; }
+
+    const conservative = maxPrice(income/12 * 0.25 - debt);
+    const moderate     = maxPrice(income/12 * 0.28 - debt);
+    const maximum      = maxPrice(income/12 * 0.36 - debt);
+    const recMonthly   = (moderate - down) * factor;
+    const dti          = ((recMonthly + debt) / (income/12) * 100).toFixed(1);
+
+    document.getElementById('a-income-val').textContent = fmt(income);
+    document.getElementById('a-debt-val').textContent   = fmt(debt);
+    document.getElementById('a-down-val').textContent   = fmt(down);
+    document.getElementById('a-rate-val').textContent   = rate.toFixed(1) + '%';
+    document.getElementById('a-max-price').textContent  = fmtK(Math.max(0, moderate));
+    document.getElementById('a-monthly').textContent    = fmt(Math.max(0, recMonthly));
+    document.getElementById('a-dti').textContent        = dti + '%';
+
+    const ctx = document.getElementById('affordChart');
+    if (affordChart) affordChart.destroy();
+    affordChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Conservative', 'Moderate', 'Maximum'],
+        datasets: [{ label: 'Max Home Price', data: [Math.max(0,conservative), Math.max(0,moderate), Math.max(0,maximum)], backgroundColor: ['#e8c97e','#c9a84c','#a07830'], borderRadius: 8, borderWidth: 0 }]
+      },
+      options: {
+        indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => ' ' + fmt(c.raw) } } },
+        scales: { x: { ticks: { color:'#888', callback: v => '$'+Math.round(v/1000)+'K' }, grid: { color:'rgba(255,255,255,0.05)' } }, y: { ticks: { color:'#888' }, grid: { display: false } } }
+      }
+    });
+
+    const rows = [
+      ['Conservative (25%)', Math.max(0,conservative), (conservative-down)*factor, '25%'],
+      ['Moderate (28%)',      Math.max(0,moderate),     (moderate-down)*factor,     '28%'],
+      ['Maximum (36%)',       Math.max(0,maximum),      (maximum-down)*factor,      '36%']
+    ];
+    document.getElementById('a-table').innerHTML = rows.map(r =>
+      `<tr><td>${r[0]}</td><td>${fmtK(r[1])}</td><td>${fmt(Math.max(0,r[2]))}</td><td>${r[3]}</td></tr>`).join('');
+  }
+
+  function calcProceeds() {
+    const price    = +document.getElementById('s-price').value;
+    const mortgage = +document.getElementById('s-mortgage').value;
+    const commPct  = +document.getElementById('s-comm').value;
+    const closePct = +document.getElementById('s-close').value;
+    const repairs  = +document.getElementById('s-repairs').value;
+
+    const commission  = price * commPct  / 100;
+    const closing     = price * closePct / 100;
+    const totalCosts  = mortgage + commission + closing + repairs;
+    const net         = price - totalCosts;
+    const equity      = price - mortgage;
+
+    document.getElementById('s-price-val').textContent   = fmt(price);
+    document.getElementById('s-mortgage-val').textContent= fmt(mortgage);
+    document.getElementById('s-comm-val').textContent    = commPct.toFixed(1) + '%';
+    document.getElementById('s-close-val').textContent   = closePct.toFixed(1) + '%';
+    document.getElementById('s-repairs-val').textContent = fmt(repairs);
+    document.getElementById('s-net').textContent         = fmtK(Math.max(0, net));
+    document.getElementById('s-equity').textContent      = fmtK(Math.max(0, equity));
+    document.getElementById('s-costs').textContent       = fmtK(commission + closing + repairs);
+
+    const ctx = document.getElementById('proceedsChart');
+    if (proceedsChart) proceedsChart.destroy();
+    proceedsChart = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Net Proceeds', 'Mortgage Payoff', 'Agent Commission', 'Closing Costs', 'Repairs/Staging'],
+        datasets: [{ data: [Math.max(0,net), mortgage, commission, closing, repairs], backgroundColor: ['#c9a84c','#1e1e1e','#a07830','#2a2a2a','#444'], borderWidth: 0, hoverOffset: 6 }]
+      },
+      options: { ...chartDefaults, plugins: { ...chartDefaults.plugins, tooltip: { callbacks: { label: c => ' ' + fmt(c.raw) + ' (' + (c.raw/price*100).toFixed(1) + '%)' } } } }
+    });
+
+    const rows = [
+      ['Sale Price',         price,      100],
+      ['Mortgage Payoff',    -mortgage,  -(mortgage/price*100)],
+      ['Agent Commission',   -commission,-(commPct)],
+      ['Closing Costs',      -closing,   -(closePct)],
+      ['Repairs / Staging',  -repairs,   -(repairs/price*100)],
+    ];
+    document.getElementById('s-table').innerHTML =
+      rows.map(r => `<tr><td>${r[0]}</td><td>${r[1]>=0?fmt(r[1]):'-'+fmt(-r[1])}</td><td>${r[2].toFixed(1)}%</td></tr>`).join('') +
+      `<tr class="total-row"><td>Net Proceeds</td><td>${fmt(Math.max(0,net))}</td><td>${(Math.max(0,net)/price*100).toFixed(1)}%</td></tr>`;
+  }
+
+  // Init on load
+  document.addEventListener('DOMContentLoaded', () => {
+    calcMortgage();
+
+    // Info tooltip logic
+    const tipBox = document.createElement('div');
+    tipBox.className = 'calc-tooltip-box';
+    document.body.appendChild(tipBox);
+
+    function showTip(btn) {
+      tipBox.textContent = btn.dataset.tip;
+      const r = btn.getBoundingClientRect();
+      const w = 230;
+      let left = r.left + r.width / 2 - w / 2;
+      left = Math.max(8, Math.min(left, window.innerWidth - w - 8));
+      // position: fixed uses viewport coords — no scrollY needed
+      let top = r.top - 80;
+      if (top < 8) top = r.bottom + 8;
+      tipBox.style.left = left + 'px';
+      tipBox.style.top  = top + 'px';
+      tipBox.classList.add('visible');
+    }
+    function hideTip() { tipBox.classList.remove('visible'); }
+
+    document.querySelectorAll('.info-btn').forEach(btn => {
+      btn.addEventListener('mouseenter', () => showTip(btn));
+      btn.addEventListener('mouseleave', hideTip);
+      btn.addEventListener('click', e => {
+        e.stopPropagation();
+        tipBox.classList.contains('visible') ? hideTip() : showTip(btn);
+      });
+    });
+    document.addEventListener('click', hideTip);
   });
 
   // Theme switcher
