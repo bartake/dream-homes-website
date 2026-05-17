@@ -1025,25 +1025,16 @@
     <h1>Find Your Perfect <em>Dream Home</em> Today</h1>
     <p>Connecting buyers and sellers with exceptional properties across the region. Trusted expertise, personalised service, and results you can count on.</p>
     <div class="hero-actions">
-      <a href="#contact" class="btn-outline">📞 Book a Consultation</a>
+      <a href="#contact" class="btn-outline"><span style="filter:brightness(0) invert(1);">📞</span> Book a Consultation</a>
     </div>
   </div>
   <div class="hero-stats">
     <div class="stat-item">
-      <span class="stat-num">500+</span>
-      <span class="stat-label">Homes Sold</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-num">12+</span>
-      <span class="stat-label">Years Experience</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-num">98%</span>
+      <span class="stat-num">100%</span>
       <span class="stat-label">Client Satisfaction</span>
     </div>
     <div class="stat-item">
       <span class="stat-num">$2B+</span>
-
       <span class="stat-label">Sales Volume</span>
     </div>
   </div>
@@ -1586,12 +1577,12 @@
           </select>
         </div>
         <div class="calc-input-group">
-          <div class="calc-label"><span>Property Tax (annual) <button class="info-btn" data-tip="Annual tax charged by your local government, typically 0.5%–2.5% of home value. It's divided by 12 and collected monthly via escrow alongside your mortgage payment.">i</button></span><span id="m-tax-val">$5,000</span></div>
-          <input type="range" class="calc-slider" id="m-tax" min="0" max="30000" step="250" value="5000" oninput="calcMortgage()">
+          <div class="calc-label"><span>Property Tax (annual) <button class="info-btn" data-tip="Annual tax charged by your local government, typically 0.5%–2.5% of home value. It's divided by 12 and collected monthly via escrow alongside your mortgage payment.">i</button></span><span id="m-tax-val">$4,500</span></div>
+          <input type="range" class="calc-slider" id="m-tax" min="0" max="30000" step="250" value="4500" oninput="calcMortgage()">
         </div>
         <div class="calc-input-group">
-          <div class="calc-label"><span>Home Insurance (annual) <button class="info-btn" data-tip="Homeowner's insurance is required by lenders and covers damage to your home. Typical cost is $800–$3,000/year depending on home value, location, and coverage level.">i</button></span><span id="m-ins-val">$1,500</span></div>
-          <input type="range" class="calc-slider" id="m-ins" min="0" max="10000" step="100" value="1500" oninput="calcMortgage()">
+          <div class="calc-label"><span>Home Insurance (annual) <button class="info-btn" data-tip="Homeowner's insurance is required by lenders and covers damage to your home. Typical cost is $800–$3,000/year depending on home value, location, and coverage level.">i</button></span><span id="m-ins-val">$2,000</span></div>
+          <input type="range" class="calc-slider" id="m-ins" min="0" max="10000" step="100" value="2000" oninput="calcMortgage()">
         </div>
       </div>
       <div class="calc-card">
@@ -1641,6 +1632,14 @@
             <option value="20">20 Years</option>
             <option value="15">15 Years</option>
           </select>
+        </div>
+        <div class="calc-input-group">
+          <div class="calc-label"><span>Est. Property Tax (annual) <button class="info-btn" data-tip="Annual property tax estimate. Included in your 28% housing budget as part of PITI. Typical range: 0.5%–2.5% of home value. Deducted from your housing budget before calculating loan affordability.">i</button></span><span id="a-tax-val">$4,500</span></div>
+          <input type="range" class="calc-slider" id="a-tax" min="0" max="24000" step="250" value="4500" oninput="calcAfford()">
+        </div>
+        <div class="calc-input-group">
+          <div class="calc-label"><span>Est. Home Insurance (annual) <button class="info-btn" data-tip="Annual homeowner's insurance estimate. Also part of PITI and deducted from your housing budget. Typically $800–$3,000/year. Required by lenders and included in your monthly escrow payment.">i</button></span><span id="a-ins-val">$2,000</span></div>
+          <input type="range" class="calc-slider" id="a-ins" min="0" max="8000" step="100" value="2000" oninput="calcAfford()">
         </div>
       </div>
       <div class="calc-card">
@@ -2057,7 +2056,7 @@
 </footer>
 
 <!-- FLOATING CTA -->
-<a href="#" class="floating-cta" onclick="openSellModal(event)">📞 Free Property Evaluation</a>
+<a href="#" class="floating-cta" onclick="openSellModal(event)"><span style="filter:brightness(0);">📞</span> Free Property Evaluation</a>
 
 <!-- THEME SWITCHER -->
 <div class="theme-switcher" id="themeSwitcher">
@@ -2458,24 +2457,34 @@
     const down   = +document.getElementById('a-down').value;
     const rate   = +document.getElementById('a-rate').value;
     const term   = +document.getElementById('a-term').value;
+    const tax    = +document.getElementById('a-tax').value;
+    const ins    = +document.getElementById('a-ins').value;
 
     const r = rate / 100 / 12, n = term * 12;
     const factor = r * Math.pow(1+r,n) / (Math.pow(1+r,n) - 1);
+    // Deduct monthly tax & insurance from housing budget — lenders include PITI in front-end DTI
+    const tiMonthly = (tax + ins) / 12;
 
-    function maxPrice(monthlyPI) { return monthlyPI / factor + down; }
+    function maxPrice(monthlyPITI) {
+      const monthlyPI = monthlyPITI - tiMonthly;
+      return Math.max(0, monthlyPI) / factor + down;
+    }
 
     const conservative = maxPrice(income/12 * 0.25 - debt);
     const moderate     = maxPrice(income/12 * 0.28 - debt);
     const maximum      = maxPrice(income/12 * 0.36 - debt);
-    const recMonthly   = (moderate - down) * factor;
+    const recPI        = Math.max(0, (moderate - down) * factor);
+    const recMonthly   = recPI + tiMonthly;
     const dti          = ((recMonthly + debt) / (income/12) * 100).toFixed(1);
 
     document.getElementById('a-income-val').textContent = fmt(income);
     document.getElementById('a-debt-val').textContent   = fmt(debt);
     document.getElementById('a-down-val').textContent   = fmt(down);
     document.getElementById('a-rate-val').textContent   = rate.toFixed(1) + '%';
+    document.getElementById('a-tax-val').textContent    = fmt(tax);
+    document.getElementById('a-ins-val').textContent    = fmt(ins);
     document.getElementById('a-max-price').textContent  = fmtK(Math.max(0, moderate));
-    document.getElementById('a-monthly').textContent    = fmt(Math.max(0, recMonthly));
+    document.getElementById('a-monthly').textContent    = fmt(recMonthly);
     document.getElementById('a-dti').textContent        = dti + '%';
 
     const ctx = document.getElementById('affordChart');
@@ -2494,9 +2503,9 @@
     });
 
     const rows = [
-      ['Conservative (25%)', Math.max(0,conservative), (conservative-down)*factor, '25%'],
-      ['Moderate (28%)',      Math.max(0,moderate),     (moderate-down)*factor,     '28%'],
-      ['Maximum (36%)',       Math.max(0,maximum),      (maximum-down)*factor,      '36%']
+      ['Conservative (25%)', Math.max(0,conservative), Math.max(0,conservative-down)*factor + tiMonthly, '25%'],
+      ['Moderate (28%)',      Math.max(0,moderate),     recMonthly,                                        '28%'],
+      ['Maximum (36%)',       Math.max(0,maximum),      Math.max(0,maximum-down)*factor + tiMonthly,       '36%']
     ];
     document.getElementById('a-table').innerHTML = rows.map(r =>
       `<tr><td>${r[0]}</td><td>${fmtK(r[1])}</td><td>${fmt(Math.max(0,r[2]))}</td><td>${r[3]}</td></tr>`).join('');
