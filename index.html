@@ -213,10 +213,11 @@
       text-decoration: none;
     }
     .logo-img-wrap {
-      display: flex; align-items: center; justify-content: center;
-      line-height: 0; flex-shrink: 0;
+      display: flex; align-items: flex-start; justify-content: center;
+      align-self: center; line-height: 0; flex-shrink: 0; margin-top: 8px;
+      height: 68px; overflow: hidden;
     }
-    .logo-img { height: 72px; width: auto; display: block; }
+    .logo-img { height: 90px; width: auto; display: block; }
     .logo-text {
       font-family: 'Playfair Display', serif;
       font-size: 1.6rem; line-height: 1.2; font-weight: 700;
@@ -403,26 +404,47 @@
     #services { background: var(--dark2); }
     .services-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      grid-template-columns: repeat(4, 1fr);
       gap: 24px;
+    }
+    @media (max-width: 1100px) { .services-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px)  { .services-grid { grid-template-columns: 1fr; } }
+    .services-row-label {
+      grid-column: 1 / -1;
+      display: flex; align-items: center; gap: 16px;
+      margin-top: 12px;
+    }
+    .services-row-label:first-child { margin-top: 0; }
+    .services-row-label span {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--gold);
+      white-space: nowrap;
+    }
+    .services-row-label::after {
+      content: ''; flex: 1; height: 1px;
+      background: linear-gradient(to right, rgba(201,168,76,0.3), transparent);
     }
     .service-card {
       background: var(--dark3);
       border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 16px; padding: 36px 28px;
+      border-radius: 16px; padding: 22px 20px;
       transition: border-color 0.3s, transform 0.3s;
       cursor: default;
     }
     .service-card:hover { border-color: var(--gold); transform: translateY(-4px); }
+    .service-card-header {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 12px;
+    }
     .service-icon {
-      width: 52px; height: 52px; border-radius: 12px;
+      width: 40px; height: 40px; border-radius: 10px;
       background: rgba(201,168,76,0.12);
       display: flex; align-items: center; justify-content: center;
-      font-size: 22px; margin-bottom: 20px;
+      font-size: 18px; flex-shrink: 0;
     }
     .service-card h3 {
       font-family: 'Playfair Display', serif;
-      font-size: 1.2rem; color: var(--white); margin-bottom: 12px;
+      font-size: 1.05rem; color: var(--white); margin: 0;
+      display: inline; line-height: 1.3;
     }
     .service-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
 
@@ -431,8 +453,10 @@
     .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
     .about-img-wrap { position: relative; }
     .about-img-wrap img {
-      width: 100%; border-radius: 20px; object-fit: cover;
-      height: 520px; display: block;
+      width: 100%; border-radius: 20px;
+      height: auto; max-height: 680px;
+      object-fit: contain; object-position: center top;
+      display: block;
     }
     .about-badge-float {
       position: absolute; bottom: -20px; right: -20px;
@@ -684,8 +708,9 @@
       width: 44px; height: 44px; border-radius: 10px;
       background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.2);
       display: flex; align-items: center; justify-content: center;
-      font-size: 18px; flex-shrink: 0;
+      flex-shrink: 0;
     }
+    .contact-icon svg { width: 20px; height: 20px; fill: var(--gold); }
     .contact-item h4 { font-size: 0.82rem; color: var(--muted); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.06em; }
     .contact-item p, .contact-item a { font-size: 0.95rem; color: var(--text); text-decoration: none; }
     .contact-item a:hover { color: var(--gold); }
@@ -698,7 +723,13 @@
       font-size: 16px; color: var(--muted); text-decoration: none;
       transition: 0.2s;
     }
-    .social-link:hover { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.08); }
+    .social-link:hover { opacity: 0.85; transform: translateY(-2px); }
+    .social-link[title="Facebook"]  { background: #1877F2; border-color: #1877F2; color: #fff; }
+    .social-link[title="LinkedIn"]  { background: #0A66C2; border-color: #0A66C2; color: #fff; }
+    .social-link[title="Instagram"] { background: linear-gradient(135deg,#833AB4,#E1306C,#FD9C2D); border-color: transparent; color: #fff; }
+    .social-link[title="WhatsApp"]  { background: #25D366; border-color: #25D366; color: #fff; }
+    .social-link[title="SMS"]       { background: #4A90D9; border-color: #4A90D9; color: #fff; }
+    .social-link[title="Threads"]   { background: #000; border-color: #333; color: #fff; }
 
     .contact-form { background: var(--dark3); border-radius: 20px; padding: 40px; border: 1px solid rgba(255,255,255,0.07); }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
@@ -999,7 +1030,7 @@
   <div class="hero-slider" id="heroSlider">
     <div class="slide active" data-label="Stunning Family Home"
       style="background-image:url('assets/images/hero-1.jpg')"></div>
-    <div class="slide" data-label="Luxury Townhome"
+    <div class="slide" data-label="Single Family Homes"
       style="background-image:url('assets/images/hero-2.jpg')"></div>
     <div class="slide" data-label="Elegant Estate"
       style="background-image:url('assets/images/hero-3.jpg')"></div>
@@ -1023,7 +1054,7 @@
   <div class="hero-content">
     <div class="hero-badge">Trusted Real Estate Services</div>
     <h1>Find Your Perfect <em>Dream Home</em> Today</h1>
-    <p>Connecting buyers and sellers with exceptional properties across the region. Trusted expertise, personalised service, and results you can count on.</p>
+    <p>Connecting buyers and sellers with exceptional properties across Minneapolis, St. Paul, and the surrounding suburbs. Trusted local expertise, personalised service, and results you can count on.</p>
     <div class="hero-actions">
       <a href="#contact" class="btn-outline"><span style="filter:brightness(0) invert(1);">📞</span> Book a Consultation</a>
     </div>
@@ -1049,35 +1080,59 @@
     <p class="section-sub">Whether you're buying your first home or selling a luxury property, we provide expert guidance every step of the way.</p>
   </div>
   <div class="services-grid">
+    <!-- Row 1: Buyer Journey -->
+    <div class="services-row-label"><span>Buyer Journey — Finding &amp; Financing</span></div>
     <div class="service-card reveal">
-      <div class="service-icon">🏡</div>
-      <h3>Property Sales</h3>
-      <p>We market and sell your home with professional photography, targeted advertising, and skilled negotiation to achieve the best price.</p>
+      <div class="service-card-header"><div class="service-icon">🔑</div><h3>Buyer Representation</h3></div>
+      <p>Your advocate from search to closing. I guide you through every home, every offer, and every negotiation so you buy with confidence and never leave value on the table.</p>
     </div>
     <div class="service-card reveal">
-      <div class="service-icon">🔑</div>
-      <h3>Buyer Representation</h3>
-      <p>Let us find your ideal home. We handle searches, viewings, offers, and all the legal liaisons so you can focus on the excitement.</p>
+      <div class="service-card-header"><div class="service-icon">🚚</div><h3>Relocation Services</h3></div>
+      <p>Moving to the Twin Cities area? I provide personalised neighbourhood guides, school district insights, and community introductions to help you feel at home from day one.</p>
     </div>
     <div class="service-card reveal">
-      <div class="service-icon">🏘️</div>
-      <h3>Rentals & Leasing</h3>
-      <p>Landlords and tenants both benefit from our comprehensive rental service — from tenant screening to full property management.</p>
+      <div class="service-card-header"><div class="service-icon">🏦</div><h3>Lender Connections</h3></div>
+      <p>I connect buyers with trusted lenders and navigate government programs including down payment assistance, first-time homebuyer grants, and community assistance programs to secure the best financing for every situation.</p>
     </div>
     <div class="service-card reveal">
-      <div class="service-icon">📊</div>
-      <h3>Property Valuation</h3>
+      <div class="service-card-header"><div class="service-icon">🏗️</div><h3>New Construction Guidance</h3></div>
+      <p>Buying new build? I represent your interests with the builder, review contracts, negotiate upgrades, and ensure every milestone meets your expectations.</p>
+    </div>
+    <!-- Row 2: Seller Journey -->
+    <div class="services-row-label"><span>Seller Journey — Selling Your Home</span></div>
+    <div class="service-card reveal">
+      <div class="service-card-header"><div class="service-icon">🏷️</div><h3>Seller Representation</h3></div>
+      <p>From pricing strategy and staging advice to marketing and closing, I represent your interests at every step to get you the best price in the least time.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-card-header"><div class="service-icon">📊</div><h3>Property Valuation</h3></div>
       <p>Accurate, data-driven valuations based on local market knowledge. Know exactly what your property is worth before you list.</p>
     </div>
     <div class="service-card reveal">
-      <div class="service-icon">💼</div>
-      <h3>Investment Advice</h3>
-      <p>Grow your portfolio with expert guidance on buy-to-let, development opportunities, and high-yield investment properties.</p>
+      <div class="service-card-header"><div class="service-icon">🛋️</div><h3>Home Staging & Presentation</h3></div>
+      <p>First impressions sell homes. I advise on staging, decluttering, and presentation so your property stands out online and in person, attracting more offers at a higher price.</p>
     </div>
     <div class="service-card reveal">
-      <div class="service-icon">⚖️</div>
-      <h3>Title & Escrow Support</h3>
+      <div class="service-card-header"><div class="service-icon">🏡</div><h3>Property Sales</h3></div>
+      <p>We market and sell your home with professional photography, targeted advertising, and skilled negotiation to achieve the best price.</p>
+    </div>
+    <!-- Row 3: Closing the Deal -->
+    <div class="services-row-label"><span>Closing the Deal</span></div>
+    <div class="service-card reveal">
+      <div class="service-card-header"><div class="service-icon">🤝</div><h3>Offer & Negotiation Strategy</h3></div>
+      <p>Crafting competitive offers and navigating counter-offers is an art. I leverage local market data and experience to position you to win, without overpaying.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-card-header"><div class="service-icon">🔍</div><h3>Home Inspections</h3></div>
+      <p>We coordinate thorough home inspections with certified professionals to uncover any issues before they become costly surprises, giving you full confidence in your purchase.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-card-header"><div class="service-icon">⚖️</div><h3>Title & Escrow Support</h3></div>
       <p>We work closely with trusted title companies, attorneys, and inspectors to keep your transaction on track and stress-free from contract to closing.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-card-header"><div class="service-icon">💼</div><h3>Investment Advice</h3></div>
+      <p>Looking to grow your real estate portfolio? I identify high-potential properties, analyse market trends, and provide the insights serious investors need to make smart, profitable decisions.</p>
     </div>
   </div>
 </section>
@@ -1086,7 +1141,7 @@
 <section id="about">
   <div class="about-grid">
     <div class="about-img-wrap reveal">
-      <img src="assets/pooja.png" alt="Pooja — Dream Homes By Pooja" />
+      <img src="assets/pooja.jpg" alt="Pooja — Dream Homes By Pooja" />
       <div class="about-badge-float">
         <div class="badge-stars">
           <span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span>
@@ -1101,13 +1156,13 @@
       <p class="section-sub">At Dream Homes, we believe that finding the right home is one of life's most important moments. With over a decade of experience in the local market, our dedicated team is committed to making your property journey as seamless and rewarding as possible.</p>
       <p class="section-sub" style="margin-top:12px;">We take the time to understand your needs, budget, and lifestyle — then we put our expertise to work to find or sell properties that truly match your vision.</p>
       <ul class="about-list" style="margin-top:24px;">
-        <li>Deep local market knowledge across Texas, Tennessee, and the South</li>
-        <li>Personalised service — you're never just a transaction to us</li>
-        <li>Award-winning marketing with professional photography & video tours</li>
+        <li>Deep local market knowledge of Minneapolis / St Paul and its suburbs</li>
+        <li>Personalised service where you're never just a transaction</li>
         <li>Transparent communication at every stage of your sale or purchase</li>
+        <li>Compelling marketing with professional photography & cinematic video tours</li>
         <li>A trusted network of attorneys, inspectors, and mortgage advisors</li>
       </ul>
-      <a href="#" class="btn-primary" onclick="openModal(event)">Book a Free Valuation ›</a>
+      <a href="#contact" class="btn-primary">Book a free Consultation ›</a>
     </div>
   </div>
 </section>
@@ -1713,9 +1768,9 @@
     <div class="contact-info reveal">
       <div class="section-label">Get In Touch</div>
       <h2 class="section-title">Let's Start Your Property Journey</h2>
-      <p class="section-sub">Whether you're ready to buy, sell, let or just want advice — we'd love to hear from you. Get in touch for a free, no-obligation consultation.</p>
+      <p class="section-sub">Whether you're ready to buy, sell, or just want advice — we'd love to hear from you. Get in touch for a free, no-obligation consultation.</p>
       <div class="contact-item">
-        <div class="contact-icon">📞</div>
+        <div class="contact-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg></div>
         <div>
           <h4>Phone / WhatsApp</h4>
           <a href="tel:+19522011559">952-201-1559</a>
@@ -1724,29 +1779,31 @@
         </div>
       </div>
       <div class="contact-item">
-        <div class="contact-icon">✉️</div>
+        <div class="contact-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></div>
         <div>
           <h4>Email</h4>
           <a href="mailto:dreamhomesbypooja@gmail.com">dreamhomesbypooja@gmail.com</a>
         </div>
       </div>
       <div class="contact-item">
-        <div class="contact-icon">📍</div>
+        <div class="contact-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></div>
         <div>
           <h4>Office</h4>
-          <p>17346 78th Ave N, Maple Grove, MN 55311</p>
+          <p>7301 Ohms Ln, Suite 300, Edina, MN</p>
         </div>
       </div>
       <div class="contact-item">
-        <div class="contact-icon">🕐</div>
+        <div class="contact-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg></div>
         <div>
           <h4>Opening Hours</h4>
-          <p>Mon–Fri: 9am–6pm &nbsp;|&nbsp; Sat: 9am–4pm</p>
+          <p>Mon–Wed: 9am–7pm &nbsp;|&nbsp; Fri–Sun: 8am–7pm</p>
         </div>
       </div>
       <div class="social-links">
         <a href="https://www.facebook.com/profile.php?id=61556564918707" target="_blank" rel="noopener" class="social-link" title="Facebook">f</a>
-        <a href="#" class="social-link" title="LinkedIn">in</a>
+        <a href="https://www.instagram.com/bartakepooja" target="_blank" rel="noopener" class="social-link" title="Instagram">ig</a>
+        <a href="https://www.threads.net/@bartakepooja" target="_blank" rel="noopener" class="social-link" title="Threads">@</a>
+        <a href="https://www.linkedin.com/in/pooja-bartake-58820a29/" target="_blank" rel="noopener" class="social-link" title="LinkedIn">in</a>
         <a href="https://wa.me/19522011559" target="_blank" rel="noopener" class="social-link" title="WhatsApp">💬</a>
         <a href="sms:+19522011559" class="social-link" title="SMS">✉</a>
       </div>
