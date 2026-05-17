@@ -598,23 +598,47 @@
     }
     .testimonial-card {
       width: 340px; flex-shrink: 0;
-      background: var(--dark3); border-radius: 16px; padding: 32px;
+      background: var(--dark3); border-radius: 16px; padding: 28px;
       border: 1px solid rgba(255,255,255,0.06);
       transition: border-color 0.3s, transform 0.3s;
       user-select: none;
+      height: 320px;
+      display: flex; flex-direction: column;
     }
     .testimonial-card:hover { border-color: rgba(201,168,76,0.3); transform: translateY(-4px); }
+    .review-card-header {
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 14px; flex-shrink: 0;
+    }
+    .review-card-header .author-avatar {
+      width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; color: var(--dark); font-size: 0.9rem;
+    }
+    .review-card-meta { flex: 1; min-width: 0; }
+    .author-name { font-weight: 600; font-size: 0.9rem; color: var(--white); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .author-loc { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+    .review-card-badges { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; flex-shrink: 0; }
     .review-type-badge {
       display: inline-block; font-size: 0.68rem; font-weight: 700;
       letter-spacing: 0.08em; text-transform: uppercase;
-      padding: 3px 10px; border-radius: 20px; margin-bottom: 14px;
+      padding: 3px 10px; border-radius: 20px;
       background: rgba(201,168,76,0.12); color: var(--gold);
       border: 1px solid rgba(201,168,76,0.25);
     }
-    .stars { color: var(--gold); font-size: 0.88rem; margin-bottom: 14px; letter-spacing: 3px; }
+    .stars { color: var(--gold); font-size: 0.88rem; letter-spacing: 3px; }
+    .review-card-body {
+      flex: 1; overflow-y: auto; min-height: 0;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(201,168,76,0.3) transparent;
+    }
+    .review-card-body::-webkit-scrollbar { width: 4px; }
+    .review-card-body::-webkit-scrollbar-track { background: transparent; }
+    .review-card-body::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.3); border-radius: 2px; }
     .testimonial-card blockquote {
       font-size: 0.9rem; color: rgba(232,232,232,0.8);
-      line-height: 1.75; margin-bottom: 24px; font-style: italic;
+      line-height: 1.75; font-style: italic; margin: 0; padding-right: 4px;
     }
     .testimonial-author { display: flex; align-items: center; gap: 14px; }
     .author-avatar {
@@ -623,8 +647,6 @@
       display: flex; align-items: center; justify-content: center;
       font-weight: 700; color: var(--dark); font-size: 0.9rem;
     }
-    .author-name { font-weight: 600; font-size: 0.9rem; color: var(--white); }
-    .author-loc { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
     .reviews-loading {
       text-align: center; padding: 48px;
       color: var(--muted); font-size: 0.9rem;
@@ -1393,7 +1415,6 @@
       <div class="reviews-loading">Loading reviews…</div>
     </div>
   </div>
-  <p class="reviews-count" id="reviews-count"></p>
 </section>
 
 <!-- FACEBOOK FEED -->
@@ -2150,15 +2171,19 @@
     const card  = document.createElement('div');
     card.className = 'testimonial-card';
     card.innerHTML = `
-      <span class="review-type-badge">${r.type}</span>
-      <div class="stars">${stars}</div>
-      <blockquote>"${r.text}"</blockquote>
-      <div class="testimonial-author">
+      <div class="review-card-header">
         <div class="author-avatar">${r.initials}</div>
-        <div>
+        <div class="review-card-meta">
           <div class="author-name">${r.name}</div>
           <div class="author-loc">${r.location}</div>
         </div>
+      </div>
+      <div class="review-card-badges">
+        <span class="review-type-badge">${r.type}</span>
+        <span class="stars">${stars}</span>
+      </div>
+      <div class="review-card-body">
+        <blockquote>"${r.text}"</blockquote>
       </div>`;
     return card;
   }
@@ -2225,6 +2250,19 @@
       startCarousel(track, reviews);
     } catch (e) {
       const fallback = [
+        { name:'Sam Capistrant', initials:'SC', location:'Fairway Independent Mortgage', type:'Lender', rating:5, text:"Pooja is one of those rare realtors that you can sense it's more than just \"a transaction\" to her. She truly goes above and beyond for her clients and really is looking out for their best interests.", date:'2024-03-01' },
+        { name:'Matthew Witt', initials:'MW', location:'Bought in Edina, MN', type:'Buyer', rating:5, text:"Thanks for being awesome!!! Pooja provided us a 5 star experience throughout the entire process of purchasing our first home. She was patient and thoughtful during the house search providing honest feedback along the way. She helped us put in a competitive offer and strategized with us through the negotiation process. It never felt like we were pressured because she made us feel like she just wanted the best for us. We will be recommending her to other friends in need of a realtor.", date:'2024-02-01' },
+        { name:'Emily Jaenke', initials:'EJ', location:'Bought in Minneapolis, MN', type:'Buyer', rating:5, text:"Pooja helped me through the entire process of purchasing my first home. As a first time homeowner with no experience and a lot to learn, she remained patient and answered every single one of my questions. Pooja went above and beyond to help me find a place I loved and was very flexible with my busy schedule which I greatly appreciated. She is really lovely to work with and made the whole process feel very easy.", date:'2025-03-01' },
+        { name:"Rylee O'Brien & Jakob Eiffert", initials:'RE', location:'Bought in St. Cloud, MN', type:'Buyer', rating:5, text:"We can't thank Pooja enough for her guidance through our home buying process. She was extremely kind, genuine, professional, and supportive throughout our time working together. My husband and I are so grateful to have Pooja as our realtor!", date:'2024-03-01' },
+        { name:'Susu Win & Nu Wa', initials:'SW', location:'Bought in St. Cloud, MN', type:'Buyer', rating:5, text:"Working with Pooja was an amazing experience. Her expertise and professionalism were clear from the first time we met. She helped me with every stage of the purchasing process, providing insightful advice and making sure I understood every choice. Pooja was really accommodating and quickly addressed any questions or worries I had. Throughout the transaction, her thoroughness and attention to detail in understanding contracts and paperwork provided me confidence. She showed a thorough comprehension of the regional market, which was really helpful in assisting me in making judgments. Overall, if you're seeking to purchase or sell a house, I fully suggest Pooja. Her exceptional real estate career is a result of her honesty, knowledge, and dedication to her customers. If I had the chance to collaborate with her once more in the future I wouldn't hesitate to let her know.", date:'2024-06-01' },
+        { name:'Krishna Kumar Iyer', initials:'KKI', location:'Bought in Maple Grove, MN', type:'Buyer', rating:5, text:"As a first-time home buyer, it was an absolute delight to work with Pooja as my realtor. I valued her patience, communication, caring and personalized approach the most. She educated me on each step, from mortgage pre-approval to closing. She was always prompt in answering my phone calls and emails and kept me updated on the progress with the buying process. She also kept in mind my preferences and lifestyle and made recommendations that were so helpful. These recommendations also came from a place of care to ensure that I had all the necessary information to make some informed decisions. Her proactiveness with everything and efficiency was remarkable. I was able to close within two months of starting the process because of that. I wouldn't hesitate, even for a bit, to recommend Pooja, to anyone who is out there wanting to buy their dream home!", date:'2024-08-01' },
+        { name:'KS', initials:'KS', location:'Bought in Plymouth, MN', type:'Investor', rating:5, text:"When we wanted to look for an investment property, we contacted Pooja for help. Immediately after that Pooja set up showings in neighborhoods that not only offer high probability of finding renters but also have homes that are reasonably priced for an investment property. She also screened several homes for their layout and quality and handpicked those that met our requirements. We were able to quickly converge from multitude of options including new vs older home, price range and down payment requirements to selecting the final home that we ended up purchasing. Pooja was also very helpful through the loan closure steps by getting us prescreened for a loan and working with a provider to get us the best possible mortgage rates. When we needed help with inspection of the house, she helped set that up and when we found some issues that needed attention, she helped manage the communication with the seller and negotiated a better closing price for us. Pooja made the entire process of buying a home effortless and we were lucky to find a realtor who works tirelessly to make the purchasing process efficient.", date:'2024-06-01' },
+        { name:'Olivia Shae & Jocelyn Klein', initials:'OJ', location:'Bought in St. Cloud, MN', type:'Buyer', rating:5, text:"Working with Pooja to find a home was a delightful experience. As first time home buyers, having someone who took the time to get to know us and found out not just what our needs were, but our dreams for the future too, made all the difference. Pooja is a very passionate, dedicated, and knowledgeable realtor; without her help I don't think we would've found such an amazing home. She worked relentlessly to help ensure this was a positive experience. Even when things got stressful or weren't going the way we hoped, she stayed positive and reminded us to let the universe guide us. Pooja's hard work and love for what she does lead us to the perfect place to call home and we cannot thank her enough!", date:'2024-10-01' },
+        { name:'Robert Johnson', initials:'RJ', location:'Bought in Minneapolis, MN', type:'Buyer', rating:5, text:"Very helpful and knowledgeable. Very nice agent always attentive to our needs. Pooja deserves 10 stars for always being there for us.", date:'2025-03-01' },
+        { name:'Roma & Ishan', initials:'RI', location:'Sold in Maple Grove, MN', type:'Seller', rating:5, text:"Selling my first home wasn't just a real estate transaction—it was an emotional, sometimes overwhelming experience filled with unexpected turns. I didn't fully grasp how much goes into the process until I lived it: constant coordination, buyer negotiations, legal hurdles, shifting timelines, and so many moving parts behind the scenes. Pooja handled all of it with an incredible mix of professionalism, tenacity, and care. She was in the details, always a step ahead—whether it was chasing down documents, managing communication between parties, or simply making sure I felt supported during the tough moments. She knew when to push, when to listen, and when to step in and steer things back on course. What made it even more special is that she didn't just see it as a sale—she understood the emotional weight of letting go of a first home. She brought not just skill, but heart, and made a difficult process feel manageable and meaningful. I'm grateful for her guidance, her persistence, and her ability to make something so complex feel personal and human. If this is what she brings to her friends, I can only imagine the dedication she brings to all her clients.", date:'2025-06-01' },
+        { name:'Mohamed Farah', initials:'MF', location:'Bought in St. Cloud, MN', type:'Buyer', rating:5, text:"Thanks for this wonderful milestone! I am truly grateful for the urgent support and assistance you gave in helping my family secure a home. This house is more than just a place to live. It is a foundation for comfort, safety, and many happy memories to come, and your role in making this possible means so much to us. May this support you gave us bring you continued success, blessings, and happiness in all that you do. From the bottom of my heart, thank you for being such a vital part of this journey for my family.", date:'2025-12-01' },
+        { name:'Shawn Van Drehle', initials:'SVD', location:'Bought in St. Cloud, MN', type:'Lender', rating:5, text:"You did a fantastic job also. She was so impressed by your work and to find her the right house. Great work Pooja Bartake, teamwork!!!!", date:'2025-09-01' },
+        { name:'Theertha & Nikhil', initials:'TN', location:'Bought in Dayton, MN', type:'Buyer', rating:5, text:"As first-time homebuyers, working with Pooja was an incredible experience. She patiently walked us through every do and don't of the process, making sure we felt confident at every step. When we decided to move forward with only the second home we saw, she didn't hesitate to double-check that we weren't rushing into anything — proof that she truly puts her clients' best interests above everything else. And thanks to her exceptional negotiation skills, we ended up securing an amazing deal. We couldn't recommend her more highly!", date:'2026-05-01' },
         { name:'Charles Behrman', initials:'CB', location:'Bought in St. Paul, MN', type:'Buyer', rating:5, text:"Pooja Bartake was awesome to work with! As a first-time homebuyer, I had a lot of questions, but Pooja was incredibly knowledgeable and made the entire process feel like a breeze. She has a great sense of humor that kept the stress levels low, yet she was a complete pro when it came to the details. I couldn't have asked for a better guide for my first purchase!", date:'2026-03-29' },
       ];
       startCarousel(track, fallback);
