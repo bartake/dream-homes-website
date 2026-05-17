@@ -381,8 +381,7 @@
     .btn-outline:hover { border-color: var(--gold); background: rgba(201,168,76,0.08); }
 
     .hero-stats {
-      position: absolute; bottom: 60px; left: 5%; z-index: 1;
-      display: flex; gap: 48px;
+      display: flex; gap: 48px; margin-top: 32px;
     }
     .stat-item { text-align: center; }
     .stat-num {
@@ -1027,10 +1026,6 @@
       style="background-image:url('assets/images/hero-4.jpg')"></div>
   </div>
 
-  <!-- Arrows -->
-  <button class="hero-arrow hero-arrow-prev" onclick="heroSlide(-1)" aria-label="Previous">&#8249;</button>
-  <button class="hero-arrow hero-arrow-next" onclick="heroSlide(1)"  aria-label="Next">&#8250;</button>
-
   <!-- Dots + label -->
   <div class="hero-slider-footer">
     <span class="slide-label" id="slideLabel">Luxury Estate Collection</span>
@@ -1047,15 +1042,15 @@
     <div class="hero-actions">
       <a href="#contact" class="btn-outline"><span style="filter:brightness(0) invert(1);">📞</span> Book a Consultation</a>
     </div>
-  </div>
-  <div class="hero-stats">
-    <div class="stat-item">
-      <span class="stat-num">100%</span>
-      <span class="stat-label">Client Satisfaction</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-num">$10M+</span>
-      <span class="stat-label">Sales Volume</span>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-num">100%</span>
+        <span class="stat-label">Client Satisfaction</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">$10M+</span>
+        <span class="stat-label">Sales Volume</span>
+      </div>
     </div>
   </div>
 </section>
