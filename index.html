@@ -48,6 +48,16 @@
       --dark: #f5f0e8; --dark2: #ede8df; --dark3: #e0dbd2; --dark4: #d0c8bc;
       --text: #2a2010; --muted: #7a6a50; --white: #1a1508;
     }
+    [data-theme="diwali"] {
+      --gold: #f5a623; --gold-light: #ffd54f;
+      --dark: #1a0a00; --dark2: #251100; --dark3: #301800; --dark4: #402200;
+      --text: #fff5e0; --muted: #c49a50; --white: #fffbf0;
+    }
+    [data-theme="christmas"] {
+      --gold: #e8312a; --gold-light: #ff6b63;
+      --dark: #071a0e; --dark2: #0c2214; --dark3: #122d1a; --dark4: #1a3d24;
+      --text: #e8f5ec; --muted: #6a9a72; --white: #f0faf2;
+    }
 
     /* ── CALCULATORS ── */
     #calculators { background: var(--dark2); }
@@ -495,96 +505,43 @@
 
     /* ── BUYING PROCESS INFOGRAPHIC ── */
     #process { background: var(--dark); }
-    .bp-timeline {
-      position: relative;
-      max-width: 920px;
+    .bp-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      max-width: 960px;
       margin: 0 auto;
     }
-    .bp-timeline::before {
-      content: '';
-      position: absolute;
-      left: 50%; top: 0; bottom: 0; width: 2px;
-      background: linear-gradient(to bottom, transparent, var(--gold) 4%, var(--gold) 96%, transparent);
-      transform: translateX(-50%);
-    }
-    .bp-step {
-      display: flex;
-      align-items: flex-start;
-      gap: 32px;
-      margin-bottom: 52px;
-      position: relative;
-    }
-    .bp-step:nth-child(even) { flex-direction: row-reverse; }
+    @media (max-width: 640px) { .bp-grid { grid-template-columns: 1fr; } }
     .bp-card {
-      flex: 1;
       background: var(--dark2);
       border: 1px solid rgba(201,168,76,0.15);
       border-radius: 16px;
-      padding: 26px 28px;
+      padding: 24px 26px;
       position: relative;
-      transition: border-color 0.3s;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
     }
-    .bp-card:hover { border-color: rgba(201,168,76,0.4); }
-    .bp-step:nth-child(odd) .bp-card::after {
-      content: '';
-      position: absolute;
-      right: -10px; top: 26px;
-      border-top: 9px solid transparent;
-      border-bottom: 9px solid transparent;
-      border-left: 10px solid rgba(201,168,76,0.15);
-    }
-    .bp-step:nth-child(even) .bp-card::after {
-      content: '';
-      position: absolute;
-      left: -10px; top: 26px;
-      border-top: 9px solid transparent;
-      border-bottom: 9px solid transparent;
-      border-right: 10px solid rgba(201,168,76,0.15);
-    }
-    .bp-spacer { flex: 1; }
-    .bp-node {
-      flex: 0 0 80px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-      z-index: 1;
-    }
-    .bp-circle {
-      width: 80px; height: 80px;
-      border-radius: 50%;
-      background: var(--dark3);
-      border: 2px solid var(--gold);
-      display: flex; align-items: center; justify-content: center;
+    .bp-card:hover { border-color: rgba(201,168,76,0.4); transform: translateY(-3px); }
+    .bp-step-num {
+      position: absolute; top: -8px; right: 16px;
       font-family: 'Playfair Display', serif;
-      font-size: 1.5rem; font-weight: 700;
-      color: var(--gold);
-      flex-shrink: 0;
-    }
-    .bp-final-step .bp-circle {
-      background: var(--gold);
-      color: var(--dark);
-    }
-    .bp-phase {
-      font-size: 0.62rem;
-      text-transform: uppercase;
-      letter-spacing: 0.09em;
-      color: var(--gold);
-      text-align: center;
-      white-space: nowrap;
+      font-size: 4.5rem; font-weight: 700; line-height: 1;
+      color: var(--gold); opacity: 0.35; pointer-events: none;
+      user-select: none;
     }
     .bp-card-header {
       display: flex; align-items: flex-start; gap: 14px; margin-bottom: 12px;
     }
     .bp-icon {
-      width: 46px; height: 46px; border-radius: 10px;
+      width: 44px; height: 44px; border-radius: 10px;
       background: rgba(201,168,76,0.1);
       display: flex; align-items: center; justify-content: center;
-      font-size: 1.35rem; flex-shrink: 0;
+      font-size: 1.3rem; flex-shrink: 0;
     }
     .bp-card-title {
       font-family: 'Playfair Display', serif;
-      font-size: 1.1rem; font-weight: 700;
+      font-size: 1.05rem; font-weight: 700;
       color: var(--white); margin-bottom: 3px;
     }
     .bp-timeframe {
@@ -592,35 +549,25 @@
       text-transform: uppercase; letter-spacing: 0.07em;
     }
     .bp-desc {
-      font-size: 0.84rem; color: var(--muted);
-      line-height: 1.65; margin-bottom: 16px;
+      font-size: 0.83rem; color: var(--muted);
+      line-height: 1.65; margin-bottom: 14px;
     }
     .bp-checklist {
       list-style: none;
-      display: grid; grid-template-columns: 1fr 1fr; gap: 7px 14px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 6px 12px;
     }
     .bp-checklist li {
-      font-size: 0.79rem; color: var(--muted);
-      display: flex; align-items: flex-start; gap: 7px; line-height: 1.4;
+      font-size: 0.78rem; color: var(--muted);
+      display: flex; align-items: flex-start; gap: 6px; line-height: 1.4;
     }
     .bp-checklist li::before {
       content: '✓'; color: var(--gold); font-weight: 700; flex-shrink: 0; margin-top: 1px;
     }
-    .bp-final-step .bp-card {
+    .bp-card-last {
       background: linear-gradient(135deg, rgba(201,168,76,0.07), rgba(201,168,76,0.02));
       border-color: rgba(201,168,76,0.35);
     }
-    @media (max-width: 760px) {
-      .bp-timeline::before { left: 39px; }
-      .bp-step, .bp-step:nth-child(even) {
-        flex-direction: row !important; gap: 16px; align-items: flex-start;
-      }
-      .bp-spacer { display: none; }
-      .bp-node { flex: 0 0 78px; }
-      .bp-step:nth-child(odd) .bp-card::after,
-      .bp-step:nth-child(even) .bp-card::after { display: none; }
-      .bp-checklist { grid-template-columns: 1fr; }
-    }
+    @media (max-width: 500px) { .bp-checklist { grid-template-columns: 1fr; } }
 
     /* ── TESTIMONIALS ── */
     #testimonials { background: var(--dark2); }
@@ -1177,181 +1124,126 @@
     <h2 class="section-title">The Home Buying Process</h2>
     <p class="section-sub" style="margin:0 auto;">A step-by-step guide to buying your dream home in the USA — from financial preparation all the way to getting your keys.</p>
   </div>
-  <div class="bp-timeline">
+  <div class="bp-grid">
 
-    <!-- Step 1 -->
-    <div class="bp-step reveal">
-      <div class="bp-card">
-        <div class="bp-card-header">
-          <div class="bp-icon">💳</div>
-          <div>
-            <div class="bp-card-title">Financial Preparation</div>
-            <div class="bp-timeframe">Weeks 1 – 2</div>
-          </div>
-        </div>
-        <p class="bp-desc">Set yourself up for success before touring homes. Lenders want to see financial stability and a clear picture of your income.</p>
-        <ul class="bp-checklist">
-          <li>Review & improve your credit score (aim 620+)</li>
-          <li>Calculate budget & down payment (3–20%)</li>
-          <li>Gather W-2s, tax returns & bank statements</li>
-          <li>Get mortgage pre-approval from a lender</li>
-        </ul>
-      </div>
-      <div class="bp-node">
-        <div class="bp-circle">1</div>
-        <div class="bp-phase">Prepare</div>
-      </div>
-      <div class="bp-spacer"></div>
+    <div class="bp-card reveal">
+      <div class="bp-step-num">01</div>
+      <div class="bp-card-header"><div class="bp-icon">🤝</div><div><div class="bp-card-title">Meet Your Agent</div><div class="bp-timeframe">Day 1</div></div></div>
+      <p class="bp-desc">A great agent is your biggest asset. I'll listen to your needs, understand your timeline, and build a personalised strategy just for you.</p>
+      <ul class="bp-checklist">
+        <li>Schedule a free consultation with me</li>
+        <li>Define must-haves vs. nice-to-haves</li>
+        <li>Set realistic market expectations</li>
+        <li>Sign buyer's representation agreement</li>
+      </ul>
     </div>
 
-    <!-- Step 2 -->
-    <div class="bp-step reveal">
-      <div class="bp-card">
-        <div class="bp-card-header">
-          <div class="bp-icon">🤝</div>
-          <div>
-            <div class="bp-card-title">Meet Your Agent</div>
-            <div class="bp-timeframe">Week 1</div>
-          </div>
-        </div>
-        <p class="bp-desc">A great agent is your biggest asset. Pooja will listen to your needs, understand your timeline, and build a personalised strategy.</p>
-        <ul class="bp-checklist">
-          <li>Schedule a free consultation</li>
-          <li>Define must-haves vs. nice-to-haves</li>
-          <li>Set realistic market expectations</li>
-          <li>Sign buyer's representation agreement</li>
-        </ul>
-      </div>
-      <div class="bp-node">
-        <div class="bp-circle">2</div>
-        <div class="bp-phase">Engage</div>
-      </div>
-      <div class="bp-spacer"></div>
+    <div class="bp-card reveal">
+      <div class="bp-step-num">02</div>
+      <div class="bp-card-header"><div class="bp-icon">💳</div><div><div class="bp-card-title">Prepare Finances</div><div class="bp-timeframe">Weeks 1 – 2</div></div></div>
+      <p class="bp-desc">Set yourself up for success before touring homes. Lenders want to see financial stability and a clear picture of your income.</p>
+      <ul class="bp-checklist">
+        <li>Review & improve your credit score (aim 620+)</li>
+        <li>Calculate your budget & down payment (3–20%)</li>
+        <li>Gather W-2s, tax returns & bank statements</li>
+        <li>Pay down outstanding debts where possible</li>
+      </ul>
     </div>
 
-    <!-- Step 3 -->
-    <div class="bp-step reveal">
-      <div class="bp-card">
-        <div class="bp-card-header">
-          <div class="bp-icon">🏠</div>
-          <div>
-            <div class="bp-card-title">Home Search</div>
-            <div class="bp-timeframe">Weeks 2 – 8</div>
-          </div>
-        </div>
-        <p class="bp-desc">The exciting part — but staying focused on your criteria saves time and avoids decision fatigue.</p>
-        <ul class="bp-checklist">
-          <li>Receive curated MLS listings daily</li>
-          <li>Tour homes in person & virtually</li>
-          <li>Research neighborhoods, schools & amenities</li>
-          <li>Track & compare your shortlisted homes</li>
-        </ul>
-      </div>
-      <div class="bp-node">
-        <div class="bp-circle">3</div>
-        <div class="bp-phase">Search</div>
-      </div>
-      <div class="bp-spacer"></div>
+    <div class="bp-card reveal">
+      <div class="bp-step-num">03</div>
+      <div class="bp-card-header"><div class="bp-icon">✅</div><div><div class="bp-card-title">Get Pre-Approved</div><div class="bp-timeframe">Week 2</div></div></div>
+      <p class="bp-desc">Pre-approval gives you a clear budget and shows sellers you're a serious buyer. I'll connect you with trusted lenders to get this done fast.</p>
+      <ul class="bp-checklist">
+        <li>Choose a lender (I can recommend trusted ones)</li>
+        <li>Submit mortgage application & documents</li>
+        <li>Receive pre-approval letter with loan amount</li>
+        <li>Explore down payment assistance programs</li>
+      </ul>
     </div>
 
-    <!-- Step 4 -->
-    <div class="bp-step reveal">
-      <div class="bp-card">
-        <div class="bp-card-header">
-          <div class="bp-icon">📝</div>
-          <div>
-            <div class="bp-card-title">Make an Offer</div>
-            <div class="bp-timeframe">1 – 3 Days</div>
-          </div>
-        </div>
-        <p class="bp-desc">Pooja analyses comparable sales to craft a competitive offer that protects your interests and stands out to the seller.</p>
-        <ul class="bp-checklist">
-          <li>Comparative market analysis (comps)</li>
-          <li>Submit earnest money deposit (1–3%)</li>
-          <li>Include smart contingency clauses</li>
-          <li>Negotiate counteroffers confidently</li>
-        </ul>
-      </div>
-      <div class="bp-node">
-        <div class="bp-circle">4</div>
-        <div class="bp-phase">Offer</div>
-      </div>
-      <div class="bp-spacer"></div>
+    <div class="bp-card reveal">
+      <div class="bp-step-num">04</div>
+      <div class="bp-card-header"><div class="bp-icon">🏠</div><div><div class="bp-card-title">Start Home Shopping</div><div class="bp-timeframe">Weeks 2 – 8</div></div></div>
+      <p class="bp-desc">The exciting part. Staying focused on your criteria saves time and avoids decision fatigue. I'll send curated matches straight to you.</p>
+      <ul class="bp-checklist">
+        <li>Receive curated MLS listings daily</li>
+        <li>Tour homes in person & virtually</li>
+        <li>Research neighborhoods, schools & amenities</li>
+        <li>Track & compare your shortlisted homes</li>
+      </ul>
     </div>
 
-    <!-- Step 5 -->
-    <div class="bp-step reveal">
-      <div class="bp-card">
-        <div class="bp-card-header">
-          <div class="bp-icon">🔍</div>
-          <div>
-            <div class="bp-card-title">Under Contract</div>
-            <div class="bp-timeframe">Weeks 1 – 3</div>
-          </div>
-        </div>
-        <p class="bp-desc">Once your offer is accepted, due diligence begins. This phase protects you from costly hidden surprises.</p>
-        <ul class="bp-checklist">
-          <li>Professional home inspection ($300–$500)</li>
-          <li>Review report & request repairs or credits</li>
-          <li>Lender-ordered independent appraisal</li>
-          <li>Title search & purchase title insurance</li>
-        </ul>
-      </div>
-      <div class="bp-node">
-        <div class="bp-circle">5</div>
-        <div class="bp-phase">Due Diligence</div>
-      </div>
-      <div class="bp-spacer"></div>
+    <div class="bp-card reveal">
+      <div class="bp-step-num">05</div>
+      <div class="bp-card-header"><div class="bp-icon">📝</div><div><div class="bp-card-title">Make an Offer</div><div class="bp-timeframe">1 – 3 Days</div></div></div>
+      <p class="bp-desc">Found the one? I'll analyse comparable sales to craft a competitive offer that protects your interests and stands out to the seller.</p>
+      <ul class="bp-checklist">
+        <li>Comparative market analysis (comps)</li>
+        <li>Submit earnest money deposit (1–3%)</li>
+        <li>Include smart contingency clauses</li>
+        <li>Present offer with a personal touch</li>
+      </ul>
     </div>
 
-    <!-- Step 6 -->
-    <div class="bp-step reveal">
-      <div class="bp-card">
-        <div class="bp-card-header">
-          <div class="bp-icon">🏦</div>
-          <div>
-            <div class="bp-card-title">Mortgage Approval</div>
-            <div class="bp-timeframe">Weeks 3 – 5</div>
-          </div>
-        </div>
-        <p class="bp-desc">Your lender's underwriting team reviews everything. Staying responsive and avoiding new credit inquiries speeds this up significantly.</p>
-        <ul class="bp-checklist">
-          <li>Submit full mortgage application</li>
-          <li>Respond promptly to underwriter requests</li>
-          <li>Lock in your interest rate</li>
-          <li>Receive "Clear to Close" approval</li>
-        </ul>
-      </div>
-      <div class="bp-node">
-        <div class="bp-circle">6</div>
-        <div class="bp-phase">Financing</div>
-      </div>
-      <div class="bp-spacer"></div>
+    <div class="bp-card reveal">
+      <div class="bp-step-num">06</div>
+      <div class="bp-card-header"><div class="bp-icon">🔍</div><div><div class="bp-card-title">Order an Inspection</div><div class="bp-timeframe">Within 7 – 10 Days</div></div></div>
+      <p class="bp-desc">Once your offer is accepted, a professional inspection protects you from costly hidden surprises before you're fully committed.</p>
+      <ul class="bp-checklist">
+        <li>Hire a certified home inspector</li>
+        <li>Attend the inspection in person</li>
+        <li>Review the full inspection report</li>
+        <li>Identify any issues requiring attention</li>
+      </ul>
     </div>
 
-    <!-- Step 7 -->
-    <div class="bp-step bp-final-step reveal">
-      <div class="bp-card">
-        <div class="bp-card-header">
-          <div class="bp-icon">🗝️</div>
-          <div>
-            <div class="bp-card-title">Closing Day</div>
-            <div class="bp-timeframe">The Big Day</div>
-          </div>
-        </div>
-        <p class="bp-desc">The finish line. Bring your ID and certified funds — everything else, Pooja has already taken care of.</p>
-        <ul class="bp-checklist">
-          <li>Final walkthrough of the property</li>
-          <li>Review & sign all closing documents</li>
-          <li>Pay closing costs & down payment balance</li>
-          <li>Receive the keys to your new home!</li>
-        </ul>
-      </div>
-      <div class="bp-node">
-        <div class="bp-circle">7</div>
-        <div class="bp-phase">Close</div>
-      </div>
-      <div class="bp-spacer"></div>
+    <div class="bp-card reveal">
+      <div class="bp-step-num">07</div>
+      <div class="bp-card-header"><div class="bp-icon">🤝</div><div><div class="bp-card-title">Negotiate Final Offer</div><div class="bp-timeframe">2 – 5 Days</div></div></div>
+      <p class="bp-desc">Based on inspection findings, I'll negotiate repairs, credits, or price reductions on your behalf to ensure you get the best possible deal.</p>
+      <ul class="bp-checklist">
+        <li>Request repairs or seller concessions</li>
+        <li>Negotiate closing cost contributions</li>
+        <li>Agree on final purchase price</li>
+        <li>Sign the final purchase agreement</li>
+      </ul>
+    </div>
+
+    <div class="bp-card reveal">
+      <div class="bp-step-num">08</div>
+      <div class="bp-card-header"><div class="bp-icon">🏦</div><div><div class="bp-card-title">Appraisal Ordered</div><div class="bp-timeframe">Weeks 3 – 5</div></div></div>
+      <p class="bp-desc">Your lender orders an independent appraisal to confirm the home's market value. Staying responsive during underwriting speeds the process.</p>
+      <ul class="bp-checklist">
+        <li>Lender schedules independent appraiser</li>
+        <li>Respond promptly to underwriter requests</li>
+        <li>Lock in your interest rate</li>
+        <li>Receive "Clear to Close" approval</li>
+      </ul>
+    </div>
+
+    <div class="bp-card reveal">
+      <div class="bp-step-num">09</div>
+      <div class="bp-card-header"><div class="bp-icon">🗝️</div><div><div class="bp-card-title">Closing Day</div><div class="bp-timeframe">The Big Day</div></div></div>
+      <p class="bp-desc">The finish line. Bring your ID and certified funds. Everything else, I'll have already taken care of.</p>
+      <ul class="bp-checklist">
+        <li>Final walkthrough of the property</li>
+        <li>Review & sign all closing documents</li>
+        <li>Pay closing costs & down payment balance</li>
+        <li>Receive the keys to your new home!</li>
+      </ul>
+    </div>
+
+    <div class="bp-card bp-card-last reveal">
+      <div class="bp-step-num">10</div>
+      <div class="bp-card-header"><div class="bp-icon">🚚</div><div><div class="bp-card-title">Schedule Your Move</div><div class="bp-timeframe">You're Home!</div></div></div>
+      <p class="bp-desc">Congratulations! My support doesn't end at closing. I'll connect you with trusted movers, contractors, and local resources to settle in smoothly.</p>
+      <ul class="bp-checklist">
+        <li>Book a reputable moving company early</li>
+        <li>Transfer utilities & update your address</li>
+        <li>Get recommendations for local contractors</li>
+        <li>Enjoy your new home!</li>
+      </ul>
     </div>
 
   </div>
@@ -1364,181 +1256,126 @@
     <h2 class="section-title">The Home Selling Process</h2>
     <p class="section-sub" style="margin:0 auto;">A step-by-step guide to selling your home for the best price — from preparation and pricing through to collecting your proceeds.</p>
   </div>
-  <div class="bp-timeline">
+  <div class="bp-grid">
 
-    <!-- Step 1 -->
-    <div class="bp-step reveal">
-      <div class="bp-card">
-        <div class="bp-card-header">
-          <div class="bp-icon">🧹</div>
-          <div>
-            <div class="bp-card-title">Prepare Your Home</div>
-            <div class="bp-timeframe">Weeks 1 – 2</div>
-          </div>
-        </div>
-        <p class="bp-desc">First impressions sell homes. Buyers decide within seconds — a clean, well-presented property commands a higher price and sells faster.</p>
-        <ul class="bp-checklist">
-          <li>Declutter, depersonalise & deep clean</li>
-          <li>Complete minor repairs & fresh paint</li>
-          <li>Boost curb appeal — lawn, landscaping, entry</li>
-          <li>Professional staging consultation</li>
-        </ul>
-      </div>
-      <div class="bp-node">
-        <div class="bp-circle">1</div>
-        <div class="bp-phase">Prepare</div>
-      </div>
-      <div class="bp-spacer"></div>
+    <div class="bp-card reveal">
+      <div class="bp-step-num">01</div>
+      <div class="bp-card-header"><div class="bp-icon">🤝</div><div><div class="bp-card-title">Choose an Agent</div><div class="bp-timeframe">Day 1</div></div></div>
+      <p class="bp-desc">Choosing the right agent makes all the difference. I'll walk you through my proven process, set clear expectations, and build a strategy tailored to your home and goals.</p>
+      <ul class="bp-checklist">
+        <li>Schedule a free seller consultation</li>
+        <li>Review my marketing approach</li>
+        <li>Discuss your timeline & priorities</li>
+        <li>Ask questions, no pressure, no obligation</li>
+      </ul>
     </div>
 
-    <!-- Step 2 -->
-    <div class="bp-step reveal">
-      <div class="bp-card">
-        <div class="bp-card-header">
-          <div class="bp-icon">📊</div>
-          <div>
-            <div class="bp-card-title">Price & Strategy</div>
-            <div class="bp-timeframe">Weeks 1 – 2</div>
-          </div>
-        </div>
-        <p class="bp-desc">Pricing correctly from day one is critical. Overpriced homes sit unsold; underpriced homes leave money on the table. Pooja finds the sweet spot.</p>
-        <ul class="bp-checklist">
-          <li>Free comparative market analysis (CMA)</li>
-          <li>Review recent comparable sales</li>
-          <li>Set a competitive listing price</li>
-          <li>Agree on marketing strategy & timeline</li>
-        </ul>
-      </div>
-      <div class="bp-node">
-        <div class="bp-circle">2</div>
-        <div class="bp-phase">Strategy</div>
-      </div>
-      <div class="bp-spacer"></div>
+    <div class="bp-card reveal">
+      <div class="bp-step-num">02</div>
+      <div class="bp-card-header"><div class="bp-icon">📊</div><div><div class="bp-card-title">Market Analysis</div><div class="bp-timeframe">Week 1</div></div></div>
+      <p class="bp-desc">I run a detailed Comparative Market Analysis using recent local sales to understand exactly where your home stands in today's market.</p>
+      <ul class="bp-checklist">
+        <li>Review comparable recent sales (comps)</li>
+        <li>Analyse active & pending listings</li>
+        <li>Assess your home's unique features</li>
+        <li>Identify the strongest pricing window</li>
+      </ul>
     </div>
 
-    <!-- Step 3 -->
-    <div class="bp-step reveal">
-      <div class="bp-card">
-        <div class="bp-card-header">
-          <div class="bp-icon">📸</div>
-          <div>
-            <div class="bp-card-title">List & Market</div>
-            <div class="bp-timeframe">Week 2 – 3</div>
-          </div>
-        </div>
-        <p class="bp-desc">Maximum exposure means maximum offers. Your home will be seen by thousands of qualified buyers across every major platform.</p>
-        <ul class="bp-checklist">
-          <li>Professional photography & video walkthrough</li>
-          <li>MLS listing live on 100+ platforms</li>
-          <li>Targeted social media & digital ad campaigns</li>
-          <li>Feature on Dream Homes website & print materials</li>
-        </ul>
-      </div>
-      <div class="bp-node">
-        <div class="bp-circle">3</div>
-        <div class="bp-phase">Market</div>
-      </div>
-      <div class="bp-spacer"></div>
+    <div class="bp-card reveal">
+      <div class="bp-step-num">03</div>
+      <div class="bp-card-header"><div class="bp-icon">💲</div><div><div class="bp-card-title">Establish a Sales Price</div><div class="bp-timeframe">Week 1</div></div></div>
+      <p class="bp-desc">Pricing correctly from day one is critical. Overpriced homes sit unsold; underpriced homes leave money on the table. I'll find the sweet spot that maximises your return.</p>
+      <ul class="bp-checklist">
+        <li>Set a data-driven listing price</li>
+        <li>Balance speed of sale vs. maximum return</li>
+        <li>Factor in buyer psychology & market timing</li>
+        <li>Agree on a pricing strategy going forward</li>
+      </ul>
     </div>
 
-    <!-- Step 4 -->
-    <div class="bp-step reveal">
-      <div class="bp-card">
-        <div class="bp-card-header">
-          <div class="bp-icon">🚪</div>
-          <div>
-            <div class="bp-card-title">Showings & Open Houses</div>
-            <div class="bp-timeframe">Weeks 2 – 6</div>
-          </div>
-        </div>
-        <p class="bp-desc">Every showing is an opportunity. Pooja handles all scheduling and feedback so you can focus on your daily life with minimal disruption.</p>
-        <ul class="bp-checklist">
-          <li>Flexible scheduling around your routine</li>
-          <li>Hosted open houses for maximum exposure</li>
-          <li>Real-time showing feedback & reports</li>
-          <li>Strategy adjustments based on market response</li>
-        </ul>
-      </div>
-      <div class="bp-node">
-        <div class="bp-circle">4</div>
-        <div class="bp-phase">Showings</div>
-      </div>
-      <div class="bp-spacer"></div>
+    <div class="bp-card reveal">
+      <div class="bp-step-num">04</div>
+      <div class="bp-card-header"><div class="bp-icon">✍️</div><div><div class="bp-card-title">Sign Listing Agreement</div><div class="bp-timeframe">Week 1 – 2</div></div></div>
+      <p class="bp-desc">Once we've agreed on price and strategy, we formalise our partnership. I'll walk you through every clause so you sign with full confidence.</p>
+      <ul class="bp-checklist">
+        <li>Review listing agreement terms</li>
+        <li>Confirm listing duration & commission</li>
+        <li>Agree on showing preferences & lockbox setup</li>
+        <li>Sign & officially go to market</li>
+      </ul>
     </div>
 
-    <!-- Step 5 -->
-    <div class="bp-step reveal">
-      <div class="bp-card">
-        <div class="bp-card-header">
-          <div class="bp-icon">📋</div>
-          <div>
-            <div class="bp-card-title">Review Offers</div>
-            <div class="bp-timeframe">1 – 3 Days</div>
-          </div>
-        </div>
-        <p class="bp-desc">The best offer isn't always the highest number. Pooja walks you through every detail so you choose the offer that truly serves your goals.</p>
-        <ul class="bp-checklist">
-          <li>Compare all offers side by side</li>
-          <li>Evaluate price, contingencies & timeline</li>
-          <li>Counter-offer or accept with expert guidance</li>
-          <li>Negotiate repairs, credits & closing costs</li>
-        </ul>
-      </div>
-      <div class="bp-node">
-        <div class="bp-circle">5</div>
-        <div class="bp-phase">Offers</div>
-      </div>
-      <div class="bp-spacer"></div>
+    <div class="bp-card reveal">
+      <div class="bp-step-num">05</div>
+      <div class="bp-card-header"><div class="bp-icon">📸</div><div><div class="bp-card-title">Marketing Campaign</div><div class="bp-timeframe">Week 2 – 3</div></div></div>
+      <p class="bp-desc">Maximum exposure means maximum offers. Your home will be seen by thousands of qualified buyers across every major platform.</p>
+      <ul class="bp-checklist">
+        <li>Professional photography & video walkthrough</li>
+        <li>MLS listing live on 900+ platforms</li>
+        <li>Targeted social media & digital ad campaigns</li>
+        <li>Hosted open houses for maximum foot traffic</li>
+      </ul>
     </div>
 
-    <!-- Step 6 -->
-    <div class="bp-step reveal">
-      <div class="bp-card">
-        <div class="bp-card-header">
-          <div class="bp-icon">🔎</div>
-          <div>
-            <div class="bp-card-title">Under Contract</div>
-            <div class="bp-timeframe">Weeks 1 – 3</div>
-          </div>
-        </div>
-        <p class="bp-desc">Once you accept an offer, the buyer conducts due diligence. Pooja protects your position at every step and keeps the deal on track.</p>
-        <ul class="bp-checklist">
-          <li>Buyer's home inspection — Pooja negotiates repair requests</li>
-          <li>Lender-ordered appraisal (buyer's side)</li>
-          <li>Title search & escrow account opened</li>
-          <li>Satisfy remaining contract contingencies</li>
-        </ul>
-      </div>
-      <div class="bp-node">
-        <div class="bp-circle">6</div>
-        <div class="bp-phase">Contract</div>
-      </div>
-      <div class="bp-spacer"></div>
+    <div class="bp-card reveal">
+      <div class="bp-step-num">06</div>
+      <div class="bp-card-header"><div class="bp-icon">🤜</div><div><div class="bp-card-title">Negotiate & Accept Offer</div><div class="bp-timeframe">1 – 3 Days</div></div></div>
+      <p class="bp-desc">The best offer isn't always the highest number. I'll walk you through every detail so you choose the offer that truly serves your goals.</p>
+      <ul class="bp-checklist">
+        <li>Compare all offers side by side</li>
+        <li>Evaluate price, contingencies & timeline</li>
+        <li>Counter-offer or accept with expert guidance</li>
+        <li>Negotiate repairs, credits & closing costs</li>
+      </ul>
     </div>
 
-    <!-- Step 7 -->
-    <div class="bp-step bp-final-step reveal">
-      <div class="bp-card">
-        <div class="bp-card-header">
-          <div class="bp-icon">💰</div>
-          <div>
-            <div class="bp-card-title">Closing Day</div>
-            <div class="bp-timeframe">The Big Day</div>
-          </div>
-        </div>
-        <p class="bp-desc">The moment you've been working toward. Pooja is with you every step of the way — sign, hand over the keys, and enjoy your proceeds.</p>
-        <ul class="bp-checklist">
-          <li>Buyer completes final walkthrough</li>
-          <li>Sign all transfer & closing documents</li>
-          <li>Receive net proceeds via wire transfer</li>
-          <li>Hand over the keys — congratulations!</li>
-        </ul>
-      </div>
-      <div class="bp-node">
-        <div class="bp-circle">7</div>
-        <div class="bp-phase">Close</div>
-      </div>
-      <div class="bp-spacer"></div>
+    <div class="bp-card reveal">
+      <div class="bp-step-num">07</div>
+      <div class="bp-card-header"><div class="bp-icon">🔍</div><div><div class="bp-card-title">Home Inspection</div><div class="bp-timeframe">Within 7 – 10 Days</div></div></div>
+      <p class="bp-desc">Once under contract, the buyer orders a professional inspection. I'll protect your position during negotiations and ensure repair requests are fair and reasonable.</p>
+      <ul class="bp-checklist">
+        <li>Buyer schedules certified home inspector</li>
+        <li>Review inspection report findings</li>
+        <li>I negotiate any repair requests on your behalf</li>
+        <li>Agree on credits or repairs to keep deal on track</li>
+      </ul>
+    </div>
+
+    <div class="bp-card reveal">
+      <div class="bp-step-num">08</div>
+      <div class="bp-card-header"><div class="bp-icon">🏦</div><div><div class="bp-card-title">Home Appraisal</div><div class="bp-timeframe">Weeks 3 – 4</div></div></div>
+      <p class="bp-desc">The buyer's lender orders an independent appraisal to verify the home's value. If it comes in low, I'll negotiate to protect your sale price.</p>
+      <ul class="bp-checklist">
+        <li>Lender-ordered independent appraisal</li>
+        <li>I provide the appraiser with supporting comps</li>
+        <li>Address any value gaps with the buyer's lender</li>
+        <li>Confirm appraisal clears for financing</li>
+      </ul>
+    </div>
+
+    <div class="bp-card reveal">
+      <div class="bp-step-num">09</div>
+      <div class="bp-card-header"><div class="bp-icon">⚖️</div><div><div class="bp-card-title">Title Commitment</div><div class="bp-timeframe">Weeks 4 – 5</div></div></div>
+      <p class="bp-desc">A title company searches public records to confirm you have clear ownership. Any issues found are resolved before closing to protect both parties.</p>
+      <ul class="bp-checklist">
+        <li>Title company conducts full title search</li>
+        <li>Resolve any liens, judgments, or title issues</li>
+        <li>Issue title commitment to buyer's lender</li>
+        <li>Confirm all contingencies are satisfied</li>
+      </ul>
+    </div>
+
+    <div class="bp-card bp-card-last reveal">
+      <div class="bp-step-num">10</div>
+      <div class="bp-card-header"><div class="bp-icon">🗝️</div><div><div class="bp-card-title">Closing Day</div><div class="bp-timeframe">The Big Day</div></div></div>
+      <p class="bp-desc">The moment you've been working toward. I'll be with you every step of the way. Sign, hand over the keys, and enjoy your proceeds.</p>
+      <ul class="bp-checklist">
+        <li>Buyer completes final walkthrough</li>
+        <li>Sign all transfer & closing documents</li>
+        <li>Receive net proceeds via wire transfer</li>
+        <li>Hand over the keys, congratulations!</li>
+      </ul>
     </div>
 
   </div>
@@ -2130,6 +1967,8 @@
       <button class="theme-swatch" data-theme="rose"      style="background:#d4789a" title="Rose Noir"       onclick="setTheme('rose')"></button>
       <button class="theme-swatch" data-theme="silver"    style="background:#a8bdd0" title="Arctic Silver"   onclick="setTheme('silver')"></button>
       <button class="theme-swatch" data-theme="champagne" style="background:#7a5c20" title="Champagne Light"  onclick="setTheme('champagne')"></button>
+      <button class="theme-swatch" data-theme="diwali"    style="background:linear-gradient(135deg,#f5a623,#1a0a00)" title="Diwali"     onclick="setTheme('diwali')"></button>
+      <button class="theme-swatch" data-theme="christmas" style="background:linear-gradient(135deg,#e8312a,#0c2214)" title="Christmas" onclick="setTheme('christmas')"></button>
     </div>
     <div class="theme-name" id="themeName">Noir Gold</div>
   </div>
@@ -2704,10 +2543,154 @@
     });
     const nameEl = document.getElementById('themeName');
     if (nameEl) nameEl.textContent = THEMES[theme] || 'Noir Gold';
-    // reset nav inline style so CSS picks up new --dark
     const nav = document.querySelector('nav');
     if (nav) nav.style.background = '';
+    theme === 'diwali' ? startDiwali() : stopDiwali();
   }
+
+  /* ── DIWALI ANIMATIONS ── */
+  const DIWALI_COLORS = ['#f5a623','#ffd54f','#ff6b35','#ff3a6e','#ffe600','#ff9500','#ffbe4f','#ff00aa'];
+  let diwaliCanvas, diwaliCtx, diwaliAnimId, diwaliLampId, diwaliCrackerBurstId;
+
+  function startDiwali() {
+    if (diwaliCanvas) return;
+
+    // Inject lamp float keyframes
+    if (!document.getElementById('diwali-style')) {
+      const s = document.createElement('style');
+      s.id = 'diwali-style';
+      s.textContent = `
+        @keyframes diwali-rise {
+          0%   { transform: translateY(0) translateX(0);   opacity: 0; }
+          8%   { opacity: 1; }
+          45%  { transform: translateY(-45vh) translateX(18px);  opacity: 0.85; }
+          100% { transform: translateY(-105vh) translateX(-12px); opacity: 0; }
+        }
+        @keyframes diwali-rise2 {
+          0%   { transform: translateY(0) translateX(0);   opacity: 0; }
+          8%   { opacity: 1; }
+          45%  { transform: translateY(-45vh) translateX(-18px); opacity: 0.85; }
+          100% { transform: translateY(-105vh) translateX(12px);  opacity: 0; }
+        }
+        #diwali-lamps { position:fixed;bottom:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9997;overflow:hidden; }
+        .diwali-lamp  { position:absolute; bottom:-50px; user-select:none; animation-fill-mode:forwards; animation-timing-function:ease-in-out; }
+      `;
+      document.head.appendChild(s);
+    }
+
+    // Lamp container
+    const lampWrap = document.createElement('div');
+    lampWrap.id = 'diwali-lamps';
+    document.body.appendChild(lampWrap);
+
+    const lampEmojis = ['🪔'];
+    function spawnLamp() {
+      if (!document.getElementById('diwali-lamps')) return;
+      const el = document.createElement('span');
+      el.className = 'diwali-lamp';
+      el.textContent = lampEmojis[Math.floor(Math.random() * lampEmojis.length)];
+      const size = Math.random() * 28 + 40;
+      const dur  = Math.random() * 4 + 7;
+      const anim = Math.random() > 0.5 ? 'diwali-rise' : 'diwali-rise2';
+      el.style.cssText = `font-size:${size}px;left:${Math.random()*92+2}%;animation:${anim} ${dur}s ease-in-out forwards;`;
+      lampWrap.appendChild(el);
+      setTimeout(() => el.remove(), dur * 1000 + 200);
+    }
+    spawnLamp();
+    diwaliLampId = setInterval(spawnLamp, 1800);
+
+    // Canvas for border firecrackers
+    diwaliCanvas = document.createElement('canvas');
+    diwaliCanvas.id = 'diwali-canvas';
+    diwaliCanvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9998;';
+    document.body.appendChild(diwaliCanvas);
+    diwaliCtx = diwaliCanvas.getContext('2d');
+    const resize = () => { diwaliCanvas.width = innerWidth; diwaliCanvas.height = innerHeight; };
+    resize();
+    window.addEventListener('resize', resize);
+    diwaliCanvas._resize = resize;
+
+    const particles = [];
+    const BORDER = 60;
+
+    function burst(bx, by) {
+      const count = Math.floor(Math.random() * 28 + 18);
+      for (let i = 0; i < count; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = Math.random() * 3.5 + 0.5;
+        particles.push({
+          x: bx, y: by,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          color: DIWALI_COLORS[Math.floor(Math.random() * DIWALI_COLORS.length)],
+          alpha: 1,
+          radius: Math.random() * 2.5 + 0.8,
+          decay: Math.random() * 0.025 + 0.015,
+          sparkle: Math.random() > 0.4
+        });
+      }
+    }
+
+    function borderBurst() {
+      if (!diwaliCanvas) return;
+      const w = diwaliCanvas.width, h = diwaliCanvas.height;
+      const edge = Math.floor(Math.random() * 4);
+      const bx = edge === 0 || edge === 1 ? Math.random() * w : (edge === 2 ? Math.random() * BORDER : w - Math.random() * BORDER);
+      const by = edge === 0 ? Math.random() * BORDER : (edge === 1 ? h - Math.random() * BORDER : Math.random() * h);
+      burst(bx, by);
+    }
+
+    diwaliCrackerBurstId = setInterval(borderBurst, 600);
+
+    function animate() {
+      diwaliAnimId = requestAnimationFrame(animate);
+      diwaliCtx.clearRect(0, 0, diwaliCanvas.width, diwaliCanvas.height);
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.x += p.vx; p.y += p.vy;
+        p.vy += 0.05;
+        p.alpha -= p.decay;
+        if (p.alpha <= 0) { particles.splice(i, 1); continue; }
+        diwaliCtx.save();
+        diwaliCtx.globalAlpha = p.alpha;
+        diwaliCtx.fillStyle = p.color;
+        if (p.sparkle) {
+          diwaliCtx.beginPath();
+          const r = p.radius;
+          diwaliCtx.moveTo(p.x, p.y - r*2); diwaliCtx.lineTo(p.x+r*0.5, p.y-r*0.5);
+          diwaliCtx.lineTo(p.x+r*2, p.y);   diwaliCtx.lineTo(p.x+r*0.5, p.y+r*0.5);
+          diwaliCtx.lineTo(p.x, p.y+r*2);   diwaliCtx.lineTo(p.x-r*0.5, p.y+r*0.5);
+          diwaliCtx.lineTo(p.x-r*2, p.y);   diwaliCtx.lineTo(p.x-r*0.5, p.y-r*0.5);
+          diwaliCtx.closePath(); diwaliCtx.fill();
+        } else {
+          diwaliCtx.beginPath();
+          diwaliCtx.arc(p.x, p.y, p.radius, 0, Math.PI*2);
+          diwaliCtx.fill();
+        }
+        diwaliCtx.restore();
+      }
+    }
+    animate();
+  }
+
+  function stopDiwali() {
+    if (!diwaliCanvas && !document.getElementById('diwali-lamps')) return;
+    cancelAnimationFrame(diwaliAnimId);
+    clearInterval(diwaliLampId);
+    clearInterval(diwaliCrackerBurstId);
+    if (diwaliCanvas) {
+      window.removeEventListener('resize', diwaliCanvas._resize);
+      diwaliCanvas.remove();
+    }
+    const lamps = document.getElementById('diwali-lamps');
+    if (lamps) lamps.remove();
+    const style = document.getElementById('diwali-style');
+    if (style) style.remove();
+    diwaliCanvas = null; diwaliCtx = null; diwaliAnimId = null; diwaliLampId = null; diwaliCrackerBurstId = null;
+  }
+
+  if (localStorage.getItem('dh-theme') === 'diwali') startDiwali();
+
 
   function toggleThemePicker() {
     document.getElementById('themePalette').classList.toggle('open');
