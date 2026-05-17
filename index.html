@@ -871,8 +871,8 @@
     .fb-highlights li span { font-size: 1.1rem; }
     .fb-follow-btn {
       display: inline-flex; align-items: center; gap: 10px;
-      background: #1877f2;
-      color: #fff; font-weight: 600; font-size: 0.9rem;
+      background: var(--gold);
+      color: var(--dark); font-weight: 600; font-size: 0.9rem;
       padding: 12px 28px; border-radius: 8px;
       text-decoration: none;
       transition: opacity 0.2s, transform 0.2s;
@@ -1401,8 +1401,8 @@
   <div class="fb-section-grid">
     <div class="fb-info reveal">
       <div class="section-label">Stay Connected</div>
-      <h2 class="section-title">Follow Us on Facebook</h2>
-      <p class="section-sub">See our latest property listings, local market updates, and behind-the-scenes moments straight from our Facebook page.</p>
+      <h2 class="section-title">Follow Us on Social Media</h2>
+      <p class="section-sub">See our latest property listings, local market updates, and behind-the-scenes moments across our social channels.</p>
       <ul class="fb-highlights">
         <li><span>🏡</span> New listings posted regularly</li>
         <li><span>📸</span> Property photos &amp; virtual tours</li>
@@ -1410,10 +1410,17 @@
         <li><span>⭐</span> Client success stories</li>
         <li><span>💬</span> Q&amp;As and community updates</li>
       </ul>
-      <a href="https://www.facebook.com/profile.php?id=61556564918707" target="_blank" rel="noopener" class="fb-follow-btn">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.791-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.514c-1.491 0-1.956.93-1.956 1.886v2.268h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>
-        Like Our Page
+      <a href="#" onclick="return false;" class="fb-follow-btn" style="cursor:default;">
+        Click the social icons below to connect with us
       </a>
+      <div class="social-links">
+        <a href="https://www.facebook.com/profile.php?id=61556564918707" target="_blank" rel="noopener" class="social-link" title="Facebook">f</a>
+        <a href="https://www.instagram.com/bartakepooja" target="_blank" rel="noopener" class="social-link" title="Instagram">ig</a>
+        <a href="https://www.threads.net/@bartakepooja" target="_blank" rel="noopener" class="social-link" title="Threads">@</a>
+        <a href="https://www.linkedin.com/in/pooja-bartake-58820a29/" target="_blank" rel="noopener" class="social-link" title="LinkedIn">in</a>
+        <a href="https://wa.me/19522011559" target="_blank" rel="noopener" class="social-link" title="WhatsApp">💬</a>
+        <a href="sms:+19522011559" class="social-link" title="SMS">✉</a>
+      </div>
     </div>
     <div class="fb-embed-wrap reveal">
       <iframe
