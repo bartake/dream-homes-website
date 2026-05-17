@@ -1756,24 +1756,24 @@
       <div class="form-row">
         <div class="form-group">
           <label>First Name</label>
-          <input type="text" placeholder="John" />
+          <input id="c-first" type="text" placeholder="John" />
         </div>
         <div class="form-group">
           <label>Last Name</label>
-          <input type="text" placeholder="Smith" />
+          <input id="c-last" type="text" placeholder="Smith" />
         </div>
       </div>
       <div class="form-group">
         <label>Email Address</label>
-        <input type="email" placeholder="john@example.com" />
+        <input id="c-email" type="email" placeholder="john@example.com" />
       </div>
       <div class="form-group">
         <label>Phone Number</label>
-        <input type="tel" placeholder="+1 (555) 000-0000" />
+        <input id="c-phone" type="tel" placeholder="+1 (555) 000-0000" />
       </div>
       <div class="form-group">
         <label>I'm Interested In</label>
-        <select>
+        <select id="c-interest">
           <option>Buying a Property</option>
           <option>Selling a Property</option>
           <option>Investment Advice</option>
@@ -1782,9 +1782,9 @@
       </div>
       <div class="form-group">
         <label>Message</label>
-        <textarea placeholder="Tell us about what you're looking for..."></textarea>
+        <textarea id="c-message" placeholder="Tell us about what you're looking for..."></textarea>
       </div>
-      <button class="form-submit" onclick="handleSubmit(event)">Send Message →</button>
+      <button class="form-submit" id="btn-contact" onclick="handleSubmit(event)">Send Message →</button>
     </div>
   </div>
 </section>
@@ -2191,13 +2191,48 @@
 // Form submit
   function handleSubmit(e) {
     e.preventDefault();
-    const btn = e.target;
-    btn.textContent = '✓ Message Sent!';
-    btn.style.background = 'linear-gradient(135deg,#4caf50,#66bb6a)';
-    setTimeout(() => {
-      btn.textContent = 'Send Message →';
-      btn.style.background = '';
-    }, 3000);
+    const btn = document.getElementById('btn-contact');
+    const firstName = document.getElementById('c-first').value.trim();
+    const lastName  = document.getElementById('c-last').value.trim();
+    const email     = document.getElementById('c-email').value.trim();
+    const phone     = document.getElementById('c-phone').value.trim();
+    const interest  = document.getElementById('c-interest').value;
+    const message   = document.getElementById('c-message').value.trim();
+
+    if (!firstName || !email || !message) {
+      alert('Please fill in your name, email, and message.');
+      return;
+    }
+
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+
+    emailjs.send('service_5d4jpee', 'template_contact', {
+      from_name:  firstName + ' ' + lastName,
+      from_email: email,
+      reply_to:   email,
+      phone:      phone || 'Not provided',
+      interest:   interest,
+      message:    message,
+    }).then(() => {
+      btn.textContent = '✓ Message Sent!';
+      btn.style.background = 'linear-gradient(135deg,#4caf50,#66bb6a)';
+      document.getElementById('c-first').value = '';
+      document.getElementById('c-last').value  = '';
+      document.getElementById('c-email').value = '';
+      document.getElementById('c-phone').value = '';
+      document.getElementById('c-message').value = '';
+      setTimeout(() => {
+        btn.textContent = 'Send Message →';
+        btn.style.background = '';
+        btn.disabled = false;
+      }, 4000);
+    }).catch(() => {
+      btn.textContent = 'Failed — Try Again';
+      btn.style.background = 'linear-gradient(135deg,#e53935,#ef5350)';
+      btn.disabled = false;
+      setTimeout(() => { btn.textContent = 'Send Message →'; btn.style.background = ''; }, 3000);
+    });
   }
 
   // ── DYNAMIC REVIEWS CAROUSEL ──
