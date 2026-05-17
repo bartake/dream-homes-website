@@ -656,6 +656,23 @@
       font-size: 0.78rem; color: var(--muted); letter-spacing: 0.05em;
     }
 
+    /* ── TOAST NOTIFICATION ── */
+    .toast {
+      position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(20px);
+      background: var(--dark3); border: 1px solid rgba(201,168,76,0.4);
+      border-radius: 12px; padding: 16px 28px;
+      display: flex; align-items: center; gap: 14px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+      z-index: 9999; opacity: 0;
+      transition: opacity 0.35s ease, transform 0.35s ease;
+      pointer-events: none;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .toast-icon { font-size: 1.4rem; flex-shrink: 0; }
+    .toast-msg { display: flex; flex-direction: column; gap: 2px; }
+    .toast-title { font-size: 0.95rem; font-weight: 600; color: var(--white); }
+    .toast-sub { font-size: 0.82rem; color: var(--muted); }
+
     /* ── CONTACT ── */
     #contact {
       background: var(--dark);
@@ -1946,6 +1963,15 @@
   </div>
 </footer>
 
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <div class="toast-icon">✅</div>
+  <div class="toast-msg">
+    <span class="toast-title">Message sent!</span>
+    <span class="toast-sub">Your agent will contact you shortly.</span>
+  </div>
+</div>
+
 <!-- FLOATING CTA -->
 <a href="#" class="floating-cta" onclick="openSellModal(event)"><span style="filter:brightness(0);">📞</span> Free Property Evaluation</a>
 
@@ -2115,6 +2141,9 @@
       document.getElementById('c-email').value = '';
       document.getElementById('c-phone').value = '';
       document.getElementById('c-message').value = '';
+      const toast = document.getElementById('toast');
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 5000);
       setTimeout(() => {
         btn.textContent = 'Send Message →';
         btn.style.background = '';
