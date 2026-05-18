@@ -879,8 +879,11 @@
     }
 
     /* ── FLOATING CTA ── */
-    .floating-cta {
+    .floating-btns {
       position: fixed; bottom: 32px; right: 32px; z-index: 999;
+      display: flex; flex-direction: column; align-items: flex-end; gap: 12px;
+    }
+    .floating-cta {
       background: linear-gradient(135deg, var(--gold), var(--gold-light));
       color: var(--dark); border: none; border-radius: 50px;
       padding: 14px 24px; font-weight: 700; font-size: 0.88rem;
@@ -891,6 +894,13 @@
       text-decoration: none;
     }
     .floating-cta:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(201,168,76,0.5); }
+    .floating-cta.secondary {
+      background: var(--dark3);
+      color: var(--gold);
+      border: 1px solid rgba(201,168,76,0.4);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+    .floating-cta.secondary:hover { box-shadow: 0 16px 32px rgba(0,0,0,0.5); }
 
     /* ── FACEBOOK FEED ── */
     #facebook { background: var(--dark2); }
@@ -997,7 +1007,6 @@
     <li><a href="#calculators">Calculators</a></li>
     <li><a href="#testimonials">Reviews</a></li>
     <li><a href="#facebook">Social Media</a></li>
-    <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
   </ul>
   <div class="hamburger" onclick="toggleMenu()">
     <span></span><span></span><span></span>
@@ -1969,7 +1978,10 @@
 </div>
 
 <!-- FLOATING CTA -->
-<a href="#" class="floating-cta" onclick="openSellModal(event)"><span style="filter:brightness(0);">📞</span> Free Property Evaluation</a>
+<div class="floating-btns">
+  <a href="#contact" class="floating-cta">✉️ Get In Touch</a>
+  <a href="#" class="floating-cta" onclick="openSellModal(event)"><span style="filter:brightness(0);">📞</span> Free Property Evaluation</a>
+</div>
 
 <!-- THEME SWITCHER -->
 <div class="theme-switcher" id="themeSwitcher">
