@@ -10,6 +10,7 @@
   <meta name="keywords" content="realtor Minneapolis, buy home Minneapolis, sell home St Paul, Twin Cities real estate agent, Maple Grove realtor, Plymouth MN homes, Edina real estate, St Cloud realtor, first time home buyer Minnesota, home seller agent MN, Pooja Bartake realtor" />
   <meta name="author" content="Pooja Bartake" />
   <link rel="canonical" href="https://www.dreamhomesbypooja.com/" />
+  <link rel="preload" as="image" href="assets/images/hero-1.jpg" fetchpriority="high" />
 
   <!-- Geo targeting -->
   <meta name="geo.region" content="US-MN" />
@@ -1073,7 +1074,7 @@
 <!-- NAV -->
 <nav>
   <a href="#hero" class="logo">
-    <div class="logo-img-wrap"><img src="assets/logo.png" alt="Dream Homes By Pooja" class="logo-img" /></div>
+    <div class="logo-img-wrap"><img src="assets/logo.png" alt="Dream Homes By Pooja" class="logo-img" width="120" height="90" /></div>
     <span class="logo-text">Dream Homes<span>By Pooja</span></span>
   </a>
   <ul class="nav-links">
@@ -1106,11 +1107,11 @@
     <div class="slide active" data-label="Stunning Family Home"
       style="background-image:url('assets/images/hero-1.jpg')"></div>
     <div class="slide" data-label="Single Family Homes"
-      style="background-image:url('assets/images/hero-2.jpg')"></div>
+      data-bg="assets/images/hero-2.jpg"></div>
     <div class="slide" data-label="Elegant Estate"
-      style="background-image:url('assets/images/hero-3.jpg')"></div>
+      data-bg="assets/images/hero-3.jpg"></div>
     <div class="slide" data-label="Cozy Dream Home"
-      style="background-image:url('assets/images/hero-4.jpg')"></div>
+      data-bg="assets/images/hero-4.jpg"></div>
   </div>
 
   <!-- Dots + label -->
@@ -1212,7 +1213,7 @@
 <section id="about">
   <div class="about-grid">
     <div class="about-img-wrap reveal">
-      <img src="assets/pooja.jpg" alt="Pooja — Dream Homes By Pooja" />
+      <img src="assets/pooja.jpg" alt="Pooja — Dream Homes By Pooja" width="600" height="800" loading="lazy" />
       <div class="about-badge-float">
         <div class="badge-stars">
           <span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span>
@@ -2375,9 +2376,11 @@
       slides[current].classList.remove('active');
       dots[current].classList.remove('active');
       current = (n + slides.length) % slides.length;
-      slides[current].classList.add('active');
+      const s = slides[current];
+      if (s.dataset.bg) { s.style.backgroundImage = "url('" + s.dataset.bg + "')"; delete s.dataset.bg; }
+      s.classList.add('active');
       dots[current].classList.add('active');
-      if (label) label.textContent = slides[current].dataset.label;
+      if (label) label.textContent = s.dataset.label;
       startProgress();
     }
 
