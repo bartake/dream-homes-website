@@ -158,8 +158,9 @@
     .theme-switcher {
       position: fixed; bottom: 90px; right: 24px;
       z-index: 9999;
-      display: flex; flex-direction: column; align-items: flex-end; gap: 8px;
+      display: none; flex-direction: column; align-items: flex-end; gap: 8px;
     }
+    .theme-switcher.theme-enabled { display: flex; }
     .theme-toggle-btn {
       width: 46px; height: 46px; border-radius: 50%;
       background: var(--dark3);
@@ -2564,6 +2565,10 @@
     'silver':    'Arctic Silver',
     'champagne': 'Champagne Light'
   };
+
+  if (new URLSearchParams(window.location.search).get('theme') === 'true') {
+    document.getElementById('themeSwitcher').classList.add('theme-enabled');
+  }
 
   function setTheme(theme) {
     document.documentElement.setAttribute('data-theme', theme);
