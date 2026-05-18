@@ -962,7 +962,8 @@
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       .about-grid, .contact-grid { grid-template-columns: 1fr; }
-      .about-img-wrap { display: none; }
+      .about-img-wrap { display: block; }
+      .about-img-wrap img { max-height: 360px; width: auto; margin: 0 auto; display: block; }
       .footer-grid { grid-template-columns: 1fr 1fr; }
       .hero-stats { gap: 28px; }
     }
@@ -1050,7 +1051,7 @@
     <h1>Find Your Perfect <em>Dream Home</em> Today</h1>
     <p>Connecting buyers and sellers with exceptional properties across Minneapolis, St. Paul, and the surrounding suburbs. Trusted local expertise, personalised service, and results you can count on.</p>
     <div class="hero-actions">
-      <a href="#contact" class="btn-outline"><span style="filter:brightness(0) invert(1);">📞</span> Book a Consultation</a>
+      <a href="#contact" class="btn-outline"><span style="filter:sepia(1) saturate(4) hue-rotate(5deg) brightness(1.1);">📞</span> Book a Consultation</a>
     </div>
     <div class="hero-stats">
       <div class="stat-item">
@@ -1147,7 +1148,7 @@
     <div class="about-content reveal">
       <div class="section-label">About Dream Homes</div>
       <h2 class="section-title">Your Trusted Local Property Expert</h2>
-      <p class="section-sub">At Dream Homes, we believe that finding the right home is one of life's most important moments. With over a decade of experience in the local market, our dedicated team is committed to making your property journey as seamless and rewarding as possible.</p>
+      <p class="section-sub">At Dream Homes, we believe that finding the right home is one of life's most important moments. With over 5 years of experience in the local market, our dedicated team is committed to making your property journey as seamless and rewarding as possible.</p>
       <p class="section-sub" style="margin-top:12px;">We take the time to understand your needs, budget, and lifestyle — then we put our expertise to work to find or sell properties that truly match your vision.</p>
       <ul class="about-list" style="margin-top:24px;">
         <li>Deep local market knowledge of Minneapolis / St Paul and its suburbs</li>
@@ -1979,8 +1980,8 @@
 
 <!-- FLOATING CTA -->
 <div class="floating-btns">
-  <a href="#contact" class="floating-cta">✉️ Get In Touch</a>
-  <a href="#" class="floating-cta" onclick="openSellModal(event)"><span style="filter:brightness(0);">📞</span> Free Property Evaluation</a>
+  <a href="#contact" class="floating-cta"><span style="filter:brightness(0);">✉️</span> Get In Touch</a>
+  <a href="#" class="floating-cta" onclick="openSellModal(event)"><span style="color:var(--dark); filter:none;">📞</span> Free Property Evaluation</a>
 </div>
 
 <!-- THEME SWITCHER -->
