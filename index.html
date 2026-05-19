@@ -1669,17 +1669,17 @@
         <h4>🏠 What Can You Afford?</h4>
         <div class="calc-result-cards">
           <div class="calc-result-card"><span class="rc-val" id="a-max-price">-</span><span class="rc-lbl">Max Home Price</span></div>
-          <div class="calc-result-card"><span class="rc-val" id="a-monthly">-</span><span class="rc-lbl">Est. Monthly</span></div>
+          <div class="calc-result-card"><span class="rc-val" id="a-monthly">-</span><span class="rc-lbl">Est. Monthly</span><span class="rc-sub" id="a-monthly-sub" style="font-size:0.72rem;color:var(--muted);margin-top:4px;display:block;"></span></div>
           <div class="calc-result-card"><span class="rc-val" id="a-dti">-</span><span class="rc-lbl">DTI Ratio</span></div>
         </div>
         <div class="calc-chart-wrap"><canvas id="affordChart"></canvas></div>
         <div class="calc-table-wrap">
           <table class="calc-table">
-            <thead><tr><th>Budget Scenario</th><th>Max Price</th><th>Monthly</th><th>DTI</th></tr></thead>
+            <thead><tr><th>Budget Scenario</th><th>Max Price</th><th>Est. Monthly</th><th>DTI</th></tr></thead>
             <tbody id="a-table"></tbody>
           </table>
         </div>
-        <p class="calc-note">* Based on 28% front-end and 36% back-end DTI guidelines.</p>
+        <p class="calc-note">* Est. Monthly includes principal, interest, property tax & home insurance. Based on 28% front-end and 36% back-end DTI guidelines.</p>
       </div>
     </div>
   </div>
@@ -2519,17 +2519,17 @@
 
     const r = rate / 100 / 12, n = term * 12;
     const factor = r * Math.pow(1+r,n) / (Math.pow(1+r,n) - 1);
-    // Deduct monthly tax & insurance from housing budget — lenders include PITI in front-end DTI
     const tiMonthly = (tax + ins) / 12;
 
-    function maxPrice(monthlyPITI) {
-      const monthlyPI = monthlyPITI - tiMonthly;
-      return Math.max(0, monthlyPI) / factor + down;
+    // Max price based on PITI — higher T&I reduces max price
+    function maxPrice(dti) {
+      const monthlyPI = Math.max(0, income/12 * dti - debt - tiMonthly);
+      return monthlyPI / factor + down;
     }
 
-    const conservative = maxPrice(income/12 * 0.25 - debt);
-    const moderate     = maxPrice(income/12 * 0.28 - debt);
-    const maximum      = maxPrice(income/12 * 0.36 - debt);
+    const conservative = maxPrice(0.25);
+    const moderate     = maxPrice(0.28);
+    const maximum      = maxPrice(0.36);
     const recPI        = Math.max(0, (moderate - down) * factor);
     const recMonthly   = recPI + tiMonthly;
     const dti          = ((recMonthly + debt) / (income/12) * 100).toFixed(1);
@@ -2542,6 +2542,7 @@
     document.getElementById('a-ins-val').textContent    = fmt(ins);
     document.getElementById('a-max-price').textContent  = fmtK(Math.max(0, moderate));
     document.getElementById('a-monthly').textContent    = fmt(recMonthly);
+    document.getElementById('a-monthly-sub').textContent = fmt(recPI) + ' mortgage + ' + fmt(tiMonthly) + ' tax/ins';
     document.getElementById('a-dti').textContent        = dti + '%';
 
     const ctx = document.getElementById('affordChart');
