@@ -2350,7 +2350,11 @@
     }
   }
 
-  loadReviews();
+  if (document.readyState === 'complete') {
+    setTimeout(loadReviews, 0);
+  } else {
+    window.addEventListener('load', () => setTimeout(loadReviews, 0));
+  }
 
   // ── HERO IMAGE SLIDER ──
   (function () {
