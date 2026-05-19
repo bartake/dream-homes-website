@@ -76,9 +76,17 @@
     .meter-desc { font-size: 0.85rem; color: var(--text); }
     .meter-desc strong { color: var(--gold); }
 
+    /* TABS */
+    .tab-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+    .tab-btn { background: var(--dark3); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 10px 18px; font-size: 0.82rem; font-weight: 600; color: var(--muted); cursor: pointer; transition: all 0.2s; white-space: nowrap; font-family: 'Inter', sans-serif; }
+    .tab-btn:hover { color: var(--gold); border-color: rgba(201,168,76,0.3); }
+    .tab-btn.active { background: rgba(201,168,76,0.12); border-color: rgba(201,168,76,0.45); color: var(--gold); }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
     /* SUBURB TABLE */
-    .suburb-grid { display: grid; gap: 16px; }
-    .suburb-row { background: var(--dark3); border-radius: 12px; padding: 20px 24px; border: 1px solid rgba(255,255,255,0.06); display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr 120px; align-items: center; gap: 16px; transition: border-color 0.2s; }
+    .suburb-grid { display: grid; gap: 12px; }
+    .suburb-row { background: var(--dark3); border-radius: 12px; padding: 18px 24px; border: 1px solid rgba(255,255,255,0.06); display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr 120px; align-items: center; gap: 16px; transition: border-color 0.2s; }
     .suburb-row:hover { border-color: rgba(201,168,76,0.25); }
     .suburb-row.header { background: transparent; border-color: transparent; padding: 8px 24px; }
     .suburb-row.header span { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
@@ -93,9 +101,6 @@
     .suburb-change.pos { color: #4caf50; }
     .suburb-change.neg { color: #ef5350; }
     .suburb-change.flat { color: var(--muted); }
-    .suburb-row.region-divider { background: rgba(201,168,76,0.05); border-color: rgba(201,168,76,0.18); padding: 10px 24px; cursor: default; }
-    .suburb-row.region-divider:hover { border-color: rgba(201,168,76,0.3); }
-    .region-divider-label { grid-column: 1 / -1; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; color: var(--gold); }
     .suburb-ratio { color: var(--text); font-size: 0.9rem; }
     .heat-bar-wrap { width: 100%; height: 6px; background: rgba(255,255,255,0.08); border-radius: 3px; }
     .heat-bar { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--gold), #ef5350); }
@@ -273,18 +278,25 @@
     <h2 class="section-title">50 Communities at a Glance</h2>
     <p class="section-sub">March 2026 estimates across 50 Twin Cities communities based on MAR metro-wide data and local trends. <em style="color:var(--muted);font-size:0.82rem;">* Suburb-level figures are estimates — contact Pooja for a precise valuation in your area.</em></p>
 
+    <div class="tab-nav" role="tablist">
+      <button class="tab-btn active" onclick="switchTab(this,'tab-core')">Minneapolis Core</button>
+      <button class="tab-btn" onclick="switchTab(this,'tab-south')">South Metro</button>
+      <button class="tab-btn" onclick="switchTab(this,'tab-southwest')">Southwest Metro</button>
+      <button class="tab-btn" onclick="switchTab(this,'tab-west')">West Metro</button>
+      <button class="tab-btn" onclick="switchTab(this,'tab-northwest')">Northwest Metro</button>
+      <button class="tab-btn" onclick="switchTab(this,'tab-corridor')">MG → St. Cloud</button>
+      <button class="tab-btn" onclick="switchTab(this,'tab-north')">North / NE Metro</button>
+      <button class="tab-btn" onclick="switchTab(this,'tab-east')">East Metro</button>
+    </div>
+
+    <!-- SHARED HEADER TEMPLATE (used inside each tab) -->
+
+    <!-- Tab: Minneapolis Core -->
+    <div class="tab-panel active" id="tab-core">
     <div class="suburb-grid">
       <div class="suburb-row header">
-        <span>Area</span>
-        <span>Median Price</span>
-        <span>Days on Mkt</span>
-        <span>YoY Change</span>
-        <span>Sale/List</span>
-        <span>Heat</span>
+        <span>Area</span><span>Median Price</span><span>Days on Mkt</span><span>YoY Change</span><span>Sale/List</span><span>Heat</span>
       </div>
-
-      <!-- Minneapolis Core -->
-      <div class="suburb-row region-divider"><span class="region-divider-label">📍 Minneapolis Core</span></div>
       <div class="suburb-row">
         <div><div class="suburb-name">Minneapolis</div><span class="suburb-tag tag-hot">🔥 Hot</span></div>
         <div class="suburb-price">$355,000*</div>
@@ -334,8 +346,15 @@
         <div><div class="heat-bar-wrap"><div class="heat-bar" style="width:48%"></div></div></div>
       </div>
 
-      <!-- South Metro -->
-      <div class="suburb-row region-divider"><span class="region-divider-label">📍 South Metro</span></div>
+    </div>
+    </div><!-- /tab-core -->
+
+    <!-- Tab: South Metro -->
+    <div class="tab-panel" id="tab-south">
+    <div class="suburb-grid">
+      <div class="suburb-row header">
+        <span>Area</span><span>Median Price</span><span>Days on Mkt</span><span>YoY Change</span><span>Sale/List</span><span>Heat</span>
+      </div>
       <div class="suburb-row">
         <div><div class="suburb-name">Eagan</div><span class="suburb-tag tag-hot">🔥 Hot</span></div>
         <div class="suburb-price">$405,000*</div>
@@ -393,8 +412,15 @@
         <div><div class="heat-bar-wrap"><div class="heat-bar" style="width:56%"></div></div></div>
       </div>
 
-      <!-- Southwest Metro -->
-      <div class="suburb-row region-divider"><span class="region-divider-label">📍 Southwest Metro</span></div>
+    </div>
+    </div><!-- /tab-south -->
+
+    <!-- Tab: Southwest Metro -->
+    <div class="tab-panel" id="tab-southwest">
+    <div class="suburb-grid">
+      <div class="suburb-row header">
+        <span>Area</span><span>Median Price</span><span>Days on Mkt</span><span>YoY Change</span><span>Sale/List</span><span>Heat</span>
+      </div>
       <div class="suburb-row">
         <div><div class="suburb-name">Edina</div><span class="suburb-tag tag-warm">⚡ Active</span></div>
         <div class="suburb-price">$625,000*</div>
@@ -452,8 +478,15 @@
         <div><div class="heat-bar-wrap"><div class="heat-bar" style="width:70%"></div></div></div>
       </div>
 
-      <!-- West Metro -->
-      <div class="suburb-row region-divider"><span class="region-divider-label">📍 West Metro</span></div>
+    </div>
+    </div><!-- /tab-southwest -->
+
+    <!-- Tab: West Metro -->
+    <div class="tab-panel" id="tab-west">
+    <div class="suburb-grid">
+      <div class="suburb-row header">
+        <span>Area</span><span>Median Price</span><span>Days on Mkt</span><span>YoY Change</span><span>Sale/List</span><span>Heat</span>
+      </div>
       <div class="suburb-row">
         <div><div class="suburb-name">Plymouth</div><span class="suburb-tag tag-hot">🔥 Hot</span></div>
         <div class="suburb-price">$460,000*</div>
@@ -487,8 +520,15 @@
         <div><div class="heat-bar-wrap"><div class="heat-bar" style="width:52%"></div></div></div>
       </div>
 
-      <!-- Northwest Metro -->
-      <div class="suburb-row region-divider"><span class="region-divider-label">📍 Northwest Metro</span></div>
+    </div>
+    </div><!-- /tab-west -->
+
+    <!-- Tab: Northwest Metro -->
+    <div class="tab-panel" id="tab-northwest">
+    <div class="suburb-grid">
+      <div class="suburb-row header">
+        <span>Area</span><span>Median Price</span><span>Days on Mkt</span><span>YoY Change</span><span>Sale/List</span><span>Heat</span>
+      </div>
       <div class="suburb-row">
         <div><div class="suburb-name">Maple Grove</div><span class="suburb-tag tag-hot">🔥 Hot</span></div>
         <div class="suburb-price">$445,000*</div>
@@ -538,8 +578,15 @@
         <div><div class="heat-bar-wrap"><div class="heat-bar" style="width:74%"></div></div></div>
       </div>
 
-      <!-- Maple Grove → St. Cloud Corridor -->
-      <div class="suburb-row region-divider"><span class="region-divider-label">📍 Maple Grove → St. Cloud Corridor (I-94 / Hwy 10)</span></div>
+    </div>
+    </div><!-- /tab-northwest -->
+
+    <!-- Tab: MG → St. Cloud Corridor -->
+    <div class="tab-panel" id="tab-corridor">
+    <div class="suburb-grid">
+      <div class="suburb-row header">
+        <span>Area</span><span>Median Price</span><span>Days on Mkt</span><span>YoY Change</span><span>Sale/List</span><span>Heat</span>
+      </div>
       <div class="suburb-row">
         <div><div class="suburb-name">Rogers</div><span class="suburb-tag tag-hot">🔥 Hot</span></div>
         <div class="suburb-price">$390,000*</div>
@@ -621,8 +668,15 @@
         <div><div class="heat-bar-wrap"><div class="heat-bar" style="width:40%"></div></div></div>
       </div>
 
-      <!-- North / Northeast Metro -->
-      <div class="suburb-row region-divider"><span class="region-divider-label">📍 North / Northeast Metro</span></div>
+    </div>
+    </div><!-- /tab-corridor -->
+
+    <!-- Tab: North / NE Metro -->
+    <div class="tab-panel" id="tab-north">
+    <div class="suburb-grid">
+      <div class="suburb-row header">
+        <span>Area</span><span>Median Price</span><span>Days on Mkt</span><span>YoY Change</span><span>Sale/List</span><span>Heat</span>
+      </div>
       <div class="suburb-row">
         <div><div class="suburb-name">Blaine</div><span class="suburb-tag tag-hot">🔥 Hot</span></div>
         <div class="suburb-price">$375,000*</div>
@@ -656,8 +710,15 @@
         <div><div class="heat-bar-wrap"><div class="heat-bar" style="width:40%"></div></div></div>
       </div>
 
-      <!-- East Metro -->
-      <div class="suburb-row region-divider"><span class="region-divider-label">📍 East Metro</span></div>
+    </div>
+    </div><!-- /tab-north -->
+
+    <!-- Tab: East Metro -->
+    <div class="tab-panel" id="tab-east">
+    <div class="suburb-grid">
+      <div class="suburb-row header">
+        <span>Area</span><span>Median Price</span><span>Days on Mkt</span><span>YoY Change</span><span>Sale/List</span><span>Heat</span>
+      </div>
       <div class="suburb-row">
         <div><div class="suburb-name">Woodbury</div><span class="suburb-tag tag-hot">🔥 Hot</span></div>
         <div class="suburb-price">$440,000*</div>
@@ -707,6 +768,8 @@
         <div><div class="heat-bar-wrap"><div class="heat-bar" style="width:63%"></div></div></div>
       </div>
     </div>
+    </div><!-- /tab-east -->
+
   </div>
 </section>
 
@@ -892,6 +955,13 @@
       y: { ticks: { color: '#888', font: { size: 11 } }, grid: { color: 'rgba(255,255,255,0.04)' } }
     }
   };
+
+  function switchTab(btn, id) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(id).classList.add('active');
+  }
 
   // Price trend chart — MAR data: Mar 2026 median $380K, flat YoY
   new Chart(document.getElementById('priceChart'), {
