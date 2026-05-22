@@ -420,7 +420,19 @@
     }
     .hero-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
 
-    .hero-content { position: relative; z-index: 1; max-width: 700px; }
+    .hero-content { position: relative; z-index: 3; max-width: 480px; margin-left: 6%; }
+
+    .hero-agent {
+      position: absolute; right: -12%; bottom: 0;
+      height: 95%; z-index: 2; pointer-events: none;
+      mask-image: linear-gradient(to left, rgba(0,0,0,1) 55%, rgba(0,0,0,0) 82%),
+                  linear-gradient(to top, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 14%);
+      -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1) 55%, rgba(0,0,0,0) 82%),
+                          linear-gradient(to top, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 14%);
+      mask-composite: intersect;
+      -webkit-mask-composite: destination-in;
+    }
+    .hero-agent img { height: 100%; width: auto; object-fit: cover; object-position: top center; display: block; }
 
     .hero-content h1 {
       font-family: 'Playfair Display', serif;
@@ -1124,6 +1136,10 @@
 
   <!-- Progress bar -->
   <div class="slide-progress"><div class="slide-progress-fill" id="slideProgressFill"></div></div>
+
+  <div class="hero-agent">
+    <img src="assets/pooja.jpg" alt="Pooja Bartake — Dream Homes By Pooja" width="600" height="800" />
+  </div>
 
   <div class="hero-content">
     <div class="hero-badge">Trusted Real Estate Services</div>
