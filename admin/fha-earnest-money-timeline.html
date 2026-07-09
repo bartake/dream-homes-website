@@ -141,6 +141,18 @@
   .escape p{margin:0;color:var(--ink-soft);max-width:64ch}
   .escape strong{color:var(--ink);font-weight:500}
 
+  .escape-cic{
+    border-color:var(--claim);
+    background:
+      repeating-linear-gradient(135deg,rgba(169,116,23,.06) 0 8px,transparent 8px 16px),
+      var(--card);
+  }
+  .escape-cic .tag{color:var(--claim)}
+  .escape-cic .badge{
+    display:inline-block;margin-left:10px;padding:2px 8px;border:1px solid var(--claim);
+    border-radius:2px;font-size:10px;letter-spacing:.1em;color:var(--claim);vertical-align:2px;
+  }
+
   /* ---------- statutory stamp ---------- */
   .stamp{
     grid-column:1 / -1;margin:10px 0 34px;transform:rotate(-.7deg);
@@ -236,11 +248,12 @@
   <header class="masthead rise" style="animation-delay:.02s">
     <p class="eyebrow">Seller-side reference &nbsp;·&nbsp; Minnesota</p>
     <h1>When the seller<br>keeps the <em>earnest money</em></h1>
-    <p class="standfirst">A buyer using FHA financing with a down payment assistance grant. Two things can sink the deal that the seller cannot contract around. Here is where the deposit actually sits at each stage.</p>
+    <p class="standfirst">A buyer using FHA financing with a down payment assistance grant. Two things can sink the deal that the seller cannot contract around — a third if the property is part of an HOA or other common interest community. Here is where the deposit actually sits at each stage.</p>
     <div class="filed">
       <span>Financing: FHA + DPA grant</span>
       <span>Governing: Minn. Stat. § 559.217</span>
       <span>Escape clause: HUD-92800.5B</span>
+      <span>CIC resale: Minn. Stat. § 515B.4-108</span>
     </div>
   </header>
 
@@ -289,6 +302,15 @@
         <p class="tag">Runs the length of the deal</p>
         <h2>The FHA amendatory clause</h2>
         <p>If the property appraises below contract price, the buyer may cancel and take back every dollar. <strong>This cannot be waived.</strong> Not by an appraisal gap clause, not by a waiver in the offer, not by a seller who insists. The only real commitment is a written agreement signed <em>after</em> the appraisal comes in, in which the buyer agrees to bring the difference in cash.</p>
+      </div>
+    </aside>
+
+    <!-- Escape rail: CIC/HOA -->
+    <aside class="escape escape-cic rise" style="animation-delay:.25s">
+      <div class="escape-inner">
+        <p class="tag">Runs the length of the deal <span class="badge">Condo / HOA / CIC only</span></p>
+        <h2>The CIC resale disclosure right</h2>
+        <p>If the property is part of a homeowners association, condominium, or other common interest community, the seller must furnish a resale disclosure certificate before closing. Once the buyer receives it, they get <strong>10 days to cancel for any reason</strong> and recover the full deposit — even if every other contingency deadline has already passed. If the certificate is never furnished, this right does not expire on its own. Confirm the exact trigger and window with counsel for the specific association.</p>
       </div>
     </aside>
 
@@ -358,7 +380,7 @@
   </section>
 
   <section class="never rise" style="animation-delay:.52s">
-    <h2>Five times the seller cannot keep it</h2>
+    <h2>Six times the seller cannot keep it</h2>
     <p>No matter what the purchase agreement says, and no matter how badly the seller wants to.</p>
     <ol>
       <li>
@@ -394,6 +416,13 @@
         <div>
           <h3>The seller cannot deliver</h3>
           <p>Unmarketable title, seller default, or a material disclosure failure under Minn. Stat. § 513.55.</p>
+        </div>
+      </li>
+      <li>
+        <span class="n">06</span>
+        <div>
+          <h3>The HOA/CIC disclosure just arrived</h3>
+          <p>If the property is in a common interest community, receipt of the resale disclosure certificate opens a fresh 10-day cancellation window under Minn. Stat. § 515B.4-108 — regardless of what other deadlines have already passed.</p>
         </div>
       </li>
     </ol>
