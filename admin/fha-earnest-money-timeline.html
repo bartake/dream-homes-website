@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Earnest Money Timeline — FHA Buyer, Minnesota Seller</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@500;600;700&family=IBM+Plex+Mono:wght@400;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#15211F;
+    --ink-soft:#4A5754;
+    --paper:#E7EAE6;
+    --card:#FBFBF9;
+    --rule:#C3C8C2;
+    --refund:#1C6B5E;
+    --claim:#A97417;
+    --court:#982A24;
+    --shadow:0 1px 0 rgba(21,33,31,.06), 0 12px 28px -18px rgba(21,33,31,.5);
+  }
+
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Newsreader",Georgia,serif;
+    font-size:17px;
+    line-height:1.55;
+  }
+
+  .sheet{max-width:900px;margin:0 auto;padding:48px 24px 72px}
+
+  .backlink{
+    display:inline-flex;align-items:center;gap:6px;margin-bottom:22px;
+    font-family:"Archivo Narrow",Arial Narrow,sans-serif;font-weight:700;
+    text-transform:uppercase;letter-spacing:.08em;font-size:11.5px;
+    color:var(--ink-soft);text-decoration:none;
+  }
+  .backlink:hover{color:var(--ink)}
+
+  /* ---------- masthead ---------- */
+  .masthead{border-bottom:2px solid var(--ink);padding-bottom:22px;margin-bottom:14px}
+  .eyebrow{
+    font-family:"Archivo Narrow",Arial Narrow,sans-serif;
+    font-weight:700;text-transform:uppercase;letter-spacing:.16em;
+    font-size:12px;color:var(--court);margin:0 0 12px;
+  }
+  .masthead h1{
+    font-family:"Archivo Narrow",Arial Narrow,sans-serif;
+    font-weight:700;text-transform:uppercase;letter-spacing:-.005em;
+    font-size:clamp(30px,5.6vw,54px);line-height:.97;margin:0 0 14px;
+  }
+  .masthead h1 em{font-style:normal;color:var(--court)}
+  .standfirst{margin:0;max-width:60ch;color:var(--ink-soft);font-size:18px}
+  .filed{
+    display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:22px;
+    font-family:"IBM Plex Mono",monospace;font-size:11px;
+    text-transform:uppercase;letter-spacing:.09em;color:var(--ink-soft);
+  }
+
+  /* ---------- legend ---------- */
+  .legend{display:flex;flex-wrap:wrap;gap:10px;margin:28px 0 40px}
+  .chip{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:"Archivo Narrow",sans-serif;font-weight:700;
+    text-transform:uppercase;letter-spacing:.08em;font-size:11.5px;
+    border:1.5px solid currentColor;border-radius:2px;padding:5px 10px;background:var(--card);
+  }
+  .chip::before{content:"";width:9px;height:9px;background:currentColor;border-radius:1px}
+  .c-refund{color:var(--refund)}
+  .c-claim{color:var(--claim)}
+  .c-court{color:var(--court)}
+  .c-trust{color:var(--ink-soft)}
+
+  /* ---------- timeline ---------- */
+  .track{position:relative;display:grid;grid-template-columns:96px 1fr;gap:0 26px}
+  .track::before{
+    content:"";position:absolute;left:95px;top:10px;bottom:96px;
+    width:2px;background:var(--rule);
+  }
+
+  .day{
+    position:relative;padding-top:20px;text-align:right;
+    font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:600;
+    text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);
+  }
+  .day span{display:block;font-size:22px;letter-spacing:-.02em;color:var(--ink);line-height:1.1}
+  .day::after{
+    content:"";position:absolute;right:-32px;top:28px;
+    width:12px;height:12px;border-radius:50%;
+    background:var(--paper);border:2px solid var(--ink);
+  }
+
+  .phase{padding:14px 0 30px}
+  .phase-card{
+    background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--edge,var(--rule));
+    border-radius:3px;padding:18px 20px 16px;box-shadow:var(--shadow);
+  }
+  .phase-card h2{
+    font-family:"Archivo Narrow",sans-serif;font-weight:700;
+    text-transform:uppercase;letter-spacing:.02em;font-size:19px;margin:0 0 6px;
+  }
+  .phase-card p{margin:0 0 12px;color:var(--ink-soft);max-width:56ch}
+  .phase-card p:last-child{margin-bottom:0}
+  .verdict{
+    display:inline-flex;align-items:baseline;gap:9px;
+    font-family:"Archivo Narrow",sans-serif;font-weight:700;
+    text-transform:uppercase;letter-spacing:.09em;font-size:12px;
+  }
+  .verdict small{
+    font-family:"IBM Plex Mono",monospace;font-weight:400;letter-spacing:.02em;
+    text-transform:none;font-size:11px;color:var(--ink-soft);
+  }
+
+  .p-refund{--edge:var(--refund)} .p-refund .verdict{color:var(--refund)}
+  .p-claim{--edge:var(--claim)} .p-claim .verdict{color:var(--claim)}
+  .p-court{--edge:var(--court)} .p-court .verdict{color:var(--court)}
+  .p-trust{--edge:var(--ink-soft)} .p-trust .verdict{color:var(--ink-soft)}
+
+  /* ---------- the rail that never closes ---------- */
+  .escape{
+    grid-column:1 / -1;margin:6px 0 34px;position:relative;
+    border:1.5px solid var(--court);border-radius:3px;overflow:hidden;
+    background:
+      repeating-linear-gradient(135deg,rgba(152,42,36,.05) 0 8px,transparent 8px 16px),
+      var(--card);
+  }
+  .escape-inner{padding:18px 22px 18px 24px}
+  .escape .tag{
+    font-family:"Archivo Narrow",sans-serif;font-weight:700;font-size:11.5px;
+    text-transform:uppercase;letter-spacing:.14em;color:var(--court);margin:0 0 8px;
+  }
+  .escape h2{
+    font-family:"Archivo Narrow",sans-serif;font-weight:700;text-transform:uppercase;
+    font-size:21px;margin:0 0 8px;letter-spacing:.01em;
+  }
+  .escape p{margin:0;color:var(--ink-soft);max-width:64ch}
+  .escape strong{color:var(--ink);font-weight:500}
+
+  /* ---------- statutory stamp ---------- */
+  .stamp{
+    grid-column:1 / -1;margin:10px 0 34px;transform:rotate(-.7deg);
+    border:2px solid var(--court);padding:4px;background:transparent;
+  }
+  .stamp-inner{
+    border:1px solid var(--court);padding:22px 24px;
+    font-family:"Archivo Narrow",sans-serif;color:var(--court);
+  }
+  .stamp-inner .cite{
+    font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.12em;
+    text-transform:uppercase;margin:0 0 10px;opacity:.85;
+  }
+  .stamp-inner p.body{
+    font-weight:600;text-transform:uppercase;letter-spacing:.03em;line-height:1.4;
+    font-size:15px;margin:0;text-decoration:underline;text-underline-offset:3px;
+    text-decoration-thickness:1px;
+  }
+  .stamp-note{
+    grid-column:1 / -1;margin:-18px 0 34px;
+    font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--ink-soft);
+    line-height:1.7;
+  }
+
+  /* ---------- never list ---------- */
+  .never{border-top:2px solid var(--ink);margin-top:44px;padding-top:26px}
+  .never h2{
+    font-family:"Archivo Narrow",sans-serif;font-weight:700;text-transform:uppercase;
+    font-size:clamp(22px,3.4vw,32px);margin:0 0 6px;letter-spacing:-.005em;
+  }
+  .never > p{margin:0 0 22px;color:var(--ink-soft);max-width:58ch}
+  .never ol{list-style:none;margin:0;padding:0;display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule)}
+  .never li{background:var(--card);padding:16px 18px;display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:start}
+  .never li .n{
+    font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:13px;color:var(--court);padding-top:3px;
+  }
+  .never li h3{
+    font-family:"Archivo Narrow",sans-serif;font-weight:700;text-transform:uppercase;
+    letter-spacing:.04em;font-size:14px;margin:0 0 4px;
+  }
+  .never li p{margin:0;color:var(--ink-soft);font-size:16px;max-width:60ch}
+
+  /* ---------- footer ---------- */
+  footer{
+    margin-top:52px;border-top:1px solid var(--rule);padding-top:20px;
+    display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;align-items:flex-end;
+  }
+  footer .brand{
+    font-family:"Archivo Narrow",sans-serif;font-weight:700;text-transform:uppercase;
+    letter-spacing:.12em;font-size:12px;
+  }
+  footer .brand span{display:block;font-weight:500;letter-spacing:.06em;color:var(--ink-soft);margin-top:4px}
+  footer .disclaimer{
+    font-family:"IBM Plex Mono",monospace;font-size:10.5px;line-height:1.7;
+    color:var(--ink-soft);max-width:46ch;text-align:right;
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width:640px){
+    body{font-size:16px}
+    .sheet{padding:32px 16px 56px}
+    .track{grid-template-columns:1fr;gap:0}
+    .track::before{left:5px;top:6px;bottom:120px}
+    .day{text-align:left;padding:22px 0 0 30px}
+    .day span{display:inline;font-size:16px;margin-left:6px}
+    .day::after{right:auto;left:0;top:27px}
+    .phase{padding:10px 0 24px 30px}
+    .escape,.stamp,.stamp-note{margin-left:0}
+    .never li{grid-template-columns:32px 1fr;gap:10px}
+    footer .disclaimer{text-align:left}
+  }
+
+  /* ---------- load-in ---------- */
+  .rise{opacity:0;transform:translateY(10px);animation:rise .5s cubic-bezier(.2,.7,.3,1) forwards}
+  @keyframes rise{to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:reduce){
+    .rise{animation:none;opacity:1;transform:none}
+  }
+
+  @media print{
+    body{background:#fff}
+    .rise{animation:none;opacity:1;transform:none}
+    .phase-card,.escape,.never li{box-shadow:none}
+    .phase{page-break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+<main class="sheet">
+
+  <a class="backlink rise" href="/admin/" style="animation-delay:0s">&larr; Admin index</a>
+
+  <header class="masthead rise" style="animation-delay:.02s">
+    <p class="eyebrow">Seller-side reference &nbsp;·&nbsp; Minnesota</p>
+    <h1>When the seller<br>keeps the <em>earnest money</em></h1>
+    <p class="standfirst">A buyer using FHA financing with a down payment assistance grant. Two things can sink the deal that the seller cannot contract around. Here is where the deposit actually sits at each stage.</p>
+    <div class="filed">
+      <span>Financing: FHA + DPA grant</span>
+      <span>Governing: Minn. Stat. § 559.217</span>
+      <span>Escape clause: HUD-92800.5B</span>
+    </div>
+  </header>
+
+  <div class="legend rise" style="animation-delay:.08s">
+    <span class="chip c-trust">Held in trust</span>
+    <span class="chip c-refund">Refunded to buyer</span>
+    <span class="chip c-claim">Seller has a claim</span>
+    <span class="chip c-court">Decided by a court</span>
+  </div>
+
+  <section class="track">
+
+    <!-- Phase 0 -->
+    <div class="day rise" style="animation-delay:.12s">Day<span>0</span></div>
+    <div class="phase rise" style="animation-delay:.12s">
+      <div class="phase-card p-trust">
+        <h2>Offer accepted, deposit made</h2>
+        <p>The brokerage holds the money in trust. Nobody releases it on their own say-so. It moves only three ways: both parties sign a cancellation, a court orders it, or one party completes a statutory cancellation.</p>
+        <span class="verdict">Held in trust <small>no claim exists yet</small></span>
+      </div>
+    </div>
+
+    <!-- Phase 1 -->
+    <div class="day rise" style="animation-delay:.16s">Days<span>0–5</span></div>
+    <div class="phase rise" style="animation-delay:.16s">
+      <div class="phase-card p-refund">
+        <h2>Inspection window</h2>
+        <p>The buyer can walk for almost any reason and take the deposit with them. This window is pure option value for the buyer. Negotiate it short.</p>
+        <span class="verdict">Refunded to buyer <small>buyer's discretion</small></span>
+      </div>
+    </div>
+
+    <!-- Phase 2 -->
+    <div class="day rise" style="animation-delay:.20s">Days<span>5–21</span></div>
+    <div class="phase rise" style="animation-delay:.20s">
+      <div class="phase-card p-refund">
+        <h2>Appraisal, financing, grant approval</h2>
+        <p>Three ways out, all of them refundable: the FHA appraisal comes in low, the loan is denied, or the grant does not fund. A grant that falls through is an unfulfilled financing condition, not cold feet.</p>
+        <span class="verdict">Refunded to buyer <small>if notice is timely</small></span>
+      </div>
+    </div>
+
+    <!-- Escape rail -->
+    <aside class="escape rise" style="animation-delay:.24s">
+      <div class="escape-inner">
+        <p class="tag">Runs the length of the deal</p>
+        <h2>The FHA amendatory clause</h2>
+        <p>If the property appraises below contract price, the buyer may cancel and take back every dollar. <strong>This cannot be waived.</strong> Not by an appraisal gap clause, not by a waiver in the offer, not by a seller who insists. The only real commitment is a written agreement signed <em>after</em> the appraisal comes in, in which the buyer agrees to bring the difference in cash.</p>
+      </div>
+    </aside>
+
+    <!-- Phase 3 -->
+    <div class="day rise" style="animation-delay:.28s">Day<span>21+</span></div>
+    <div class="phase rise" style="animation-delay:.28s">
+      <div class="phase-card p-claim">
+        <h2>Contingencies expire</h2>
+        <p>The buyer is now committed. From here forward, only cold feet puts their deposit at risk. This is the first moment the seller has anything to claim.</p>
+        <span class="verdict">Seller has a claim <small>buyer is on the hook</small></span>
+      </div>
+    </div>
+
+    <!-- Phase 4 -->
+    <div class="day rise" style="animation-delay:.32s">Closing<span>Day</span></div>
+    <div class="phase rise" style="animation-delay:.32s">
+      <div class="phase-card p-claim">
+        <h2>Buyer fails to close</h2>
+        <p>A claim is not the same as money in hand. The seller now has to do something about it. Doing nothing means the deposit sits in trust indefinitely.</p>
+        <span class="verdict">Seller has a claim <small>seller must act</small></span>
+      </div>
+    </div>
+
+    <!-- Phase 5 -->
+    <div class="day rise" style="animation-delay:.36s">Path<span>A</span></div>
+    <div class="phase rise" style="animation-delay:.36s">
+      <div class="phase-card p-claim">
+        <h2>Mutual written cancellation</h2>
+        <p>Both parties sign, the money goes where the document says. Fastest, cheapest, no attorney, no service of process. It requires the buyer's signature, which is why most sellers end up negotiating a split.</p>
+        <span class="verdict">Seller has a claim <small>buyer must cooperate</small></span>
+      </div>
+    </div>
+
+    <div class="day rise" style="animation-delay:.40s">Path<span>B</span></div>
+    <div class="phase rise" style="animation-delay:.40s">
+      <div class="phase-card p-claim">
+        <h2>Statutory cancellation notice</h2>
+        <p>Served like a district court summons, on the buyer and on whoever holds the deposit. An attorney and a process server. The clock starts the day it lands.</p>
+        <span class="verdict">Seller has a claim <small>15-day clock begins</small></span>
+      </div>
+    </div>
+
+    <!-- Stamp -->
+    <div class="stamp rise" style="animation-delay:.44s">
+      <div class="stamp-inner">
+        <p class="cite">Minn. Stat. § 559.217, subd. 7 &nbsp;/&nbsp; day 15</p>
+        <p class="body">Cancellation completes. The earnest money is distributed to and becomes the sole property of the party who completed the cancellation, regardless of anything the purchase agreement says.</p>
+      </div>
+    </div>
+
+    <p class="stamp-note rise" style="animation-delay:.46s">
+      Unless the buyer, within those 15 days, cures the default and closes → deal proceeds.<br>
+      Or secures a court order suspending the cancellation → litigation.<br>
+      Or serves a cancellation notice of their own → see below.
+    </p>
+
+    <!-- Cross-cancel -->
+    <div class="day rise" style="animation-delay:.48s">Any day<span>1–15</span></div>
+    <div class="phase rise" style="animation-delay:.48s">
+      <div class="phase-card p-court">
+        <h2>The buyer cross-cancels</h2>
+        <p>A single counter-notice from the buyer cancels the purchase agreement immediately and sends the deposit to a judge. The seller's clean win becomes a lawsuit. The prevailing party may recover filing fees, attorney fees, and service costs, capped at $3,000.</p>
+        <span class="verdict">Decided by a court <small>or arbitration, if agreed</small></span>
+      </div>
+    </div>
+
+  </section>
+
+  <section class="never rise" style="animation-delay:.52s">
+    <h2>Five times the seller cannot keep it</h2>
+    <p>No matter what the purchase agreement says, and no matter how badly the seller wants to.</p>
+    <ol>
+      <li>
+        <span class="n">01</span>
+        <div>
+          <h3>The appraisal comes in low</h3>
+          <p>The FHA amendatory clause is mandatory and unwaivable. Full refund.</p>
+        </div>
+      </li>
+      <li>
+        <span class="n">02</span>
+        <div>
+          <h3>The loan is denied</h3>
+          <p>A buyer who applied in good faith and could not obtain FHA financing keeps their deposit.</p>
+        </div>
+      </li>
+      <li>
+        <span class="n">03</span>
+        <div>
+          <h3>The grant does not fund</h3>
+          <p>An unfulfilled financing condition. Fold grant approval under a single financing deadline rather than leaving it open-ended.</p>
+        </div>
+      </li>
+      <li>
+        <span class="n">04</span>
+        <div>
+          <h3>Any contingency is timely exercised</h3>
+          <p>Inspection, financing, appraisal, sale of the buyer's home. The deadline is what matters, not the reason.</p>
+        </div>
+      </li>
+      <li>
+        <span class="n">05</span>
+        <div>
+          <h3>The seller cannot deliver</h3>
+          <p>Unmarketable title, seller default, or a material disclosure failure under Minn. Stat. § 513.55.</p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <section class="never rise" style="animation-delay:.56s">
+    <h2>So what actually protects the seller</h2>
+    <p>The deposit is a deterrent, not a remedy. The protection is structural.</p>
+    <ol>
+      <li>
+        <span class="n">→</span>
+        <div>
+          <h3>Larger deposit, partly released early</h3>
+          <p>A defined portion goes to the seller as non-refundable consideration once the inspection contingency expires, credited at closing. Money in hand beats money to argue over.</p>
+        </div>
+      </li>
+      <li>
+        <span class="n">→</span>
+        <div>
+          <h3>Short deadlines</h3>
+          <p>Inspection at five days. Financing and appraisal at twenty-one. Every extra day is free optionality for the buyer.</p>
+        </div>
+      </li>
+      <li>
+        <span class="n">→</span>
+        <div>
+          <h3>Underwritten pre-approval, not pre-qualification</h3>
+          <p>Call the loan officer. Confirm the DPA program has been run and reserved, and that the lender pairs it with FHA.</p>
+        </div>
+      </li>
+      <li>
+        <span class="n">→</span>
+        <div>
+          <h3>A backup offer</h3>
+          <p>The most reliable protection against a buyer walking is having the next one ready.</p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <footer class="rise" style="animation-delay:.60s">
+    <p class="brand">Dream Homes by Pooja<span>Pooja Bartake, REALTOR® · REAL Broker</span></p>
+    <p class="disclaimer">Educational summary for Minnesota residential transactions. Not legal advice. Earnest money disputes and statutory cancellations should be handled by a licensed Minnesota attorney.</p>
+  </footer>
+
+</main>
+</body>
+</html>
